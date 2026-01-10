@@ -6,6 +6,8 @@ categories: [rust, spark, data]
 image: images/banner.jpg
 ---
 
+![[Ferris](https://rustacean.net/) is a pretty good welder.](images/banner.jpg)
+
 I’d like to share a crate that I’ve been working on called `spark-connect`.
 
 **It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.**
