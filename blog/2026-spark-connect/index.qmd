@@ -1,7 +1,7 @@
 ---
 title: "spark-connect: A Spark Connect Client for the Rust ecosystem"
 description: "An idiomatic, SQL-first Rust client for Apache Spark"
-date: 2025-01-10
+date: 2026-01-10
 categories: [rust, spark, data]
 image: images/banner.jpg
 ---
@@ -12,11 +12,11 @@ I’d like to share a crate that I’ve been working on called `spark-connect`.
 
 Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.
 
-Similar efforts existed in the community (shoutout to [spark-connect-rs](https://crates.io/crates/spark-connect-rs) which provided plenty of inspiration), but I found existing solutions often felt bloated or were *explicitly marked as experimental*.
+Similar efforts existed in the community (shoutout to [spark-connect-rs](https://crates.io/crates/spark-connect-rs) which provided plenty of inspiration), but I often found existing solutions were bloated or *explicitly marked as experimental*.
 
 `spark-connect` emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.
 
-## Key Features:
+## Key Features
 
 If you are coming from other Rust SQL toolkits (e.g. [`sqlx`](https://docs.rs/sqlx/latest/sqlx/)), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.
 
