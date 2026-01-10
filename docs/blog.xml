@@ -13,7 +13,7 @@
 <lastBuildDate>Sat, 10 Jan 2026 00:00:00 GMT</lastBuildDate>
 <item>
   <title>spark-connect: A Spark Connect Client for the Rust ecosystem</title>
-  <link>https://franciscoabsampaio.com/blog/2026-spark-connect/</link>
+  <link>https://franciscoabsampaio.com/blog/2026/spark-connect/</link>
   <description><![CDATA[ 
 
 
@@ -171,13 +171,13 @@ font-style: inherit;">;</span></span></code></pre></div></div>
   <category>rust</category>
   <category>spark</category>
   <category>data</category>
-  <guid>https://franciscoabsampaio.com/blog/2026-spark-connect/</guid>
+  <guid>https://franciscoabsampaio.com/blog/2026/spark-connect/</guid>
   <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/2026-spark-connect/images/banner.jpg" medium="image" type="image/jpeg"/>
+  <media:content url="https://franciscoabsampaio.com/blog/2026/spark-connect/images/banner.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Tutorial: Reproducible Spark+Delta Tests Without the Hassle</title>
-  <link>https://franciscoabsampaio.com/blog/2025-tutorial-spark-connect/</link>
+  <link>https://franciscoabsampaio.com/blog/2025/tutorial-spark-connect/</link>
   <description><![CDATA[ 
 
 
@@ -542,13 +542,13 @@ font-style: inherit;">"bird"</span></span></code></pre></div></div>
   <category>spark</category>
   <category>delta</category>
   <category>docker</category>
-  <guid>https://franciscoabsampaio.com/blog/2025-tutorial-spark-connect/</guid>
+  <guid>https://franciscoabsampaio.com/blog/2025/tutorial-spark-connect/</guid>
   <pubDate>Wed, 22 Oct 2025 23:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/2025-tutorial-spark-connect/docker_whale.webp" medium="image" type="image/webp"/>
+  <media:content url="https://franciscoabsampaio.com/blog/2025/tutorial-spark-connect/docker_whale.webp" medium="image" type="image/webp"/>
 </item>
 <item>
   <title>Transformers Maketh LLMs</title>
-  <link>https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/</link>
+  <link>https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/</link>
   <description><![CDATA[ 
 
 
@@ -574,7 +574,7 @@ font-style: inherit;">"bird"</span></span></code></pre></div></div>
 <p>Neural networks revolutionised machine learning because they allow scientists to brute-force problems. For the unaware, a neural network is, essentially, a somewhat arbitrary combination of non-linear functions, a collection of layers stacked on top of each other, that take inputs and perform weighted averages on them before passing them on to the next layer.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/images/neural_network.png" title="Neural network" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/images/neural_network.png" title="Neural network" class="img-fluid figure-img"></p>
 <figcaption>High-level diagram of a neural network.</figcaption>
 </figure>
 </div>
@@ -596,25 +596,25 @@ font-style: inherit;">"bird"</span></span></code></pre></div></div>
 <p>I say not-so-imaginary numerical space, because if you then take the learned numerical representations of these words, you will find all sorts of quirky relationships! Famously, here’s the <code>King - Man + Woman = Queen</code>, and a few more (all images were taken from <a href="https://www.youtube.com/watch?v=wjZofJX0v4M">this awesome video by 3Blue1Brown on YouTube</a>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/images/queen.png" title="Queen" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/images/queen.png" title="Queen" class="img-fluid figure-img"></p>
 <figcaption>The learned representation of “queen”.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/images/tower.png" title="Tower" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/images/tower.png" title="Tower" class="img-fluid figure-img"></p>
 <figcaption>Closely related words have proximal representations.</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/images/german_sushi.png" title="German sushi" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/images/german_sushi.png" title="German sushi" class="img-fluid figure-img"></p>
 <figcaption>Likewise, relationships are consistent across many words!</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/images/italian_hitler.png" title="Italian Hitler" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/images/italian_hitler.png" title="Italian Hitler" class="img-fluid figure-img"></p>
 <figcaption>😳</figcaption>
 </figure>
 </div>
@@ -646,7 +646,7 @@ font-style: inherit;">"bird"</span></span></code></pre></div></div>
   <category>transformer</category>
   <category>llm</category>
   <category>nlp</category>
-  <guid>https://franciscoabsampaio.com/blog/2025-transformers-maketh-llms/</guid>
+  <guid>https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/</guid>
   <pubDate>Sat, 31 May 2025 23:00:00 GMT</pubDate>
 </item>
 </channel>
