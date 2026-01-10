@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-10">
-<meta name="description" content="An idiomatic, SQL-first Rust client for Apache Spark">
+<meta name="dcterms.date" content="2025-10-23">
+<meta name="description" content="Find how to easily test against Spark+Delta catalogs with this new Docker container">
 
-<title>spark-connect: A Spark Connect Client for the Rust ecosystem – Francisco A. B. Sampaio</title>
+<title>Tutorial: Reproducible Spark+Delta Tests Without the Hassle – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,25 +60,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../images/favicon.ico" rel="icon">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -128,11 +128,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -151,9 +151,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key Features</a></li>
-  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example Usage</a></li>
-  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  <li><a href="#spark-connect" id="toc-spark-connect" class="nav-link active" data-scroll-target="#spark-connect">Spark Connect</a></li>
+  <li><a href="#running-the-container" id="toc-running-the-container" class="nav-link" data-scroll-target="#running-the-container">Running the Container</a></li>
+  <li><a href="#reproducible-tests" id="toc-reproducible-tests" class="nav-link" data-scroll-target="#reproducible-tests">Reproducible Tests</a></li>
   </ul>
 </nav>
     </div>
@@ -162,17 +162,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">spark-connect: A Spark Connect Client for the Rust ecosystem</h1>
+<h1 class="title">Tutorial: Reproducible Spark+Delta Tests Without the Hassle</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">rust</div>
     <div class="quarto-category">spark</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">delta</div>
+    <div class="quarto-category">docker</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    An idiomatic, SQL-first Rust client for Apache Spark
+    Find how to easily test against Spark+Delta catalogs with this new Docker container
   </div>
 </div>
 
@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2026</p>
+      <p class="date">October 23, 2025</p>
     </div>
   </div>
   
@@ -195,54 +195,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>I’d like to share a crate that I’ve been working on called <code>spark-connect</code>.</p>
-<p><strong>It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.</strong></p>
-<p>Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.</p>
-<p>Similar efforts existed in the community (shoutout to <a href="https://crates.io/crates/spark-connect-rs">spark-connect-rs</a> which provided plenty of inspiration), but I often found existing solutions were bloated or <em>explicitly marked as experimental</em>.</p>
-<p><code>spark-connect</code> emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.</p>
-<section id="key-features" class="level2">
-<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
-<p>If you are coming from other Rust SQL toolkits (e.g.&nbsp;<a href="https://docs.rs/sqlx/latest/sqlx/"><code>sqlx</code></a>), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.</p>
-<ul>
-<li><strong>Async/Await:</strong> Built on top of tokio and tonic (gRPC).</li>
-<li><strong>SQL-First:</strong> Focuses on executing SQL queries with support for parameter binding (<code>?</code> syntax).</li>
-<li><strong>Arrow Native:</strong> Returns data as Vec<recordbatch>, making it easy to integrate with polars or datafusion.</recordbatch></li>
-<li><strong>Lazy Execution:</strong> Supports <code>sql()</code> for lazy evaluation (similar to PySpark/Scala) or <code>query()</code> for immediate execution.</li>
-</ul>
+<blockquote class="blockquote">
+<p><strong>Pre-requisite:</strong> if you’re not familiar with Docker, I recommend you follow the <a href="https://docs.docker.com/get-started/introduction/">official introductory guide</a>.</p>
+</blockquote>
+<hr>
+<p>Setting up a Spark instance can be quite the hassle. Add a data catalog like Delta or Apache Iceberg, and the complexity blows up!</p>
+<p>But testing catalog-specific queries against a Spark instance should be easy. And, if you’re an automation nerd like myself, it should be reproducible, as well.</p>
+<p>Unfortunately, the traditional method of installing the OpenJDK, JVM, Spark drivers, Hive plugins, Delta jars is anything but easy, let alone reproducible <em>(As a matter of fact, on the eve of publishing this article, <a href="https://spark.apache.org/docs/latest/api/python/getting_started/index.html">the Live Notebooks on PySpark’s official quickstart page</a> failed to launch due to a bug downloading OpenJDK… 😅)</em>.</p>
+<p>Faced with this problem, I decided to take matters into my own hands — and published <a href="https://hub.docker.com/repository/docker/franciscoabsampaio/spark-connect-server">a Docker Hub repository for running Spark Connect servers</a>!</p>
+<section id="spark-connect" class="level2">
+<h2 class="anchored" data-anchor-id="spark-connect">Spark Connect</h2>
+<p>Spark Connect is Apache’s newest gRPC protocol for Apache Spark. It lets any client that implements the Spark Connect protocol to connect to a Spark Server, and execute workloads seamlessly.</p>
+<p>What this Docker container does is take care of all the setup for launching a Spark instance <em>with</em> Spark Connect server, to make the development experience as smooth as possible.</p>
 </section>
-<section id="example-usage" class="level2">
-<h2 class="anchored" data-anchor-id="example-usage">Example Usage</h2>
-<p>Get started by installing the crate with cargo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">cargo</span> add spark-connect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Next, initiate a session and execute queries against a Spark cluster:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Connect to Spark</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> session <span class="op">=</span> <span class="pp">SparkSessionBuilder::</span>new(<span class="st">"sc://localhost:15002"</span>)<span class="op">.</span>build()<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">// Run a parameterized query</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">let</span> batches <span class="op">=</span> session</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="op">.</span>query(<span class="st">"SELECT ? AS rule, ? AS text"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="op">.</span>bind(<span class="dv">42</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="op">.</span>bind(<span class="st">"world"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="op">.</span>execute()</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also use the <code>sql()</code> / <code>collect()</code> interface for lazy execution, similarly to idiomatic Spark:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use</span> <span class="pp">spark_connect::</span>ToLiteral<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">let</span> lazy_plan <span class="op">=</span> session<span class="op">.</span>sql(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"SELECT ? AS id, ? AS text"</span><span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="pp">vec!</span>[<span class="dv">42</span><span class="op">.</span>to_literal()<span class="op">,</span> <span class="st">"world"</span><span class="op">.</span>to_literal()]</span>
-<span id="cb3-6"><a href="#cb3-6"></a>)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">let</span> batches <span class="op">=</span> session<span class="op">.</span>collect(lazy_plan)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="running-the-container" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-container">Running the Container</h2>
+<p>Running it is as straight-forward as any other container. Simply:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">docker</span> run <span class="at">-p</span> 15002:15002 franciscoabsampaio/spark-connect-server:delta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We use the “delta” tag if we wish to spin the server with a <a href="https://delta.io/">Delta catalog</a>, and the “iceberg” tag for the <a href="https://iceberg.apache.org/">Iceberg catalog</a>.</p>
+<p>The <code>docker run</code> command will pull the image, and start it, resulting in a generous slew of logs, ending with a message akin to “<code>Spark Connect server started at 0.0.0.0:15002</code>” — letting us know that the Spark instance is LIVE and ready to accept connections.</p>
+<p>Now, connecting to it in PySpark is as easy as:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">from</span> pyspark.sql <span class="im">import</span> SparkSession</span>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a>spark <span class="op">=</span> SparkSession.builder <span class="op">\</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>    .remote(<span class="st">"sc://localhost:15002"</span>) <span class="op">\</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>    .getOrCreate()</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># A simple check:</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>df <span class="op">=</span> spark.sql(<span class="ss">f"SELECT 1 AS id"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>rows <span class="op">=</span> df.collect()</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="bu">print</span>(rows)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> You may have to install Python packages <code>grpcio</code>, <code>grpcio-status</code> and <code>protobuf</code> for <code>pyspark</code> to connect successfully.</p>
+</blockquote>
+<p>The Spark session is ON and completely functional for all you development needs.</p>
 </section>
-<section id="closing-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
-<p>I’m excited to share <code>spark-connect</code> with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.</p>
-<p>I’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:</p>
-<ul>
-<li><a href="https://github.com/franciscoabsampaio/spark-connect">GitHub repository</a></li>
-<li><a href="https://crates.io/crates/spark-connect">Crates.io</a></li>
-</ul>
+<section id="reproducible-tests" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-tests">Reproducible Tests</h2>
+<p>If you’d like to take things a step further, we can manage the Spark server’s lifecycle entirely in our test suite, ensuring reproducible, specified-in-code, end-to-end dependencies.</p>
+<p>To do so, we can create a <a href="https://docs.pytest.org/en/6.2.x/fixture.html">pytest fixture</a>, which is essentially a reusable resource for tests!</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> docker</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># You can use testcontainers instead of the docker package</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># but I find it a bit bloated and buggy</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># when working with custom images.</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co"># The docker package is what testcontainers uses</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># behind the scenes, and I find it more consistent.</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="im">import</span> pytest</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="im">import</span> time</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co"># Utility function:</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co"># Once the container has produced the desired message, return.</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="kw">def</span> wait_for_log(container, message, timeout<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    start <span class="op">=</span> time.time()</span>
+<span id="cb3-15"><a href="#cb3-15"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb3-16"><a href="#cb3-16"></a>        logs <span class="op">=</span> container.logs().decode(<span class="st">"utf-8"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>        <span class="cf">if</span> message <span class="kw">in</span> logs:</span>
+<span id="cb3-18"><a href="#cb3-18"></a>            <span class="cf">return</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>        <span class="cf">if</span> time.time() <span class="op">-</span> start <span class="op">&gt;</span> timeout:</span>
+<span id="cb3-20"><a href="#cb3-20"></a>            <span class="cf">raise</span> <span class="pp">TimeoutError</span>(<span class="ss">f"Message '</span><span class="sc">{</span>message<span class="sc">}</span><span class="ss">' not found in logs"</span>)</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        time.sleep(<span class="fl">0.5</span>)</span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co"># The default scope is function,</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co"># which means the fixture is created and destroyed every test.</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="at">@pytest.fixture</span>(scope<span class="op">=</span><span class="st">"function"</span>)</span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="kw">def</span> spark_connect_server_url():</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    docker_client <span class="op">=</span> docker.from_env()</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a>    <span class="co"># Let's run a Spark Connect server with a Delta catalog!</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>    container <span class="op">=</span> docker_client.containers.run(</span>
+<span id="cb3-32"><a href="#cb3-32"></a>        image<span class="op">=</span><span class="st">"franciscoabsampaio/spark-connect-server:delta"</span>,</span>
+<span id="cb3-33"><a href="#cb3-33"></a>        detach<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-34"><a href="#cb3-34"></a>        ports<span class="op">=</span>{<span class="st">'15002/tcp'</span>: <span class="dv">15002</span>}</span>
+<span id="cb3-35"><a href="#cb3-35"></a>    )</span>
+<span id="cb3-36"><a href="#cb3-36"></a>    wait_for_log(container, message<span class="op">=</span><span class="st">"Spark Connect server started"</span>)</span>
+<span id="cb3-37"><a href="#cb3-37"></a></span>
+<span id="cb3-38"><a href="#cb3-38"></a>    <span class="co"># Pass the connection string to whoever is using the fixture.</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a>    <span class="cf">yield</span> <span class="st">"sc://localhost:15002"</span></span>
+<span id="cb3-40"><a href="#cb3-40"></a></span>
+<span id="cb3-41"><a href="#cb3-41"></a>    <span class="co"># Cleanup</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a>    container.stop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Now, we can simply pass the fixture to whichever test requires a running Spark Connect server. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource py number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> test_basic_read(spark_connect_server_url):  <span class="co"># Use the fixture</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>    spark <span class="op">=</span> SparkSession.builder <span class="op">\</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>        .remote(spark_connect_server_url) <span class="op">\</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>        .getOrCreate()</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    table_name <span class="op">=</span> <span class="st">"test_table"</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="co"># CREATE TABLE USING DELTA</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    spark.sql(<span class="ss">f"""</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="ss">        CREATE TABLE </span><span class="sc">{</span>table_name<span class="sc">}</span><span class="ss"> (</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="ss">            id INT,</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="ss">            name STRING</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="ss">        )</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="ss">        USING DELTA</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="ss">    """</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    <span class="co"># INSERT INTO TABLE</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>    spark.sql(<span class="ss">f"INSERT INTO </span><span class="sc">{</span>table_name<span class="sc">}</span><span class="ss"> VALUES (1, 'bird'), (2, 'spark')"</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a>    <span class="co"># SELECT * FROM TABLE</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>    df <span class="op">=</span> spark.sql(<span class="ss">f"SELECT * FROM </span><span class="sc">{</span>table_name<span class="sc">}</span><span class="ss"> ORDER BY id"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    rows <span class="op">=</span> df.collect()</span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a>    <span class="co"># Test conditions</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>    <span class="cf">assert</span> <span class="bu">len</span>(rows) <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a>    <span class="cf">assert</span> rows[<span class="dv">0</span>][<span class="st">"id"</span>] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a>    <span class="cf">assert</span> rows[<span class="dv">0</span>][<span class="st">"name"</span>] <span class="op">==</span> <span class="st">"bird"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The yield statement locks the fixture execution until the test finishes — at which point the cleanup code is executed.</p>
+<hr>
+<p>And that’s it — you now have a fully reproducible, containerized Spark + Delta test setup, ready to integrate into any CI/CD pipeline or local test suite.</p>
+<p>You can find the container on Docker Hub: 👉 <a href="https://hub.docker.com/repository/docker/franciscoabsampaio/spark-connect-server">franciscoabsampaio/spark-connect-server</a></p>
+<p>If this saved you time (or frustration), give it a ⭐️ on GitHub or share it with your team — and let me know what feature you’d like supported next!</p>
+<p><strong>Happy testing! 🚀</strong></p>
 
 
 </section>

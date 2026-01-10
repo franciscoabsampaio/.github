@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-06-01">
-<meta name="description" content="A non-technical introduction to Large Language Models">
+<meta name="dcterms.date" content="2026-01-10">
+<meta name="description" content="An idiomatic, SQL-first Rust client for Apache Spark">
 
-<title>Transformers Maketh LLMs – Francisco A. B. Sampaio</title>
+<title>spark-connect: A Spark Connect Client for the Rust ecosystem – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,28 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../images/favicon.ico" rel="icon">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -93,11 +128,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog.html"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -116,12 +151,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#first-a-bit-of-context" id="toc-first-a-bit-of-context" class="nav-link active" data-scroll-target="#first-a-bit-of-context">First, a bit of context</a></li>
-  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks">Neural Networks</a></li>
-  <li><a href="#the-attention-is-all-you-need-paper" id="toc-the-attention-is-all-you-need-paper" class="nav-link" data-scroll-target="#the-attention-is-all-you-need-paper">The ‘Attention Is All You Need’ paper</a></li>
-  <li><a href="#chatgpt" id="toc-chatgpt" class="nav-link" data-scroll-target="#chatgpt">ChatGPT</a></li>
-  <li><a href="#life-is-easier-when-you-pay-attention" id="toc-life-is-easier-when-you-pay-attention" class="nav-link" data-scroll-target="#life-is-easier-when-you-pay-attention">Life is easier when you pay attention</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key Features</a></li>
+  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example Usage</a></li>
+  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
   </ul>
 </nav>
     </div>
@@ -130,17 +162,17 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Transformers Maketh LLMs</h1>
+<h1 class="title">spark-connect: A Spark Connect Client for the Rust ecosystem</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">transformer</div>
-    <div class="quarto-category">llm</div>
-    <div class="quarto-category">nlp</div>
+    <div class="quarto-category">rust</div>
+    <div class="quarto-category">spark</div>
+    <div class="quarto-category">data</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    A non-technical introduction to Large Language Models
+    An idiomatic, SQL-first Rust client for Apache Spark
   </div>
 </div>
 
@@ -151,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 1, 2025</p>
+      <p class="date">January 10, 2026</p>
     </div>
   </div>
   
@@ -163,90 +195,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="first-a-bit-of-context" class="level2">
-<h2 class="anchored" data-anchor-id="first-a-bit-of-context">First, a bit of context</h2>
-<p>If you haven’t been living under a rock, you’ve probably noticed that generative AI is the coolest kid on the block.</p>
-<p>Specifically, <em>large language models</em> (or LLMs) have taken the world by storm, due to how powerful they are at - that’s right - <strong>modelling language</strong>, and <strong>learning from it</strong>.</p>
-<p>The language modelling problem is not a new one - <strong>Chomsky pioneered work in language models way back in the 1950s</strong> - and since then (in particular, in the 2000s, following the timely advances in machine learning) people across the world have been trying to invent better ways to model language. The <em>hypothesis</em> was that by learning to accurately model language, computers would gain the ability to perform a series of tasks, due to how expressive and rich with information language intrinsically is.</p>
-<p>But because we’re dealing with computers, we need a way to translate this into bits and bytes, or, at the very least, <strong><em>mathematics</em></strong>. The “popular” way to formulate the problem of modelling language goes like this:</p>
-<blockquote class="blockquote">
-<p>What is the probability of a word occurring, given a sequence of words that precedes it?</p>
-</blockquote>
-<p>Essentially, by learning how to predict the next word that <em>makes sense</em>, a model would, by itself, <em>make sense</em>. For the mathematically-curious, what we’re essentially doing is trying to determine the function that best models:</p>
-<blockquote class="blockquote">
-<p>f(?) = P(word_i | {word_0, …, word_i-1})</p>
-</blockquote>
-<p>The traditional way would be to find derive a function that accurately models this behaviour - but given the complexity of language, <strong>it’s near impossible to derive something like this</strong>, and <strong>intractable to solve</strong> (an intractable problem can theoretically be solved, but requires impractical and/or infinite resources to do so).</p>
+<p>I’d like to share a crate that I’ve been working on called <code>spark-connect</code>.</p>
+<p><strong>It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.</strong></p>
+<p>Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.</p>
+<p>Similar efforts existed in the community (shoutout to <a href="https://crates.io/crates/spark-connect-rs">spark-connect-rs</a> which provided plenty of inspiration), but I often found existing solutions were bloated or <em>explicitly marked as experimental</em>.</p>
+<p><code>spark-connect</code> emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.</p>
+<section id="key-features" class="level2">
+<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
+<p>If you are coming from other Rust SQL toolkits (e.g.&nbsp;<a href="https://docs.rs/sqlx/latest/sqlx/"><code>sqlx</code></a>), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.</p>
+<ul>
+<li><strong>Async/Await:</strong> Built on top of tokio and tonic (gRPC).</li>
+<li><strong>SQL-First:</strong> Focuses on executing SQL queries with support for parameter binding (<code>?</code> syntax).</li>
+<li><strong>Arrow Native:</strong> Returns data as Vec<recordbatch>, making it easy to integrate with polars or datafusion.</recordbatch></li>
+<li><strong>Lazy Execution:</strong> Supports <code>sql()</code> for lazy evaluation (similar to PySpark/Scala) or <code>query()</code> for immediate execution.</li>
+</ul>
 </section>
-<section id="neural-networks" class="level2">
-<h2 class="anchored" data-anchor-id="neural-networks">Neural Networks</h2>
-<p>Neural networks revolutionised machine learning because they allow scientists to brute-force problems. For the unaware, a neural network is, essentially, a somewhat arbitrary combination of non-linear functions, a collection of layers stacked on top of each other, that take inputs and perform weighted averages on them before passing them on to the next layer.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/neural_network.png" title="Neural network" class="img-fluid figure-img"></p>
-<figcaption>High-level diagram of a neural network.</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p>The secret ingredient to neural networks is that <strong>every parameter</strong>, be it <strong>how much we weigh each input</strong>, or <strong>how we regulate the non-linearity of each layers</strong> is <strong>learned</strong>.</p>
-</blockquote>
-<p><strong>“Learned”</strong> is the fancy way of saying the computer tries a bunch of combinations (like, <em>trillions</em> of them) and returns the best result.</p>
-<p>As you can imagine, as neural networks grow larger (number of variables in each layer) and deeper (number of layers), this becomes an extremely resource-intensive problem - pre-training GPT4 model required more than <strong>20.000 A100 GPUs</strong> (each of these is like 10-100 times more powerful than your laptop’s graphic card!) for <strong><em>3 months</em></strong>!</p>
-<p>But ChatGPT isn’t just a neural network - vanilla neural nets are kind of sucky at taking into account long-distance relationships between words (say, the first and last words of this article), and making them better would be extremely expensive (computationally speaking).</p>
+<section id="example-usage" class="level2">
+<h2 class="anchored" data-anchor-id="example-usage">Example Usage</h2>
+<p>Get started by installing the crate with cargo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">cargo</span> add spark-connect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Next, initiate a session and execute queries against a Spark cluster:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Connect to Spark</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> session <span class="op">=</span> <span class="pp">SparkSessionBuilder::</span>new(<span class="st">"sc://localhost:15002"</span>)<span class="op">.</span>build()<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">// Run a parameterized query</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">let</span> batches <span class="op">=</span> session</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="op">.</span>query(<span class="st">"SELECT ? AS rule, ? AS text"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="op">.</span>bind(<span class="dv">42</span>)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="op">.</span>bind(<span class="st">"world"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    <span class="op">.</span>execute()</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can also use the <code>sql()</code> / <code>collect()</code> interface for lazy execution, similarly to idiomatic Spark:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use</span> <span class="pp">spark_connect::</span>ToLiteral<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">let</span> lazy_plan <span class="op">=</span> session<span class="op">.</span>sql(</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"SELECT ? AS id, ? AS text"</span><span class="op">,</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="pp">vec!</span>[<span class="dv">42</span><span class="op">.</span>to_literal()<span class="op">,</span> <span class="st">"world"</span><span class="op">.</span>to_literal()]</span>
+<span id="cb3-6"><a href="#cb3-6"></a>)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">let</span> batches <span class="op">=</span> session<span class="op">.</span>collect(lazy_plan)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="the-attention-is-all-you-need-paper" class="level2">
-<h2 class="anchored" data-anchor-id="the-attention-is-all-you-need-paper">The ‘Attention Is All You Need’ paper</h2>
-<p>In 2017, when attempting to come up with a better model for machine translation (translation done by computers), Vaswani et. al.&nbsp;presented the “Transformer” architecture in the now famous <a href="https://arxiv.org/abs/1706.03762">“Attention Is All You Need” paper</a>.</p>
-<p>The transformer followed the recent introduction of “attention” mechanisms in the field, and took it front and center.</p>
-<blockquote class="blockquote">
-<p><strong>The attention mechanism is quite intuitive:</strong> (put simply) you take a learned numeric representation of each word in the sequence (roughly speaking, the model assigns a number to each word), and you multiply it by every other learned representation of every word in that sequence (a second learned representation). Then, you weigh a third learned representation of the sequence by the result of this product - essentially <strong>weighing</strong> the sequence by <strong>how much each word is related to each other</strong> in the sequence.</p>
-</blockquote>
-<p>Because each numeric representation is learned, the model is given <strong><em>full flexibility</em></strong> over <strong>how to represent each word</strong> in this not-so-imaginary numerical space, and <strong>how important any word is relative to each other</strong>!</p>
-<p>I say not-so-imaginary numerical space, because if you then take the learned numerical representations of these words, you will find all sorts of quirky relationships! Famously, here’s the <code>King - Man + Woman = Queen</code>, and a few more (all images were taken from <a href="https://www.youtube.com/watch?v=wjZofJX0v4M">this awesome video by 3Blue1Brown on YouTube</a>):</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/queen.png" title="Queen" class="img-fluid figure-img"></p>
-<figcaption>The learned representation of “queen”.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/tower.png" title="Tower" class="img-fluid figure-img"></p>
-<figcaption>Closely related words have proximal representations.</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/german_sushi.png" title="German sushi" class="img-fluid figure-img"></p>
-<figcaption>Likewise, relationships are consistent across many words!</figcaption>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/italian_hitler.png" title="Italian Hitler" class="img-fluid figure-img"></p>
-<figcaption>😳</figcaption>
-</figure>
-</div>
-</section>
-<section id="chatgpt" class="level2">
-<h2 class="anchored" data-anchor-id="chatgpt">ChatGPT</h2>
-<p>The Transformer took the field by storm, and eventually led to ChatGPT, and all these chat assistants we all know.</p>
-<p>The GPT models are essentially very large transformers, with some sprinkles on top. Which is why - at its core - <strong>ChatGPT is a very sophisticated auto-complete</strong>, because - following the language modelling reasoning - it’s simply predicting the next sequence of words, given the user’s prompt 🧠.</p>
-<p>There are, of course, <a href="https://openai.com/index/chatgpt/">a few of extra steps that go into making these state-of-the-art word predictors into useful assistants</a>. But it’s hard to disagree with the statement that the true technical marvel of models like ChatGPT is not the architecture <em>per se</em>, but the sheer dimension of it, which is insanely complex to manage and implement. Not only that, but in order to train a model of this dimension, you need <em>a significant slice</em> of <strong>the entire internet</strong>.</p>
-</section>
-<section id="life-is-easier-when-you-pay-attention" class="level2">
-<h2 class="anchored" data-anchor-id="life-is-easier-when-you-pay-attention">Life is easier when you pay attention</h2>
-<p>If you’ve been following me, you probably know I’ve been learning about deep learning (🤷) by implementing and training these architectures myself.</p>
-<p>To my surprise, working on the transformer was a breeze! It’s extremely stable during training, and <em>it just works</em>. Just so you understand - <a href="https://www.linkedin.com/pulse/swimming-against-wavenet-francisco-a-b-sampaio-jguvf/?trackingId=30aY9U0oNAZSJQFAbkKnUg%3D%3D&amp;lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3BBNoYDr%2BbRZ6fBmjGGf0h2g%3D%3D">the last model I implemented - the WaveNet</a> - was the complete opposite: a learning experience, yes, but hell nonetheless. The WaveNet took me many tries over the course of a month to make work <em>decently well</em>.</p>
-<p>The transformer? An afternoon.</p>
-<p>One difference that stood out is how each architecture models relationships between elements in a sequence - whereas the WaveNet’s is convoluted and difficult to grasp, <strong><em>transformers just make sense</em></strong>. To me, <strong>attention is a very elegant representation of how words relate to each other</strong>.</p>
-<p>So much, that I decided to share it with you 😘</p>
-</section>
-<section id="next-steps" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
-<p>My future posts are likely to be more technical - so for the non-technical readers, I’m thankful you’ve paid attention. From here, I will take things up a notch, and attempt to build a <strong>BIG (1B+ parameter) model, comparable in size to GPT-2</strong>. Much smaller than what we’ve gotten used to (the original ChatGPT was 175B parameters, and the latest models are estimated to be in the <strong>trillions</strong>!), but big enough to give me a few headaches!</p>
-<p>As you can imagine, this is a completely different beast, that will require budgeting (training costs €€€ 💸), distributed compute (🥳), a lot of preliminary testing, and a few dozen academic papers.</p>
-<p>See you soon!</p>
+<section id="closing-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
+<p>I’m excited to share <code>spark-connect</code> with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.</p>
+<p>I’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:</p>
+<ul>
+<li><a href="https://github.com/franciscoabsampaio/spark-connect">GitHub repository</a></li>
+<li><a href="https://crates.io/crates/spark-connect">Crates.io</a></li>
+</ul>
 
 
 </section>
