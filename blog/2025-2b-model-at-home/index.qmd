@@ -19,6 +19,79 @@ In this post we’ll do a quick exploration using Python and pandas.
 print(123)
 ```
 
+## Mixed Precision
+
+## Online Softmax and Flash Attention
+
+Due to the quadratic complexity of attention, compute could be blamed for less-than-ideal performance, but modern Transformers are actually memory-bound: most of their layers move far more data than they compute. As a result, the primary bottleneck in attention is actually *slow memory access*, not floating-point arithmetic [@2022_flashattention].
+
+GPUs expose a strong hierarchy between on-chip shared memory (SRAM) and off-chip high-bandwidth memory (HBM, aka global memory). For example, NVIDIA’s V100 has 40–80 GB of HBM, with a bandwidth of 1.5–2.0 TB/s, but only 192 KB of on-chip SRAM for every 108 streaming multiprocessors, with an effective bandwidth around 19 TB/s - an order of magnitude higher [@2022_flashattention].
+
+Attention layers repeatedly access large intermediate matrices that do not fit in SRAM, so they repeatedly fall back to global memory. This is the root cause of the performance bottleneck. Cirvumventing this would require carefully managing SRAM capacity and dataflow, to avoid reading and writing anything to HBM.
+
+### The Softmax Problem
+
+The softmax function
+
+$$\text{softmax}(x_i)=\frac{e^{x_i}}{\sum_{j}{e^{x_j}}}$$
+
+is numerically unstable for large inputs, because exponentials grow extremely fast - for example, FP16 overflows around 11 [@2023_from_online_softmax_to_flashattention]. It is standard practice to subtract the maximum element in the row (aka the **safe softmax**):
+
+$$\text{softmax}(x_i)=\frac{e^{x_i-x_{max}}}{\sum_{j}{e^{x_j-x_{max}}}}$$
+
+However, finding $x_\text{max}$ requires scanning the entire row of $QK^\top$ beforehand. In a naïve implementation, this means:
+
+1. Reading all values to find max;
+2. Reading them again to compute numerator;
+3. Reading them again to compute denominator.
+
+Three full global-memory passes - far too slow, and hard to parallelise across tiles.
+
+### Online Softmax
+
+Online Softmax [@2018_online_softmax] removes this limitation by computing the softmax statistics incrementally, in a streaming fashion. Instead of needing the entire row at once, it maintains running values for:
+
+- The running maximum $x_{max}$;
+- The running sum of exponentials (the denominator $\sum$).
+
+This unlocks asynchronous parallelism, long-context scalability, and fewer global memory passes. It uses a neat little trick we won't be delving into here - if you want to learn more, @2024_flashattention_umar explains it very well, and ties it elegantly to FlashAttention.
+
+In practice, Online Softmax reduces global I/O from 3 passes to 2. But even Online Softmax cannot reduce it to 1 pass on its own.
+
+### Flash Attention
+
+Surprisingly, when Online Softmax is paired with the rest of the attention formula, it becomes possible to perform the entire attention computation using just one pass over K and V tiles (matrix tiling consists of splitting a matrix into blocks or tiles).
+
+This is the core innovation of FlashAttention [@2022_flashattention]: it restructures the attention operation so that it can be executed tile-by-tile, entirely inside shared memory, without ever materialising large intermediate matrices in HBM. This practice of combining multiple operations (CUDA *kernels*, with CUDA being the environment/toolkit for interfacing with NVIDIA GPUs) into a single set of instructions is termed **kernel fusion**. Because each tile fits in shared memory and all operations were fused into one, only a single access to memory is required.
+
+Here is a high-level description of the FlashAttention algorithm:
+
+1. Load a tile of K and V from global memory into shared memory.
+2. Load the corresponding tile of Q.
+3. Compute partial attention scores and maintain Online Softmax state in SRAM.
+4. Immediately apply the softmax-weighted values to accumulate the output.
+5. Move on to the next tile.
+
+Each tile fits in fast SRAM, and we never store intermediate matrices like $QK^\top$, so the memory footprint is dramatically reduced. This enables:
+
+- Large speedups (often 2-4×);
+- Support for far longer context windows;
+- Lower memory usage and improved training stability.
+
+Exactly what we want!
+
+### FA2, FA3, and FA4
+
+FlashAttention (FA) represented a shift in mindset, from high-level compute algorithms to ones aware of IO and the idiosyncrasies of the underlying hardware. This shift has only become more obvious in subsequent iterations of the FA algorithm, going beyond hardware-awareness to *hardware-specificity*, relying on low-level features of the GPU to achieve the highest possible level of hardware utilisation:
+
+- FA2 [@2023_flashattention_2]: Improves tiling, parallelism, and SRAM usage; generally the fastest algorithm on Ampere, Ada, and older GPUs.
+- FA3 [@2024_flashattention_3]: Built specifically for Hopper (H100). Relies on warp specialization, TMA, and WGMMA - features not available on older architectures.
+- FA4 [@2024_flashattention_4] (work-in-progress): Extends these ideas to Blackwell (B100/B200), taking advantage of new low-precision Tensor Cores (e.g., FP4/FP6) and improved asynchronous memory pipelines.
+
+For most users running consumer or workstation GPUs - FA3 and FA4 provide no practical advantage, because they lack the hardware features FA3/FA4 rely on. Running them may result in performance deterioration - that is, if they even run.
+
+In practice, and for the majority of users, FA2 is the correct choice.
+
 ## Activation Checkpoints
 
 Activation checkpointing consists of selectively forgetting activations during each training loop, effectively trading off compute for a shallower memory footprint. The concept (expertly presented in [this blog post](https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9) by @2018_medium_activation_checkpoint) is a clever exploitation of dependencies in the model graph that can reduce memory requirements during training from `O(n^2)` to `O(sqrt(n))` - all for the modest cost of an extra forward pass.
@@ -37,3 +110,9 @@ A big problem with training is that the backward pass starts from the loss node 
 ![Smart man's activation checkpointing [@2018_medium_activation_checkpoint].](images/activation_checkpoint_smart.webp "Smart man's activation checkpointing")
 
 [This pebble game we're playing](https://en.wikipedia.org/wiki/Pebble_game) can get extremely complex (dynamic programming, tree decomposition, etc), but this much will suffice us.
+
+## Data Parallelism, Model Parallelism and Pipelining
+
+1. Data Parallelism
+2. Model Parallelism
+3. Pipelining

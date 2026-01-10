@@ -1,0 +1,71 @@
+---
+title: "spark-connect: A Spark Connect Client for the Rust ecosystem"
+description: "An idiomatic, SQL-first Rust client for Apache Spark"
+date: 2025-01-10
+categories: [rust, spark, data]
+image: images/banner.jpg
+---
+
+I’d like to share a crate that I’ve been working on called `spark-connect`.
+
+**It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.**
+
+Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.
+
+Similar efforts existed in the community (shoutout to [spark-connect-rs](https://crates.io/crates/spark-connect-rs) which provided plenty of inspiration), but I found existing solutions often felt bloated or were *explicitly marked as experimental*.
+
+`spark-connect` emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.
+
+## Key Features:
+
+If you are coming from other Rust SQL toolkits (e.g. [`sqlx`](https://docs.rs/sqlx/latest/sqlx/)), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.
+
+- **Async/Await:** Built on top of tokio and tonic (gRPC).
+- **SQL-First:** Focuses on executing SQL queries with support for parameter binding (`?` syntax).
+- **Arrow Native:** Returns data as Vec<RecordBatch>, making it easy to integrate with polars or datafusion.
+- **Lazy Execution:** Supports `sql()` for lazy evaluation (similar to PySpark/Scala) or `query()` for immediate execution.
+
+## Example Usage
+
+Get started by installing the crate with cargo:
+
+```sh
+cargo add spark-connect
+```
+
+Next, initiate a session and execute queries against a Spark cluster:
+
+```rs
+// Connect to Spark
+let session = SparkSessionBuilder::new("sc://localhost:15002").build().await?;
+
+// Run a parameterized query
+let batches = session
+    .query("SELECT ? AS rule, ? AS text")
+    .bind(42)
+    .bind("world")
+    .execute()
+    .await?;
+```
+
+You can also use the `sql()` / `collect()` interface for lazy execution, similarly to idiomatic Spark:
+
+```rs
+use spark_connect::ToLiteral;
+
+let lazy_plan = session.sql(
+    "SELECT ? AS id, ? AS text",
+    vec![42.to_literal(), "world".to_literal()]
+).await?;
+
+let batches = session.collect(lazy_plan);
+```
+
+## Closing Thoughts
+
+I’m excited to share `spark-connect` with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.
+
+I’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:
+
+- [GitHub repository](https://github.com/franciscoabsampaio/spark-connect)
+- [Crates.io](https://crates.io/crates/spark-connect)

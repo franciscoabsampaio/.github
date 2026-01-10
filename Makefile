@@ -1,3 +1,6 @@
+init:
+	. scripts/setup.sh
+
 build:
 	quarto render
 	git add docs
