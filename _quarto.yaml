@@ -11,6 +11,7 @@ project:
 
 website:
   title: "Francisco A. B. Sampaio"
+  draft-mode: gone
   site-url: "https://franciscoabsampaio.com"   # Important for RSS to work correctly
   favicon: images/favicon.ico
   navbar:
