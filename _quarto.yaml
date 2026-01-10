@@ -4,9 +4,14 @@ execute:
 project:
   type: website
   output-dir: docs
+  render:
+    - index.qmd
+    - blog.qmd
+    - blog/**/index.qmd
 
 website:
   title: "Francisco A. B. Sampaio"
+  draft-mode: gone
   site-url: "https://franciscoabsampaio.com"   # Important for RSS to work correctly
   favicon: images/favicon.ico
   navbar:
