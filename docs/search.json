@@ -4,7 +4,7 @@
     "href": "blog/2026/spark-connect/index.html",
     "title": "spark-connect: A Spark Connect Client for the Rust ecosystem",
     "section": "",
-    "text": "I’d like to share a crate that I’ve been working on called spark-connect.\nIt is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.\nLike many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.\nSimilar efforts existed in the community (shoutout to spark-connect-rs which provided plenty of inspiration), but I often found existing solutions were bloated or explicitly marked as experimental.\nspark-connect emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase."
+    "text": "Ferris is a pretty good welder.\nI’d like to share a crate that I’ve been working on called spark-connect.\nIt is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.\nLike many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.\nSimilar efforts existed in the community (shoutout to spark-connect-rs which provided plenty of inspiration), but I often found existing solutions were bloated or explicitly marked as experimental.\nspark-connect emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase."
   },
   {
     "objectID": "blog/2026/spark-connect/index.html#key-features",
