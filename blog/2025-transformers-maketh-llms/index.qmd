@@ -1,5 +1,6 @@
 ---
 title: "Transformers Maketh LLMs"
+description: "A non-technical introduction to Large Language Models"
 date: 2025-06-01
 categories: [transformer, llm, nlp]
 ---

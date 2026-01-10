@@ -1,5 +1,6 @@
 ---
 title: "Tutorial: Reproducible Spark+Delta Tests Without the Hassle"
+description: "Find how to easily test against Spark+Delta catalogs with this new Docker container"
 date: 2025-10-23
 categories: [spark, delta, docker]
 image: docker_whale.webp
