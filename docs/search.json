@@ -67,7 +67,35 @@
     "href": "index.html",
     "title": "About Me",
     "section": "",
-    "text": "Hi!\nI’m Francisco and this is my personal blog/website, where I’ll be sharing technical tutorials, thoughts, and whatever I see fit!\nFeel free to look around!"
+    "text": "Hi, I’m Francisco!\nI’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "About Me",
+    "section": "",
+    "text": "Hi, I’m Francisco!\nI’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
+  },
+  {
+    "objectID": "index.html#as-an-engineer-im-a-firm-believer-in-elegance.",
+    "href": "index.html#as-an-engineer-im-a-firm-believer-in-elegance.",
+    "title": "About Me",
+    "section": "As an engineer, I’m a firm believer in elegance.",
+    "text": "As an engineer, I’m a firm believer in elegance.\nI’m interested in building effective systems, understanding concepts at a fundamental level, and designing solutions that are specific and purposeful.\nIn my blog, you’ll find technical tutorials, experiments, and lessons learned - both as a way to help others and to document my own thinking.\nYou’ll also find a portfolio of projects I’ve built / am building."
+  },
+  {
+    "objectID": "index.html#as-an-artist-im-an-admirer-of-the-power-of-teams.",
+    "href": "index.html#as-an-artist-im-an-admirer-of-the-power-of-teams.",
+    "title": "About Me",
+    "section": "As an artist, I’m an admirer of the power of teams.",
+    "text": "As an artist, I’m an admirer of the power of teams.\nMy artistic journey started with dance (which I love but am not very good at aha), and matured with musical theatre.\nWhereas with engineering my choices have been more career-oriented, as an artist I prioritize exploration. I enjoy collaborating with others, and am always looking for new subjects to learn. I’m hardly an expert of any, but I find joy in the process of creation and discovery."
+  },
+  {
+    "objectID": "index.html#newsletter",
+    "href": "index.html#newsletter",
+    "title": "About Me",
+    "section": "Newsletter",
+    "text": "Newsletter\nIf you’d like to follow along, you can subscribe to the newsletter to receive updates when I publish new posts or projects.\n\nThanks for visiting."
   },
   {
     "objectID": "blog/2025/transformers-maketh-llms/index.html",
