@@ -19,4 +19,4 @@ jobs:
         with:
           script: |
             const run = require('./scripts/sync_discussions.js');
-            await run();
+            await run({ github, context, core });
