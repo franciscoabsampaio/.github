@@ -1,6 +1,8 @@
 ---
 title: "About Me"
 comments: false
+about:
+    template: jolla
 ---
 
 ## About Me
