@@ -22,6 +22,13 @@ website:
         text: Blog
     background: "#0d0c1d"  # background color
     foreground: "#EFE7E0"  # text (link) color
+  comments:
+    giscus:
+      category: "Announcements"
+      repo: franciscoabsampaio/.github
+      loading: lazy
+      mapping: pathname
+      theme: catppuccin_latte
   page-footer:
     left: "© 2025 Francisco A. B. Sampaio"
     right: "Built with [Quarto](https://quarto.org)"

@@ -1,0 +1,22 @@
+name: Sync discussions
+
+on:
+  push:
+    branches: [release]
+
+permissions:
+  discussions: write
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const run = require('./scripts/sync_discussions.js');
+            await run({ github, context, core });
