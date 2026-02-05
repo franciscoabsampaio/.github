@@ -5,8 +5,6 @@ about:
     template: jolla
 ---
 
-## About Me
-
 Hi, I'm Francisco!
 
 I'm a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.
