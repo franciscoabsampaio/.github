@@ -2,7 +2,7 @@ name: Sync discussions
 
 on:
   push:
-    branches: [main]
+    branches: [release]
 
 permissions:
   discussions: write
