@@ -60,14 +60,14 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "spark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
+    "text": "spark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nAnnouncing Swellow v0.2.0: The SQL-First Migration Tool\n\n\n\nsql\n\nmigration\n\ndatabase\n\npython\n\n\n\nSQL-first migrations\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nExploring Data with Python\n\n\n\npython\n\ndata\n\n\n\nA quick example of embedding Python code and plots in a Quarto post.\n\n\n\n\n\nNov 20, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "About Me",
+    "title": "Hi, I’m Francisco!",
     "section": "",
-    "text": "Hi, I’m Francisco!\nI’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
+    "text": "I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
   },
   {
     "objectID": "index.html#as-an-engineer-im-a-firm-believer-in-elegance.",
@@ -138,5 +138,96 @@
     "title": "Transformers Maketh LLMs",
     "section": "Next steps",
     "text": "Next steps\nMy future posts are likely to be more technical - so for the non-technical readers, I’m thankful you’ve paid attention. From here, I will take things up a notch, and attempt to build a BIG (1B+ parameter) model, comparable in size to GPT-2. Much smaller than what we’ve gotten used to (the original ChatGPT was 175B parameters, and the latest models are estimated to be in the trillions!), but big enough to give me a few headaches!\nAs you can imagine, this is a completely different beast, that will require budgeting (training costs €€€ 💸), distributed compute (🥳), a lot of preliminary testing, and a few dozen academic papers.\nSee you soon!"
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html",
+    "href": "blog/2026/swellow-0.2.0/index.html",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "",
+    "text": "I’m excited to introduce swellow, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!"
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#expanding-the-flock-spark-support-snapshots-and-robust-locking",
+    "href": "blog/2026/swellow-0.2.0/index.html#expanding-the-flock-spark-support-snapshots-and-robust-locking",
+    "title": "Release Announcement: Swellow v0.2.0",
+    "section": "",
+    "text": "I’m thrilled to announce the release of swellow v0.2.0!\nWhile v0.1 was about proving the concept of simple, SQL-first migrations, v0.2.0 is about making swellow a production-ready multi-engine powerhouse. This release represents months of refactoring, new features, and rigorous testing to ensure your schema migrations are safer and more versatile than ever."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#here-is-what-is-new-in-the-flock",
+    "href": "blog/2026/swellow-0.2.0/index.html#here-is-what-is-new-in-the-flock",
+    "title": "Release Announcement: Swellow v0.2.0",
+    "section": "Here is what is new in the flock",
+    "text": "Here is what is new in the flock\n\n⚡ Apache Spark (Delta & Iceberg) Support\nswellow is no longer just for PostgreSQL. With v0.2.0 comes a lightweight Spark Connect client, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.\nNew `--engine` argument supports `postgres`, `spark-delta`, and `spark-iceberg`.\n\n\n📸 Database Snapshots\nYou can now baseline your database schema using the snapshot command. Postgres: Wraps pg_dump for reliable schema exports. Spark: Iterates through catalogs to generate CREATE statements for databases and tables. Snapshots are automatically versioned alongside your standard migrations. 🔒 Concurrency & Safety Running migrations in a team or CI environment just got safer. Locking: Swellow now manages a concurrency lock to prevent multiple migration processes from running simultaneously. Transaction Control: Added a –no-transaction flag for engines or specific operations that cannot run inside a transaction block. JSON Interface: Added a –json flag to output machine-readable logs, perfect for integrating Swellow into your own CI/CD tooling. 🛠️ Quality of Life Improvements Zero-Padding: Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable. Metadata Table: Refactored internal tracking to use swellow.records instead of swellow_records. Better Errors: Removed internal “unwraps” to ensure the tool fails gracefully with helpful error messages rather than crashing."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#why-swellow",
+    "href": "blog/2026/swellow-0.2.0/index.html#why-swellow",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "Why swellow 🐦‍⬛?",
+    "text": "Why swellow 🐦‍⬛?\n\nIf you can write SQL for your database, you already know how to use swellow.\n\nMost migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. swellow takes a different approach. It acts as a thin wrapper over your database engine.\n\n❌ No generated SQL.\n❌ No implicit transformations.\n✅ Migrations are just plain SQL files.\n\nWhat runs in production is exactly what you wrote in your migration directory. This makes swellow transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#why-swellow-vird-emoji",
+    "href": "blog/2026/swellow-0.2.0/index.html#why-swellow-vird-emoji",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool 🐦‍⬛",
+    "section": "Why swellow vird emoji?",
+    "text": "Why swellow vird emoji?\nIf you can write SQL for your database, you already know how to use swellow. Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. swellow takes a different approach. It acts as a thin wrapper over your database engine.\n❌ No generated SQL. ❌ No implicit transformations. ✅ Migrations are just plain SQL files. What runs in production is exactly what you wrote in your migration directory. This makes swellow transparent, predictable, and safe—because knowing exactly what runs against your data matters more than convenient abstractions."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-new-in-v0",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-new-in-v0",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool 🐦‍⬛",
+    "section": "What’s new in v0",
+    "text": "What’s new in v0\n\n⚡ Apache Spark (Delta & Iceberg) Support\nswellow is no longer just for PostgreSQL. With v0.2.0 comes a lightweight Spark Connect client, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.\n\nNew --engine argument supports postgres, spark-delta, and spark-iceberg.\n\n\n\n📸 Database Snapshots\nYou can now baseline your database schema using the snapshot command. Postgres: Wraps pg_dump for reliable schema exports. Spark: Iterates through catalogs to generate CREATE statements for databases and tables. Snapshots are automatically versioned alongside your standard migrations. 🔒 Concurrency & Safety Running migrations in a team or CI environment just got safer. Locking: swellow now manages a concurrency lock to prevent multiple migration processes from running simultaneously. Transaction Control: Added a –no-transaction flag for engines or specific operations that cannot run inside a transaction block. JSON Interface: Added a –json flag to output machine-readable logs, perfect for integrating swellow into your own CI/CD tooling. 🛠️ Quality of Life Improvements Zero-Padding: Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable. Metadata Table: Refactored internal tracking to use swellow.records instead of swellow_records. Better Errors: Removed internal “unwraps” to ensure the tool fails gracefully with helpful error messages rather than crashing."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-new-in-swellow-v0.2.0",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-new-in-swellow-v0.2.0",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "What’s New in swellow v0.2.0?",
+    "text": "What’s New in swellow v0.2.0?\n\n⚡ Apache Spark (Delta & Iceberg) Support\nswellow is no longer just for PostgreSQL.\nv0.2.0 integrates a lightweight Spark Connect client, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.\n\nNew --engine argument supports postgres, spark-delta, and spark-iceberg.\n\n\n\n📸 Database Snapshots\nYou can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to swellow.\n\n\n📄 JSON Interface\nYou can now use the --json flag to output machine-readable logs, perfect for integrating swellow into your own CI/CD tooling.\n\n\n🔒 Concurrency & Safety\n\nLocking: swellow manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don’t support locking.\nTransaction Control: Added a --no-transaction flag for engines or specific operations that cannot run inside a transaction block. You can now CREATE DATABASE in PostgreSQL with swellow!\nError Handling: Removed usage of panicking APIs across the codebase to ensure graceful failures instead of panics.\n\n\n\n🛠️ Quality of Life Improvements\n\nZero-Padding: Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.\nMetadata Table: Refactored internal tracking to use swellow.records instead of swellow_records, leaving the swellow schema reserved for future use."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-new-in-swellow-0.2.0",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-new-in-swellow-0.2.0",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "What’s New in swellow 0.2.0",
+    "text": "What’s New in swellow 0.2.0\n\n⚡ Apache Spark (Delta & Iceberg) Support\nswellow is no longer just for PostgreSQL. v0.2.0 integrates a lightweight Spark Connect client, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.\n\nNew --engine argument supports postgres, spark-delta, and spark-iceberg.\n\n\n\n📸 Database Snapshots\nYou can now baseline your database schema using the snapshot command. Postgres: Wraps pg_dump for reliable schema exports. Spark: Iterates through catalogs to generate CREATE statements for databases and tables. Snapshots are automatically versioned alongside your standard migrations. 🔒 Concurrency & Safety Running migrations in a team or CI environment just got safer. Locking: swellow now manages a concurrency lock to prevent multiple migration processes from running simultaneously. Transaction Control: Added a –no-transaction flag for engines or specific operations that cannot run inside a transaction block. JSON Interface: Added a –json flag to output machine-readable logs, perfect for integrating swellow into your own CI/CD tooling. 🛠️ Quality of Life Improvements Zero-Padding: Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable. Metadata Table: Refactored internal tracking to use swellow.records instead of swellow_records. Better Errors: Removed internal “unwraps” to ensure the tool fails gracefully with helpful error messages rather than crashing."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-next-in-swellow",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-next-in-swellow",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "What’s Next in swellow?",
+    "text": "What’s Next in swellow?\n\nMore Database Support: We’re working on adding support for other databases.\nDynamic Migrations: We’re exploring ways to support more dynamic migration patterns while maintaining the SQL-first philosophy.\n\nStay tuned!"
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-next-for-you",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-next-for-you",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "What’s Next for You?",
+    "text": "What’s Next for You?\n\nGetting Started: Get started with swellow by following our getting started guide.\nLearn By Example: Explore our examples directory to see swellow in action.\nCommunity Contributions: We welcome contributions from the community! Check out our GitHub repository to get involved."
+  },
+  {
+    "objectID": "blog/2026/swellow-0.2.0/index.html#whats-next-for-swellow",
+    "href": "blog/2026/swellow-0.2.0/index.html#whats-next-for-swellow",
+    "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
+    "section": "What’s Next for swellow?",
+    "text": "What’s Next for swellow?\n\nMore Database Support: We’re working on adding support for other data platforms, including Snowflake.\nDynamic Migrations: We’re exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy."
+  },
+  {
+    "objectID": "index.html#hi-im-francisco",
+    "href": "index.html#hi-im-francisco",
+    "title": "Francisco A. B. Sampaio",
+    "section": "",
+    "text": "I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!\n\n[Subscribe to my newsletter!]"
+  },
+  {
+    "objectID": "portfolio.html",
+    "href": "portfolio.html",
+    "title": "Portfolio",
+    "section": "",
+    "text": "🏗️ This page is under construction!"
   }
 ]

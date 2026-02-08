@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-10">
+<meta name="description" content="SQL-first migrations">
 
-<title>Blog – Francisco A. B. Sampaio</title>
+<title>Announcing Swellow v0.2.0: The SQL-First Migration Tool – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,27 +25,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,76 +71,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-<!-- MailerLite Universal -->
-<script>
-    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-    ml('account', '2097108');
-</script>
-<!-- End MailerLite Universal -->
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="alternate" type="application/rss+xml" title="Francisco A. B. Sampaio" href="blog.xml" data-external="1"></head>
+</head>
 
 <body class="nav-fixed quarto-light">
 
@@ -149,7 +82,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -160,34 +93,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
-<span class="menu-text">Portfolio</span></a>
+    <a class="nav-link" href="../../../index.html"> 
+<span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
-  </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/franciscoabsampaio/"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/franciscoabsampaio/"> <i class="bi bi-linkedin" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://www.instagram.com/franciscoabsampaio/"> <i class="bi bi-instagram" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
-</i> 
-<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -201,21 +112,54 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="ZGF0YQ==">data <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ZGF0YWJhc2U=">database <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVsdGE=">delta <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZG9ja2Vy">docker <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGxt">llm <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWlncmF0aW9u">migration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmxw">nlp <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cnVzdA==">rust <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3Bhcms=">spark <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3Fs">sql <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHJhbnNmb3JtZXI=">transformer <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-swellow" id="toc-why-swellow" class="nav-link active" data-scroll-target="#why-swellow">Why <code>swellow</code> 🐦‍⬛?</a></li>
+  <li><a href="#whats-new-in-swellow-v0.2.0" id="toc-whats-new-in-swellow-v0.2.0" class="nav-link" data-scroll-target="#whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</a>
+  <ul class="collapse">
+  <li><a href="#apache-spark-delta-iceberg-support" id="toc-apache-spark-delta-iceberg-support" class="nav-link" data-scroll-target="#apache-spark-delta-iceberg-support">⚡ Apache Spark (Delta &amp; Iceberg) Support</a></li>
+  <li><a href="#database-snapshots" id="toc-database-snapshots" class="nav-link" data-scroll-target="#database-snapshots">📸 Database Snapshots</a></li>
+  <li><a href="#json-interface" id="toc-json-interface" class="nav-link" data-scroll-target="#json-interface">📄 JSON Interface</a></li>
+  <li><a href="#concurrency-safety" id="toc-concurrency-safety" class="nav-link" data-scroll-target="#concurrency-safety">🔒 Concurrency &amp; Safety</a></li>
+  <li><a href="#quality-of-life-improvements" id="toc-quality-of-life-improvements" class="nav-link" data-scroll-target="#quality-of-life-improvements">🛠️ Quality of Life Improvements</a></li>
+  </ul></li>
+  <li><a href="#whats-next-for-swellow" id="toc-whats-next-for-swellow" class="nav-link" data-scroll-target="#whats-next-for-swellow">What’s Next for <code>swellow</code>?</a></li>
+  <li><a href="#whats-next-for-you" id="toc-whats-next-for-you" class="nav-link" data-scroll-target="#whats-next-for-you">What’s Next for You?</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<h1 class="title">Announcing Swellow v0.2.0: The SQL-First Migration Tool</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">sql</div>
+    <div class="quarto-category">migration</div>
+    <div class="quarto-category">database</div>
+    <div class="quarto-category">python</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    SQL-first migrations
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 10, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -225,176 +169,73 @@ window.Quarto = {
 </header>
 
 
+<p>I’m excited to introduce <code>swellow</code>, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!</p>
+<section id="why-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="why-swellow">Why <code>swellow</code> 🐦‍⬛?</h2>
+<blockquote class="blockquote">
+<p>If you can write SQL for your database, you already know how to use <code>swellow</code>.</p>
+</blockquote>
+<p>Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. <code>swellow</code> takes a different approach. It acts as a thin wrapper over your database engine.</p>
+<ul>
+<li>❌ No generated SQL.</li>
+<li>❌ No implicit transformations.</li>
+<li>✅ Migrations are just plain SQL files.</li>
+</ul>
+<p>What runs in production is exactly what you wrote in your migration directory. This makes <code>swellow</code> transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.</p>
+</section>
+<section id="whats-new-in-swellow-v0.2.0" class="level2">
+<h2 class="anchored" data-anchor-id="whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</h2>
+<section id="apache-spark-delta-iceberg-support" class="level3">
+<h3 class="anchored" data-anchor-id="apache-spark-delta-iceberg-support">⚡ Apache Spark (Delta &amp; Iceberg) Support</h3>
+<p><code>swellow</code> is no longer just for PostgreSQL.</p>
+<p>v0.2.0 integrates <a href="../2026/spark-connect/">a lightweight Spark Connect client</a>, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.</p>
+<blockquote class="blockquote">
+<p>New <code>--engine</code> argument supports <code>postgres</code>, <code>spark-delta</code>, and <code>spark-iceberg</code>.</p>
+</blockquote>
+</section>
+<section id="database-snapshots" class="level3">
+<h3 class="anchored" data-anchor-id="database-snapshots">📸 Database Snapshots</h3>
+<p>You can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to <code>swellow</code>.</p>
+</section>
+<section id="json-interface" class="level3">
+<h3 class="anchored" data-anchor-id="json-interface">📄 JSON Interface</h3>
+<p>You can now use the <code>--json</code> flag to output machine-readable logs, perfect for integrating <code>swellow</code> into your own CI/CD tooling.</p>
+</section>
+<section id="concurrency-safety" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency-safety">🔒 Concurrency &amp; Safety</h3>
+<ul>
+<li><strong>Locking:</strong> <code>swellow</code> manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don’t support locking.</li>
+<li><strong>Transaction Control:</strong> Added a <code>--no-transaction</code> flag for engines or specific operations that cannot run inside a transaction block. You can now <code>CREATE DATABASE</code> in PostgreSQL with <code>swellow</code>!</li>
+<li><strong>Error Handling:</strong> Removed usage of <a href="https://doc.rust-lang.org/rust-by-example/std/panic.html">panicking APIs</a> across the codebase to ensure graceful failures instead of panics.</li>
+</ul>
+</section>
+<section id="quality-of-life-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="quality-of-life-improvements">🛠️ Quality of Life Improvements</h3>
+<ul>
+<li><strong>Zero-Padding:</strong> Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.</li>
+<li><strong>Metadata Table:</strong> Refactored internal tracking to use <code>swellow.records</code> instead of <code>swellow_records</code>, leaving the <code>swellow</code> schema reserved for future use.</li>
+</ul>
+</section>
+</section>
+<section id="whats-next-for-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-swellow">What’s Next for <code>swellow</code>?</h2>
+<ul>
+<li><strong>More Database Support:</strong> We’re working on adding support for other data platforms, including <a href="https://www.snowflake.com/">Snowflake</a>.</li>
+<li><strong>Dynamic Migrations:</strong> We’re exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy.</li>
+</ul>
+</section>
+<section id="whats-next-for-you" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-you">What’s Next for You?</h2>
+<ul>
+<li><strong>Getting Started:</strong> Get started with <code>swellow</code> by following our <a href="https://github.com/franciscoabsampaio/swellow">getting started guide</a>.</li>
+<li><strong>Learn By Example:</strong> Explore our <a href="https://github.com/franciscoabsampaio/swellow/examples">examples directory</a> to see <code>swellow</code> in action.</li>
+<li><strong>Community Contributions:</strong> We welcome contributions from the community! Check out our <a href="https://github.com/franciscoabsampaio/swellow">GitHub repository</a> to get involved.</li>
+</ul>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="cnVzdCUyQ3NwYXJrJTJDZGF0YQ==" data-listing-date-sort="1768003200000" data-listing-file-modified-sort="1768051385624" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="368">
-<div class="thumbnail"><a href="./blog/2026/spark-connect/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/spark-connect/images/banner.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">spark-connect: A Spark Connect Client for the Rust ecosystem</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cnVzdA=='); return false;">rust</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YQ=='); return false;">data</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/spark-connect/index.html" class="no-external">
-<p>An idiomatic, SQL-first Rust client for Apache Spark</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Jan 10, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="c3FsJTJDbWlncmF0aW9uJTJDZGF0YWJhc2UlMkNweXRob24=" data-listing-date-sort="1768003200000" data-listing-file-modified-sort="1770494794555" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="406">
-<div class="thumbnail"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/swellow-0.2.0/images/banner.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">Announcing Swellow v0.2.0: The SQL-First Migration Tool</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Fs'); return false;">sql</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWlncmF0aW9u'); return false;">migration</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YWJhc2U='); return false;">database</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<p>SQL-first migrations</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<div class="listing-date">
-Jan 10, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="cHl0aG9uJTJDZGF0YQ==" data-listing-date-sort="1763596800000" data-listing-file-modified-sort="1768037440658" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1105">
-<div class="thumbnail"><a href="./blog/2026/2b-model-at-home/index.html" class="no-external">
-
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/2b-model-at-home/index.html" class="no-external">Exploring Data with Python</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YQ=='); return false;">data</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/2b-model-at-home/index.html" class="no-external">
-<p>A quick example of embedding Python code and plots in a Quarto post.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/2b-model-at-home/index.html" class="no-external">
-<div class="listing-date">
-Nov 20, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="c3BhcmslMkNkZWx0YSUyQ2RvY2tlcg==" data-listing-date-sort="1761174000000" data-listing-file-modified-sort="1768043184228" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="910">
-<div class="thumbnail"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2025/tutorial-spark-connect/docker_whale.webp" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">Tutorial: Reproducible Spark+Delta Tests Without the Hassle</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGVsdGE='); return false;">delta</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZG9ja2Vy'); return false;">docker</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<p>Find how to easily test against Spark+Delta catalogs with this new Docker container</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Oct 23, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="dHJhbnNmb3JtZXIlMkNsbG0lMkNubHA=" data-listing-date-sort="1748732400000" data-listing-file-modified-sort="1768043139092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1123">
-<div class="thumbnail"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-
-<p class="card-img-top"><img src="blog/2025/transformers-maketh-llms/images/neural_network.png" title="Neural network" class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">Transformers Maketh LLMs</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('dHJhbnNmb3JtZXI='); return false;">transformer</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGxt'); return false;">llm</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmxw'); return false;">nlp</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<p>A non-technical introduction to Large Language Models</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<div class="listing-date">
-Jun 1, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -795,6 +636,35 @@ Jun 1, 2025
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
+<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "franciscoabsampaio/.github";
+    script.dataset.repoId = "R_kgDOQZhq3g";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

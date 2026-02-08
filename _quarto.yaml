@@ -46,6 +46,8 @@ website:
 
 format:
   html:
+    include-in-header:
+      - mailerlite.html
     theme:
       - lux
       - styles.scss

@@ -8,7 +8,7 @@
 <title>Francisco A. B. Sampaio</title>
 <link>https://franciscoabsampaio.com/blog.html</link>
 <atom:link href="https://franciscoabsampaio.com/blog.xml" rel="self" type="application/rss+xml"/>
-<description></description>
+<description>Francisco A. B. Sampaio&#39;s personal website</description>
 <generator>quarto-1.8.26</generator>
 <lastBuildDate>Sat, 10 Jan 2026 00:00:00 GMT</lastBuildDate>
 <item>
@@ -180,6 +180,98 @@ font-style: inherit;">;</span></span></code></pre></div></div>
   <guid>https://franciscoabsampaio.com/blog/2026/spark-connect/</guid>
   <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
   <media:content url="https://franciscoabsampaio.com/blog/2026/spark-connect/images/banner.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>Announcing Swellow v0.2.0: The SQL-First Migration Tool</title>
+  <link>https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>I’m excited to introduce <code>swellow</code>, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!</p>
+<section id="why-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="why-swellow">Why <code>swellow</code> 🐦‍⬛?</h2>
+<blockquote class="blockquote">
+<p>If you can write SQL for your database, you already know how to use <code>swellow</code>.</p>
+</blockquote>
+<p>Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. <code>swellow</code> takes a different approach. It acts as a thin wrapper over your database engine.</p>
+<ul>
+<li>❌ No generated SQL.</li>
+<li>❌ No implicit transformations.</li>
+<li>✅ Migrations are just plain SQL files.</li>
+</ul>
+<p>What runs in production is exactly what you wrote in your migration directory. This makes <code>swellow</code> transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.</p>
+</section>
+<section id="whats-new-in-swellow-v0.2.0" class="level2">
+<h2 class="anchored" data-anchor-id="whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</h2>
+<section id="apache-spark-delta-iceberg-support" class="level3">
+<h3 class="anchored" data-anchor-id="apache-spark-delta-iceberg-support">⚡ Apache Spark (Delta &amp; Iceberg) Support</h3>
+<p><code>swellow</code> is no longer just for PostgreSQL.</p>
+<p>v0.2.0 integrates <a href="../2026/spark-connect/">a lightweight Spark Connect client</a>, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.</p>
+<blockquote class="blockquote">
+<p>New <code>--engine</code> argument supports <code>postgres</code>, <code>spark-delta</code>, and <code>spark-iceberg</code>.</p>
+</blockquote>
+</section>
+<section id="database-snapshots" class="level3">
+<h3 class="anchored" data-anchor-id="database-snapshots">📸 Database Snapshots</h3>
+<p>You can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to <code>swellow</code>.</p>
+</section>
+<section id="json-interface" class="level3">
+<h3 class="anchored" data-anchor-id="json-interface">📄 JSON Interface</h3>
+<p>You can now use the <code>--json</code> flag to output machine-readable logs, perfect for integrating <code>swellow</code> into your own CI/CD tooling.</p>
+</section>
+<section id="concurrency-safety" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency-safety">🔒 Concurrency &amp; Safety</h3>
+<ul>
+<li><strong>Locking:</strong> <code>swellow</code> manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don’t support locking.</li>
+<li><strong>Transaction Control:</strong> Added a <code>--no-transaction</code> flag for engines or specific operations that cannot run inside a transaction block. You can now <code>CREATE DATABASE</code> in PostgreSQL with <code>swellow</code>!</li>
+<li><strong>Error Handling:</strong> Removed usage of <a href="https://doc.rust-lang.org/rust-by-example/std/panic.html">panicking APIs</a> across the codebase to ensure graceful failures instead of panics.</li>
+</ul>
+</section>
+<section id="quality-of-life-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="quality-of-life-improvements">🛠️ Quality of Life Improvements</h3>
+<ul>
+<li><strong>Zero-Padding:</strong> Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.</li>
+<li><strong>Metadata Table:</strong> Refactored internal tracking to use <code>swellow.records</code> instead of <code>swellow_records</code>, leaving the <code>swellow</code> schema reserved for future use.</li>
+</ul>
+</section>
+</section>
+<section id="whats-next-for-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-swellow">What’s Next for <code>swellow</code>?</h2>
+<ul>
+<li><strong>More Database Support:</strong> We’re working on adding support for other data platforms, including <a href="https://www.snowflake.com/">Snowflake</a>.</li>
+<li><strong>Dynamic Migrations:</strong> We’re exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy.</li>
+</ul>
+</section>
+<section id="whats-next-for-you" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-you">What’s Next for You?</h2>
+<ul>
+<li><strong>Getting Started:</strong> Get started with <code>swellow</code> by following our <a href="https://github.com/franciscoabsampaio/swellow">getting started guide</a>.</li>
+<li><strong>Learn By Example:</strong> Explore our <a href="https://github.com/franciscoabsampaio/swellow/examples">examples directory</a> to see <code>swellow</code> in action.</li>
+<li><strong>Community Contributions:</strong> We welcome contributions from the community! Check out our <a href="https://github.com/franciscoabsampaio/swellow">GitHub repository</a> to get involved.</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>sql</category>
+  <category>migration</category>
+  <category>database</category>
+  <category>python</category>
+  <guid>https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/</guid>
+  <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/images/banner.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title></title>
+  <link>https://franciscoabsampaio.com/blog/2026/2b-model-at-home/</link>
+  <description><![CDATA[ undefined ]]></description>
+  <category>python</category>
+  <category>data</category>
+  <guid>https://franciscoabsampaio.com/blog/2026/2b-model-at-home/</guid>
+  <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Tutorial: Reproducible Spark+Delta Tests Without the Hassle</title>
