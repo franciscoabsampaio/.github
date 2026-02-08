@@ -1,40 +1,15 @@
 ---
-title: "About Me"
+title: "Hi, I'm Francisco!"
 comments: false
+toc: false
 about:
     template: jolla
 ---
 
-Hi, I'm Francisco!
+---
 
 I'm a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.
 
 This website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!
 
 ---
-
-## As an engineer, I'm a firm believer in elegance.
-
-I'm interested in building effective systems, understanding concepts at a fundamental level, and designing solutions that are specific and purposeful.
-
-In my blog, you'll find technical tutorials, experiments, and lessons learned - both as a way to help others and to document my own thinking.
-
-You'll also find a portfolio of projects I've built / am building.
-
----
-
-## As an artist, I'm an admirer of the power of teams.
-
-My artistic journey started with dance (which I love but am not very good at aha), and matured with musical theatre.
-
-Whereas with engineering my choices have been more career-oriented, as an artist I prioritize exploration. I enjoy collaborating with others, and am always looking for new subjects to learn. I'm hardly an expert of any, but I find joy in the process of creation and discovery.
-
----
-
-## Newsletter
-
-If you'd like to follow along, you can subscribe to the newsletter to receive updates when I publish new posts or projects.
-
----
-
-Thanks for visiting.

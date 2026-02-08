@@ -1,0 +1,61 @@
+---
+title: "Announcing Swellow v0.2.0: The SQL-First Migration Tool"
+description: "SQL-first migrations"
+date: 2026-01-10
+categories: [sql, migration, database, python]
+image: images/banner.jpg
+---
+
+I'm excited to introduce `swellow`, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!
+
+## Why `swellow` 🐦‍⬛?
+
+> If you can write SQL for your database, you already know how to use `swellow`.
+
+Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. `swellow` takes a different approach. It acts as a thin wrapper over your database engine.
+
+- ❌ No generated SQL.
+- ❌ No implicit transformations.
+- ✅ Migrations are just plain SQL files.
+
+What runs in production is exactly what you wrote in your migration directory. This makes `swellow` transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.
+
+## What's New in `swellow` v0.2.0?
+
+### ⚡ Apache Spark (Delta & Iceberg) Support
+
+`swellow` is no longer just for PostgreSQL.
+
+v0.2.0 integrates [a lightweight Spark Connect client](../2026/spark-connect/), allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.
+
+> New `--engine` argument supports `postgres`, `spark-delta`, and `spark-iceberg`.
+
+### 📸 Database Snapshots
+
+You can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to `swellow`.
+
+### 📄 JSON Interface
+
+You can now use the `--json` flag to output machine-readable logs, perfect for integrating `swellow` into your own CI/CD tooling.
+
+### 🔒 Concurrency & Safety
+
+- **Locking:** `swellow` manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don't support locking.
+- **Transaction Control:** Added a `--no-transaction` flag for engines or specific operations that cannot run inside a transaction block. You can now `CREATE DATABASE` in PostgreSQL with `swellow`!
+- **Error Handling:** Removed usage of [panicking APIs](https://doc.rust-lang.org/rust-by-example/std/panic.html) across the codebase to ensure graceful failures instead of panics.
+
+### 🛠️ Quality of Life Improvements
+
+- **Zero-Padding:** Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.
+- **Metadata Table:** Refactored internal tracking to use `swellow.records` instead of `swellow_records`, leaving the `swellow` schema reserved for future use.
+
+## What's Next for `swellow`?
+
+- **More Database Support:** We're working on adding support for other data platforms, including [Snowflake](https://www.snowflake.com/).
+- **Dynamic Migrations:** We're exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy.
+
+## What's Next for You?
+
+- **Getting Started:** Get started with `swellow` by following our [getting started guide](https://github.com/franciscoabsampaio/swellow).
+- **Learn By Example:** Explore our [examples directory](https://github.com/franciscoabsampaio/swellow/examples) to see `swellow` in action.
+- **Community Contributions:** We welcome contributions from the community! Check out our [GitHub repository](https://github.com/franciscoabsampaio/swellow) to get involved.

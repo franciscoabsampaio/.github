@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-10">
-<meta name="description" content="An idiomatic, SQL-first Rust client for Apache Spark">
 
-<title>spark-connect: A Spark Connect Client for the Rust ecosystem – Francisco A. B. Sampaio</title>
+<title>Portfolio – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,63 +20,28 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<link href="../../../images/favicon.ico" rel="icon">
-<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./images/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e1da5cf572ee8606b85c2f2668e63e6c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -126,7 +89,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -137,11 +100,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../portfolio.html"> 
+    <a class="nav-link active" href="./portfolio.html" aria-current="page"> 
 <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../blog.html"> 
+    <a class="nav-link" href="./blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -162,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="../../../index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -177,46 +140,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key Features</a></li>
-  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example Usage</a></li>
-  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">spark-connect: A Spark Connect Client for the Rust ecosystem</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">rust</div>
-    <div class="quarto-category">spark</div>
-    <div class="quarto-category">data</div>
-  </div>
-  </div>
-
-<div>
-  <div class="description">
-    An idiomatic, SQL-first Rust client for Apache Spark
-  </div>
+<h1 class="title">Portfolio</h1>
 </div>
+
 
 
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -226,63 +165,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/banner.jpg" class="img-fluid figure-img"></p>
-<figcaption><a href="https://rustacean.net/">Ferris</a> is a pretty good welder.</figcaption>
-</figure>
-</div>
-<p>I’d like to share a crate that I’ve been working on: <code>spark-connect</code>.</p>
-<p><strong>It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.</strong></p>
-<p>Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.</p>
-<p>Similar efforts existed in the community (shoutout to <a href="https://crates.io/crates/spark-connect-rs">spark-connect-rs</a> which provided plenty of inspiration), but I often found existing solutions were bloated or <em>explicitly marked as experimental</em>.</p>
-<p><code>spark-connect</code> emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.</p>
-<section id="key-features" class="level2">
-<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
-<p>If you are coming from other Rust SQL toolkits (e.g.&nbsp;<a href="https://docs.rs/sqlx/latest/sqlx/"><code>sqlx</code></a>), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.</p>
-<ul>
-<li><strong>Async/Await:</strong> Built on top of tokio and tonic (gRPC).</li>
-<li><strong>SQL-First:</strong> Focuses on executing SQL queries with support for parameter binding (<code>?</code> syntax).</li>
-<li><strong>Arrow Native:</strong> Returns data as Vec<recordbatch>, making it easy to integrate with polars or datafusion.</recordbatch></li>
-<li><strong>Lazy Execution:</strong> Supports <code>sql()</code> for lazy evaluation (similar to PySpark/Scala) or <code>query()</code> for immediate execution.</li>
-</ul>
-</section>
-<section id="example-usage" class="level2">
-<h2 class="anchored" data-anchor-id="example-usage">Example Usage</h2>
-<p>Get started by installing the crate with cargo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">cargo</span> add spark-connect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Next, initiate a session and execute queries against a Spark cluster:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Connect to Spark</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> session <span class="op">=</span> <span class="pp">SparkSessionBuilder::</span>new(<span class="st">"sc://localhost:15002"</span>)<span class="op">.</span>build()<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">// Run a parameterized query</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">let</span> batches <span class="op">=</span> session</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="op">.</span>query(<span class="st">"SELECT ? AS rule, ? AS text"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="op">.</span>bind(<span class="dv">42</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="op">.</span>bind(<span class="st">"world"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="op">.</span>execute()</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also use the <code>sql()</code> / <code>collect()</code> interface for lazy execution, similarly to idiomatic Spark:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use</span> <span class="pp">spark_connect::</span>ToLiteral<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">let</span> lazy_plan <span class="op">=</span> session<span class="op">.</span>sql(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"SELECT ? AS id, ? AS text"</span><span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="pp">vec!</span>[<span class="dv">42</span><span class="op">.</span>to_literal()<span class="op">,</span> <span class="st">"world"</span><span class="op">.</span>to_literal()]</span>
-<span id="cb3-6"><a href="#cb3-6"></a>)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">let</span> batches <span class="op">=</span> session<span class="op">.</span>collect(lazy_plan)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="closing-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
-<p>I’m excited to share <code>spark-connect</code> with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.</p>
-<p>I’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:</p>
-<ul>
-<li><a href="https://github.com/franciscoabsampaio/spark-connect">GitHub repository</a></li>
-<li><a href="https://crates.io/crates/spark-connect">Crates.io</a></li>
-</ul>
+<p>🏗️ This page is under construction!</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -685,35 +570,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
   });
   </script>
-<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
-<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
-<script>
-  function loadGiscus() {
-    // Function to get the theme based on body class
-    const getTheme = () => {
-      let baseTheme = document.getElementById('giscus-base-theme').value;
-      let altTheme = document.getElementById('giscus-alt-theme').value;
-      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
-    };
-    const script = document.createElement("script");
-    script.src = "https://giscus.app/client.js";
-    script.async = true;
-    script.dataset.repo = "franciscoabsampaio/.github";
-    script.dataset.repoId = "R_kgDOQZhq3g";
-    script.dataset.category = "Announcements";
-    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
-    script.dataset.mapping = "pathname";
-    script.dataset.reactionsEnabled = "1";
-    script.dataset.emitMetadata = "0";
-    script.dataset.inputPosition = "top";
-    script.dataset.theme = getTheme();
-    script.dataset.lang = "en";
-    script.crossOrigin = "anonymous";
-    // Append the script to the desired div instead of at the end of the body
-    document.getElementById("quarto-content").appendChild(script);
-  }
-  loadGiscus();
-</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

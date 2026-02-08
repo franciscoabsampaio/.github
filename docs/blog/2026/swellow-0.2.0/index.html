@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2026-01-10">
-<meta name="description" content="An idiomatic, SQL-first Rust client for Apache Spark">
+<meta name="description" content="SQL-first migrations">
 
-<title>spark-connect: A Spark Connect Client for the Rust ecosystem – Francisco A. B. Sampaio</title>
+<title>Announcing Swellow v0.2.0: The SQL-First Migration Tool – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,41 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -182,9 +147,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#key-features" id="toc-key-features" class="nav-link active" data-scroll-target="#key-features">Key Features</a></li>
-  <li><a href="#example-usage" id="toc-example-usage" class="nav-link" data-scroll-target="#example-usage">Example Usage</a></li>
-  <li><a href="#closing-thoughts" id="toc-closing-thoughts" class="nav-link" data-scroll-target="#closing-thoughts">Closing Thoughts</a></li>
+  <li><a href="#why-swellow" id="toc-why-swellow" class="nav-link active" data-scroll-target="#why-swellow">Why <code>swellow</code> 🐦‍⬛?</a></li>
+  <li><a href="#whats-new-in-swellow-v0.2.0" id="toc-whats-new-in-swellow-v0.2.0" class="nav-link" data-scroll-target="#whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</a>
+  <ul class="collapse">
+  <li><a href="#apache-spark-delta-iceberg-support" id="toc-apache-spark-delta-iceberg-support" class="nav-link" data-scroll-target="#apache-spark-delta-iceberg-support">⚡ Apache Spark (Delta &amp; Iceberg) Support</a></li>
+  <li><a href="#database-snapshots" id="toc-database-snapshots" class="nav-link" data-scroll-target="#database-snapshots">📸 Database Snapshots</a></li>
+  <li><a href="#json-interface" id="toc-json-interface" class="nav-link" data-scroll-target="#json-interface">📄 JSON Interface</a></li>
+  <li><a href="#concurrency-safety" id="toc-concurrency-safety" class="nav-link" data-scroll-target="#concurrency-safety">🔒 Concurrency &amp; Safety</a></li>
+  <li><a href="#quality-of-life-improvements" id="toc-quality-of-life-improvements" class="nav-link" data-scroll-target="#quality-of-life-improvements">🛠️ Quality of Life Improvements</a></li>
+  </ul></li>
+  <li><a href="#whats-next-for-swellow" id="toc-whats-next-for-swellow" class="nav-link" data-scroll-target="#whats-next-for-swellow">What’s Next for <code>swellow</code>?</a></li>
+  <li><a href="#whats-next-for-you" id="toc-whats-next-for-you" class="nav-link" data-scroll-target="#whats-next-for-you">What’s Next for You?</a></li>
   </ul>
 </nav>
     </div>
@@ -193,17 +166,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">spark-connect: A Spark Connect Client for the Rust ecosystem</h1>
+<h1 class="title">Announcing Swellow v0.2.0: The SQL-First Migration Tool</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">rust</div>
-    <div class="quarto-category">spark</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">sql</div>
+    <div class="quarto-category">migration</div>
+    <div class="quarto-category">database</div>
+    <div class="quarto-category">python</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    An idiomatic, SQL-first Rust client for Apache Spark
+    SQL-first migrations
   </div>
 </div>
 
@@ -226,59 +200,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/banner.jpg" class="img-fluid figure-img"></p>
-<figcaption><a href="https://rustacean.net/">Ferris</a> is a pretty good welder.</figcaption>
-</figure>
-</div>
-<p>I’d like to share a crate that I’ve been working on: <code>spark-connect</code>.</p>
-<p><strong>It is a fully asynchronous, strongly typed Rust client for interacting with a remote Spark Connect server.</strong></p>
-<p>Like many others, I created this crate out of necessity for a dedicated client to run SQL queries against a Spark server in the Rust ecosystem.</p>
-<p>Similar efforts existed in the community (shoutout to <a href="https://crates.io/crates/spark-connect-rs">spark-connect-rs</a> which provided plenty of inspiration), but I often found existing solutions were bloated or <em>explicitly marked as experimental</em>.</p>
-<p><code>spark-connect</code> emphasizes a clean API, clarity, and maintainability over a broad feature set, making it easier to reason about and build upon while providing the stability needed to move beyond the experimental phase.</p>
-<section id="key-features" class="level2">
-<h2 class="anchored" data-anchor-id="key-features">Key Features</h2>
-<p>If you are coming from other Rust SQL toolkits (e.g.&nbsp;<a href="https://docs.rs/sqlx/latest/sqlx/"><code>sqlx</code></a>), the API should feel very familiar. It supports parameterized queries, safe binding, and standard connection strings.</p>
+<p>I’m excited to introduce <code>swellow</code>, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!</p>
+<section id="why-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="why-swellow">Why <code>swellow</code> 🐦‍⬛?</h2>
+<blockquote class="blockquote">
+<p>If you can write SQL for your database, you already know how to use <code>swellow</code>.</p>
+</blockquote>
+<p>Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. <code>swellow</code> takes a different approach. It acts as a thin wrapper over your database engine.</p>
 <ul>
-<li><strong>Async/Await:</strong> Built on top of tokio and tonic (gRPC).</li>
-<li><strong>SQL-First:</strong> Focuses on executing SQL queries with support for parameter binding (<code>?</code> syntax).</li>
-<li><strong>Arrow Native:</strong> Returns data as Vec<recordbatch>, making it easy to integrate with polars or datafusion.</recordbatch></li>
-<li><strong>Lazy Execution:</strong> Supports <code>sql()</code> for lazy evaluation (similar to PySpark/Scala) or <code>query()</code> for immediate execution.</li>
+<li>❌ No generated SQL.</li>
+<li>❌ No implicit transformations.</li>
+<li>✅ Migrations are just plain SQL files.</li>
+</ul>
+<p>What runs in production is exactly what you wrote in your migration directory. This makes <code>swellow</code> transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.</p>
+</section>
+<section id="whats-new-in-swellow-v0.2.0" class="level2">
+<h2 class="anchored" data-anchor-id="whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</h2>
+<section id="apache-spark-delta-iceberg-support" class="level3">
+<h3 class="anchored" data-anchor-id="apache-spark-delta-iceberg-support">⚡ Apache Spark (Delta &amp; Iceberg) Support</h3>
+<p><code>swellow</code> is no longer just for PostgreSQL.</p>
+<p>v0.2.0 integrates <a href="../2026/spark-connect/">a lightweight Spark Connect client</a>, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.</p>
+<blockquote class="blockquote">
+<p>New <code>--engine</code> argument supports <code>postgres</code>, <code>spark-delta</code>, and <code>spark-iceberg</code>.</p>
+</blockquote>
+</section>
+<section id="database-snapshots" class="level3">
+<h3 class="anchored" data-anchor-id="database-snapshots">📸 Database Snapshots</h3>
+<p>You can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to <code>swellow</code>.</p>
+</section>
+<section id="json-interface" class="level3">
+<h3 class="anchored" data-anchor-id="json-interface">📄 JSON Interface</h3>
+<p>You can now use the <code>--json</code> flag to output machine-readable logs, perfect for integrating <code>swellow</code> into your own CI/CD tooling.</p>
+</section>
+<section id="concurrency-safety" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency-safety">🔒 Concurrency &amp; Safety</h3>
+<ul>
+<li><strong>Locking:</strong> <code>swellow</code> manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don’t support locking.</li>
+<li><strong>Transaction Control:</strong> Added a <code>--no-transaction</code> flag for engines or specific operations that cannot run inside a transaction block. You can now <code>CREATE DATABASE</code> in PostgreSQL with <code>swellow</code>!</li>
+<li><strong>Error Handling:</strong> Removed usage of <a href="https://doc.rust-lang.org/rust-by-example/std/panic.html">panicking APIs</a> across the codebase to ensure graceful failures instead of panics.</li>
 </ul>
 </section>
-<section id="example-usage" class="level2">
-<h2 class="anchored" data-anchor-id="example-usage">Example Usage</h2>
-<p>Get started by installing the crate with cargo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="ex">cargo</span> add spark-connect</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Next, initiate a session and execute queries against a Spark cluster:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">// Connect to Spark</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">let</span> session <span class="op">=</span> <span class="pp">SparkSessionBuilder::</span>new(<span class="st">"sc://localhost:15002"</span>)<span class="op">.</span>build()<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">// Run a parameterized query</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">let</span> batches <span class="op">=</span> session</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="op">.</span>query(<span class="st">"SELECT ? AS rule, ? AS text"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="op">.</span>bind(<span class="dv">42</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>    <span class="op">.</span>bind(<span class="st">"world"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="op">.</span>execute()</span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You can also use the <code>sql()</code> / <code>collect()</code> interface for lazy execution, similarly to idiomatic Spark:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">use</span> <span class="pp">spark_connect::</span>ToLiteral<span class="op">;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="kw">let</span> lazy_plan <span class="op">=</span> session<span class="op">.</span>sql(</span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="st">"SELECT ? AS id, ? AS text"</span><span class="op">,</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a>    <span class="pp">vec!</span>[<span class="dv">42</span><span class="op">.</span>to_literal()<span class="op">,</span> <span class="st">"world"</span><span class="op">.</span>to_literal()]</span>
-<span id="cb3-6"><a href="#cb3-6"></a>)<span class="op">.</span><span class="kw">await</span><span class="op">?;</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">let</span> batches <span class="op">=</span> session<span class="op">.</span>collect(lazy_plan)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="closing-thoughts" class="level2">
-<h2 class="anchored" data-anchor-id="closing-thoughts">Closing Thoughts</h2>
-<p>I’m excited to share <code>spark-connect</code> with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.</p>
-<p>I’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:</p>
+<section id="quality-of-life-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="quality-of-life-improvements">🛠️ Quality of Life Improvements</h3>
 <ul>
-<li><a href="https://github.com/franciscoabsampaio/spark-connect">GitHub repository</a></li>
-<li><a href="https://crates.io/crates/spark-connect">Crates.io</a></li>
+<li><strong>Zero-Padding:</strong> Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.</li>
+<li><strong>Metadata Table:</strong> Refactored internal tracking to use <code>swellow.records</code> instead of <code>swellow_records</code>, leaving the <code>swellow</code> schema reserved for future use.</li>
+</ul>
+</section>
+</section>
+<section id="whats-next-for-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-swellow">What’s Next for <code>swellow</code>?</h2>
+<ul>
+<li><strong>More Database Support:</strong> We’re working on adding support for other data platforms, including <a href="https://www.snowflake.com/">Snowflake</a>.</li>
+<li><strong>Dynamic Migrations:</strong> We’re exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy.</li>
+</ul>
+</section>
+<section id="whats-next-for-you" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-you">What’s Next for You?</h2>
+<ul>
+<li><strong>Getting Started:</strong> Get started with <code>swellow</code> by following our <a href="https://github.com/franciscoabsampaio/swellow">getting started guide</a>.</li>
+<li><strong>Learn By Example:</strong> Explore our <a href="https://github.com/franciscoabsampaio/swellow/examples">examples directory</a> to see <code>swellow</code> in action.</li>
+<li><strong>Community Contributions:</strong> We welcome contributions from the community! Check out our <a href="https://github.com/franciscoabsampaio/swellow">GitHub repository</a> to get involved.</li>
 </ul>
 
 
