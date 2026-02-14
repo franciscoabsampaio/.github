@@ -1,12 +1,36 @@
 ---
 title: "Announcing Swellow v0.2.0: The SQL-First Migration Tool"
 description: "SQL-first migrations"
-date: 2026-01-10
+date: 2026-02-15
 categories: [sql, migration, database, python]
-image: images/banner.jpg
+image: images/banner.png
 ---
 
+![Take flight with `swellow`!](images/banner.png)
+
 I'm excited to introduce `swellow`, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!
+
+## What is `swellow`?
+
+Imagine you're an amateur bird watcher who's built a simple database to track all the feathered friends you've spotted in the wild. At first, your birds table just included common names (like the [swallow](https://en.wikipedia.org/wiki/Swallow)). But as you dive deeper into ornithology, you decide to add scientific names for precision and credibility.
+
+So, you update the schema: rename the old `name` column to `common_name` and add a new `latin_name` column. Straightforward enough in a single database, right?
+
+```sql
+ALTER TABLE bird_watch.birds
+RENAME COLUMN name TO common_name;
+
+ALTER TABLE bird_watch.birds
+ADD COLUMN latin_name VARCHAR(255);
+```
+
+*Now, let's say your hobby has evolved* - you're collaborating with a birding club and want to share your database. You maintain **a local development** version on your laptop for experimenting, **a staging environment** for testing updates with a small group, and **a production setup** hosted in the cloud for everyone to access. Applying these schema changes manually across all these environments would be a _nightmare_: time-consuming, and prone to errors and inconsistencies (like accidentally renaming a column twice and breaking queries!).
+
+**This is where `swellow` swoops in to make your life easier.** It treats your SQL queries as the source of truth for database migrations - simply organize your migration scripts in a dedicated directory within your repository (e.g., `migrations/`), and `swellow` handles the rest. It maintains a lightweight records table in each database to track which migrations have already been applied in that environment.
+
+- **Ran your CI pipeline twice by accident?** No sweat - `swellow` skips duplicates to avoid errors like "`column already exists`".
+- **Need to rollback a faulty change?** Just write a plain SQL rollback script, add it to your migrations, and let `swellow` execute it safely.
+- **Deploying to multiple environments?** `swellow` ensures consistent, idempotent migrations without manual tracking or custom scripting.
 
 ## Why `swellow` 🐦‍⬛?
 
@@ -18,17 +42,17 @@ Most migration tools force you to learn a complex DSL, hide logic behind abstrac
 - ❌ No implicit transformations.
 - ✅ Migrations are just plain SQL files.
 
+> If you can write SQL for your database, you already know how to use `swellow`.
+
 What runs in production is exactly what you wrote in your migration directory. This makes `swellow` transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.
 
 ## What's New in `swellow` v0.2.0?
 
-### ⚡ Apache Spark (Delta & Iceberg) Support
+### ⚡ Data Lake Support: Databricks, Delta & Iceberg
 
-`swellow` is no longer just for PostgreSQL.
+v0.2.0 adds support to leading data lake catalogs in the industry: Databricks, Delta and Iceberg. It does so by integrating [a lightweight Spark Connect client](../2026/spark-connect/), allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.
 
-v0.2.0 integrates [a lightweight Spark Connect client](../2026/spark-connect/), allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.
-
-> New `--engine` argument supports `postgres`, `spark-delta`, and `spark-iceberg`.
+> New `--engine` argument supports `postgres`, `spark-delta`, `spark-iceberg`, and `databricks-delta`!
 
 ### 📸 Database Snapshots
 
