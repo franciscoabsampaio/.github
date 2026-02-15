@@ -80,6 +80,6 @@ You can now use the `--json` flag to output machine-readable logs, perfect for i
 
 ## What's Next for You?
 
-- **Getting Started:** Get started with `swellow` by following our [getting started guide](https://github.com/franciscoabsampaio/swellow).
-- **Learn By Example:** Explore our [examples directory](https://github.com/franciscoabsampaio/swellow/examples) to see `swellow` in action.
+- **Getting Started:** Get started with `swellow` by following our [getting started guide](https://github.com/franciscoabsampaio/swellow?tab=readme-ov-file#getting-started).
+- **Learn By Example:** Explore our [examples directory](https://github.com/franciscoabsampaio/swellow/tree/main/examples) to see `swellow` in action.
 - **Community Contributions:** We welcome contributions from the community! Check out our [GitHub repository](https://github.com/franciscoabsampaio/swellow) to get involved.
