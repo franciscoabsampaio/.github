@@ -21,7 +21,7 @@
 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/images/banner.png" class="img-fluid figure-img"></p>
+<p><img src="https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/images/image.jpg" class="img-fluid figure-img"></p>
 <figcaption>Take flight with <code>swellow</code>!</figcaption>
 </figure>
 </div>
@@ -148,7 +148,7 @@ font-style: inherit;">255</span>);</span></code></pre></div></div>
   <category>python</category>
   <guid>https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/</guid>
   <pubDate>Sun, 15 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/images/banner.png" medium="image" type="image/png" height="81" width="144"/>
+  <media:content url="https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/images/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>spark-connect: A Spark Connect Client for the Rust ecosystem</title>
