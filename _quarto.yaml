@@ -41,7 +41,7 @@ website:
       mapping: pathname
       theme: catppuccin_latte
   page-footer:
-    left: "© 2025 Francisco A. B. Sampaio"
+    left: "© 2026 Francisco A. B. Sampaio"
     right: "Built with [Quarto](https://quarto.org)"
 
 format:
