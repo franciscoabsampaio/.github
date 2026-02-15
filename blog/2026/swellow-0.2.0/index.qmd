@@ -8,7 +8,7 @@ image: images/banner.png
 
 ![Take flight with `swellow`!](images/banner.png)
 
-I'm excited to introduce `swellow`, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!
+I'm excited to introduce [`swellow`](https://github.com/franciscoabsampaio/swellow), the simple, SQL-first CLI tool for managing database migrations, [now reaching its v0.2.0 milestone](https://github.com/franciscoabsampaio/swellow/blob/main/CHANGELOG.md)!
 
 ## What is `swellow`?
 
@@ -50,7 +50,7 @@ What runs in production is exactly what you wrote in your migration directory. T
 
 ### ⚡ Data Lake Support: Databricks, Delta & Iceberg
 
-v0.2.0 adds support to leading data lake catalogs in the industry: Databricks, Delta and Iceberg. It does so by integrating [a lightweight Spark Connect client](../2026/spark-connect/), allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.
+v0.2.0 adds support to leading data lake catalogs in the industry: Databricks, Delta and Iceberg. It does so by integrating [a lightweight Spark Connect client](https://github.com/franciscoabsampaio/spark-connect/), allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.
 
 > New `--engine` argument supports `postgres`, `spark-delta`, `spark-iceberg`, and `databricks-delta`!
 

@@ -4,7 +4,7 @@
     "href": "blog/2026/swellow-0.2.0/index.html",
     "title": "Announcing Swellow v0.2.0: The SQL-First Migration Tool",
     "section": "",
-    "text": "Take flight with swellow!\nI’m excited to introduce swellow, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!"
+    "text": "Take flight with swellow!\nI’m excited to introduce swellow, the simple, SQL-first CLI tool for managing database migrations, now reaching its v0.2.0 milestone!"
   },
   {
     "objectID": "blog/2026/swellow-0.2.0/index.html#what-is-swellow",
