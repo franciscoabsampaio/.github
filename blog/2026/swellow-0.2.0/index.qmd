@@ -8,7 +8,7 @@ image: images/banner.png
 
 ![Take flight with `swellow`!](images/banner.png)
 
-I'm excited to introduce `swellow`, the simple, SQL-first tool for managing database migrations, now reaching its v0.2.0 milestone!
+I'm excited to introduce [`swellow`](https://github.com/franciscoabsampaio/swellow), the simple, SQL-first CLI tool for managing database migrations, [now reaching its v0.2.0 milestone](https://github.com/franciscoabsampaio/swellow/blob/main/CHANGELOG.md)!
 
 ## What is `swellow`?
 
