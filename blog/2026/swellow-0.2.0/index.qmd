@@ -3,10 +3,10 @@ title: "Announcing Swellow v0.2.0: The SQL-First Migration Tool"
 description: "SQL-first migrations"
 date: 2026-02-15
 categories: [sql, migration, database, python]
-image: images/banner.png
+image: images/image.jpg
 ---
 
-![Take flight with `swellow`!](images/banner.png)
+![Take flight with `swellow`!](images/image.jpg)
 
 I'm excited to introduce [`swellow`](https://github.com/franciscoabsampaio/swellow), the simple, SQL-first CLI tool for managing database migrations, [now reaching its v0.2.0 milestone](https://github.com/franciscoabsampaio/swellow/blob/main/CHANGELOG.md)!
 
