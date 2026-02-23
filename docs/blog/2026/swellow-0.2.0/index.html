@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-02-15">
+<meta name="description" content="SQL-first migrations">
 
-<title>Hi, I’m Francisco! – Francisco A. B. Sampaio</title>
+<title>Announcing Swellow v0.2.0: The SQL-First Migration Tool – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,14 +119,14 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -99,11 +137,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link" href="../../../portfolio.html"> 
 <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -124,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -139,27 +177,166 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-swellow" id="toc-what-is-swellow" class="nav-link active" data-scroll-target="#what-is-swellow">What is <code>swellow</code>?</a></li>
+  <li><a href="#why-swellow" id="toc-why-swellow" class="nav-link" data-scroll-target="#why-swellow">Why <code>swellow</code> 🐦‍⬛?</a></li>
+  <li><a href="#whats-new-in-swellow-v0.2.0" id="toc-whats-new-in-swellow-v0.2.0" class="nav-link" data-scroll-target="#whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</a>
+  <ul class="collapse">
+  <li><a href="#data-lake-support-databricks-delta-iceberg" id="toc-data-lake-support-databricks-delta-iceberg" class="nav-link" data-scroll-target="#data-lake-support-databricks-delta-iceberg">⚡ Data Lake Support: Databricks, Delta &amp; Iceberg</a></li>
+  <li><a href="#database-snapshots" id="toc-database-snapshots" class="nav-link" data-scroll-target="#database-snapshots">📸 Database Snapshots</a></li>
+  <li><a href="#json-interface" id="toc-json-interface" class="nav-link" data-scroll-target="#json-interface">📄 JSON Interface</a></li>
+  <li><a href="#concurrency-safety" id="toc-concurrency-safety" class="nav-link" data-scroll-target="#concurrency-safety">🔒 Concurrency &amp; Safety</a></li>
+  <li><a href="#quality-of-life-improvements" id="toc-quality-of-life-improvements" class="nav-link" data-scroll-target="#quality-of-life-improvements">🛠️ Quality of Life Improvements</a></li>
+  </ul></li>
+  <li><a href="#whats-next-for-swellow" id="toc-whats-next-for-swellow" class="nav-link" data-scroll-target="#whats-next-for-swellow">What’s Next for <code>swellow</code>?</a></li>
+  <li><a href="#whats-next-for-you" id="toc-whats-next-for-you" class="nav-link" data-scroll-target="#whats-next-for-you">What’s Next for You?</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hi, I’m Francisco!</h1>
-</div>
-<div class="quarto-title-meta">
+<h1 class="title">Announcing Swellow v0.2.0: The SQL-First Migration Tool</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">sql</div>
+    <div class="quarto-category">migration</div>
+    <div class="quarto-category">database</div>
+    <div class="quarto-category">python</div>
   </div>
-</header><main class="content" id="quarto-document-content">
-<hr>
-<p>I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.</p>
-<p>This website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!</p>
-<hr>
+  </div>
 
-
-</main>  
+<div>
+  <div class="description">
+    SQL-first migrations
+  </div>
 </div>
- <!-- /main -->
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/image.jpg" class="img-fluid figure-img"></p>
+<figcaption>Take flight with <code>swellow</code>!</figcaption>
+</figure>
+</div>
+<p>I’m excited to introduce <a href="https://github.com/franciscoabsampaio/swellow"><code>swellow</code></a>, the simple, SQL-first CLI tool for managing database migrations, <a href="https://github.com/franciscoabsampaio/swellow/blob/main/CHANGELOG.md">now reaching its v0.2.0 milestone</a>!</p>
+<section id="what-is-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-swellow">What is <code>swellow</code>?</h2>
+<p>Imagine you’re an amateur bird watcher who’s built a simple database to track all the feathered friends you’ve spotted in the wild. At first, your birds table just included common names (like the <a href="https://en.wikipedia.org/wiki/Swallow">swallow</a>). But as you dive deeper into ornithology, you decide to add scientific names for precision and credibility.</p>
+<p>So, you update the schema: rename the old <code>name</code> column to <code>common_name</code> and add a new <code>latin_name</code> column. Straightforward enough in a single database, right?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> bird_watch.birds</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">RENAME</span> <span class="kw">COLUMN</span> name <span class="kw">TO</span> common_name;</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> bird_watch.birds</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">ADD</span> <span class="kw">COLUMN</span> latin_name <span class="dt">VARCHAR</span>(<span class="dv">255</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Now, let’s say your hobby has evolved</em> - you’re collaborating with a birding club and want to share your database. You maintain <strong>a local development</strong> version on your laptop for experimenting, <strong>a staging environment</strong> for testing updates with a small group, and <strong>a production setup</strong> hosted in the cloud for everyone to access. Applying these schema changes manually across all these environments would be a <em>nightmare</em>: time-consuming, and prone to errors and inconsistencies (like accidentally renaming a column twice and breaking queries!).</p>
+<p><strong>This is where <code>swellow</code> swoops in to make your life easier.</strong> It treats your SQL queries as the source of truth for database migrations - simply organize your migration scripts in a dedicated directory within your repository (e.g., <code>migrations/</code>), and <code>swellow</code> handles the rest. It maintains a lightweight records table in each database to track which migrations have already been applied in that environment.</p>
+<ul>
+<li><strong>Ran your CI pipeline twice by accident?</strong> No sweat - <code>swellow</code> skips duplicates to avoid errors like “<code>column already exists</code>”.</li>
+<li><strong>Need to rollback a faulty change?</strong> Just write a plain SQL rollback script, add it to your migrations, and let <code>swellow</code> execute it safely.</li>
+<li><strong>Deploying to multiple environments?</strong> <code>swellow</code> ensures consistent, idempotent migrations without manual tracking or custom scripting.</li>
+</ul>
+</section>
+<section id="why-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="why-swellow">Why <code>swellow</code> 🐦‍⬛?</h2>
+<blockquote class="blockquote">
+<p>If you can write SQL for your database, you already know how to use <code>swellow</code>.</p>
+</blockquote>
+<p>Most migration tools force you to learn a complex DSL, hide logic behind abstractions, or generate SQL that you never get to see. <code>swellow</code> takes a different approach. It acts as a thin wrapper over your database engine.</p>
+<ul>
+<li>❌ No generated SQL.</li>
+<li>❌ No implicit transformations.</li>
+<li>✅ Migrations are just plain SQL files.</li>
+</ul>
+<blockquote class="blockquote">
+<p>If you can write SQL for your database, you already know how to use <code>swellow</code>.</p>
+</blockquote>
+<p>What runs in production is exactly what you wrote in your migration directory. This makes <code>swellow</code> transparent, predictable, and safe - because knowing exactly what runs against your data matters more than convenient abstractions.</p>
+</section>
+<section id="whats-new-in-swellow-v0.2.0" class="level2">
+<h2 class="anchored" data-anchor-id="whats-new-in-swellow-v0.2.0">What’s New in <code>swellow</code> v0.2.0?</h2>
+<section id="data-lake-support-databricks-delta-iceberg" class="level3">
+<h3 class="anchored" data-anchor-id="data-lake-support-databricks-delta-iceberg">⚡ Data Lake Support: Databricks, Delta &amp; Iceberg</h3>
+<p>v0.2.0 adds support to leading data lake catalogs in the industry: Databricks, Delta and Iceberg. It does so by integrating <a href="https://github.com/franciscoabsampaio/spark-connect/">a lightweight Spark Connect client</a>, allowing you to manage migrations for Delta Lake and Apache Iceberg tables via Spark runtimes.</p>
+<blockquote class="blockquote">
+<p>New <code>--engine</code> argument supports <code>postgres</code>, <code>spark-delta</code>, <code>spark-iceberg</code>, and <code>databricks-delta</code>!</p>
+</blockquote>
+</section>
+<section id="database-snapshots" class="level3">
+<h3 class="anchored" data-anchor-id="database-snapshots">📸 Database Snapshots</h3>
+<p>You can now baseline your database schema using the snapshot command. Snapshots are automatically versioned alongside your standard migrations. This should make it extremely easy to change over to <code>swellow</code>.</p>
+</section>
+<section id="json-interface" class="level3">
+<h3 class="anchored" data-anchor-id="json-interface">📄 JSON Interface</h3>
+<p>You can now use the <code>--json</code> flag to output machine-readable logs, perfect for integrating <code>swellow</code> into your own CI/CD tooling.</p>
+</section>
+<section id="concurrency-safety" class="level3">
+<h3 class="anchored" data-anchor-id="concurrency-safety">🔒 Concurrency &amp; Safety</h3>
+<ul>
+<li><strong>Locking:</strong> <code>swellow</code> manages a concurrency lock to prevent multiple migration processes from running simultaneously, even in databases that don’t support locking.</li>
+<li><strong>Transaction Control:</strong> Added a <code>--no-transaction</code> flag for engines or specific operations that cannot run inside a transaction block. You can now <code>CREATE DATABASE</code> in PostgreSQL with <code>swellow</code>!</li>
+<li><strong>Error Handling:</strong> Removed usage of <a href="https://doc.rust-lang.org/rust-by-example/std/panic.html">panicking APIs</a> across the codebase to ensure graceful failures instead of panics.</li>
+</ul>
+</section>
+<section id="quality-of-life-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="quality-of-life-improvements">🛠️ Quality of Life Improvements</h3>
+<ul>
+<li><strong>Zero-Padding:</strong> Migration versions are now standardized with zero-padding (e.g., 000123), making directory sorting predictable.</li>
+<li><strong>Metadata Table:</strong> Refactored internal tracking to use <code>swellow.records</code> instead of <code>swellow_records</code>, leaving the <code>swellow</code> schema reserved for future use.</li>
+</ul>
+</section>
+</section>
+<section id="whats-next-for-swellow" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-swellow">What’s Next for <code>swellow</code>?</h2>
+<ul>
+<li><strong>More Database Support:</strong> We’re working on adding support for other data platforms, including <a href="https://www.snowflake.com/">Snowflake</a>.</li>
+<li><strong>Dynamic Migrations:</strong> We’re exploring ways to support more dynamic migration patterns and templating while maintaining the SQL-first philosophy.</li>
+</ul>
+</section>
+<section id="whats-next-for-you" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-for-you">What’s Next for You?</h2>
+<ul>
+<li><strong>Getting Started:</strong> Get started with <code>swellow</code> by following our <a href="https://github.com/franciscoabsampaio/swellow?tab=readme-ov-file#getting-started">getting started guide</a>.</li>
+<li><strong>Learn By Example:</strong> Explore our <a href="https://github.com/franciscoabsampaio/swellow/tree/main/examples">examples directory</a> to see <code>swellow</code> in action.</li>
+<li><strong>Community Contributions:</strong> We welcome contributions from the community! Check out our <a href="https://github.com/franciscoabsampaio/swellow">GitHub repository</a> to get involved.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -551,6 +728,35 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
+<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "franciscoabsampaio/.github";
+    script.dataset.repoId = "R_kgDOQZhq3g";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

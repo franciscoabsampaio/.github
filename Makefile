@@ -1,7 +1,12 @@
+init:
+	. scripts/setup.sh
+
 build:
 	quarto render
 	git add docs
-	git commit -m "Build site"
+	git commit -m "[Makefile] Build site"
+
+push:
 	git push origin main
 
 preview:

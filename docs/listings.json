@@ -2,8 +2,10 @@
   {
     "listing": "/blog.html",
     "items": [
-      "/blog/2025-tutorial-spark-connect/index.html",
-      "/blog/2025-transformers-maketh-llms/index.html"
+      "/blog/2026/swellow-0.2.0/index.html",
+      "/blog/2026/spark-connect/index.html",
+      "/blog/2025/tutorial-spark-connect/index.html",
+      "/blog/2025/transformers-maketh-llms/index.html"
     ]
   }
 ]

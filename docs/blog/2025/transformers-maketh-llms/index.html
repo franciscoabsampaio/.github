@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-06-01">
+<meta name="description" content="A non-technical introduction to Large Language Models">
 
-<title>Hi, I’m Francisco! – Francisco A. B. Sampaio</title>
+<title>Transformers Maketh LLMs – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,14 +84,14 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -99,11 +102,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link" href="../../../portfolio.html"> 
 <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -124,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -139,27 +142,156 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#first-a-bit-of-context" id="toc-first-a-bit-of-context" class="nav-link active" data-scroll-target="#first-a-bit-of-context">First, a bit of context</a></li>
+  <li><a href="#neural-networks" id="toc-neural-networks" class="nav-link" data-scroll-target="#neural-networks">Neural Networks</a></li>
+  <li><a href="#the-attention-is-all-you-need-paper" id="toc-the-attention-is-all-you-need-paper" class="nav-link" data-scroll-target="#the-attention-is-all-you-need-paper">The ‘Attention Is All You Need’ paper</a></li>
+  <li><a href="#chatgpt" id="toc-chatgpt" class="nav-link" data-scroll-target="#chatgpt">ChatGPT</a></li>
+  <li><a href="#life-is-easier-when-you-pay-attention" id="toc-life-is-easier-when-you-pay-attention" class="nav-link" data-scroll-target="#life-is-easier-when-you-pay-attention">Life is easier when you pay attention</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla">
- <header id="title-block-header" class="quarto-title-block default">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hi, I’m Francisco!</h1>
-</div>
-<div class="quarto-title-meta">
+<h1 class="title">Transformers Maketh LLMs</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">transformer</div>
+    <div class="quarto-category">llm</div>
+    <div class="quarto-category">nlp</div>
   </div>
-</header><main class="content" id="quarto-document-content">
-<hr>
-<p>I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.</p>
-<p>This website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!</p>
-<hr>
+  </div>
 
-
-</main>  
+<div>
+  <div class="description">
+    A non-technical introduction to Large Language Models
+  </div>
 </div>
- <!-- /main -->
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="first-a-bit-of-context" class="level2">
+<h2 class="anchored" data-anchor-id="first-a-bit-of-context">First, a bit of context</h2>
+<p>If you haven’t been living under a rock, you’ve probably noticed that generative AI is the coolest kid on the block.</p>
+<p>Specifically, <em>large language models</em> (or LLMs) have taken the world by storm, due to how powerful they are at - that’s right - <strong>modelling language</strong>, and <strong>learning from it</strong>.</p>
+<p>The language modelling problem is not a new one - <strong>Chomsky pioneered work in language models way back in the 1950s</strong> - and since then (in particular, in the 2000s, following the timely advances in machine learning) people across the world have been trying to invent better ways to model language. The <em>hypothesis</em> was that by learning to accurately model language, computers would gain the ability to perform a series of tasks, due to how expressive and rich with information language intrinsically is.</p>
+<p>But because we’re dealing with computers, we need a way to translate this into bits and bytes, or, at the very least, <strong><em>mathematics</em></strong>. The “popular” way to formulate the problem of modelling language goes like this:</p>
+<blockquote class="blockquote">
+<p>What is the probability of a word occurring, given a sequence of words that precedes it?</p>
+</blockquote>
+<p>Essentially, by learning how to predict the next word that <em>makes sense</em>, a model would, by itself, <em>make sense</em>. For the mathematically-curious, what we’re essentially doing is trying to determine the function that best models:</p>
+<blockquote class="blockquote">
+<p>f(?) = P(word_i | {word_0, …, word_i-1})</p>
+</blockquote>
+<p>The traditional way would be to find derive a function that accurately models this behaviour - but given the complexity of language, <strong>it’s near impossible to derive something like this</strong>, and <strong>intractable to solve</strong> (an intractable problem can theoretically be solved, but requires impractical and/or infinite resources to do so).</p>
+</section>
+<section id="neural-networks" class="level2">
+<h2 class="anchored" data-anchor-id="neural-networks">Neural Networks</h2>
+<p>Neural networks revolutionised machine learning because they allow scientists to brute-force problems. For the unaware, a neural network is, essentially, a somewhat arbitrary combination of non-linear functions, a collection of layers stacked on top of each other, that take inputs and perform weighted averages on them before passing them on to the next layer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/neural_network.png" title="Neural network" class="img-fluid figure-img"></p>
+<figcaption>High-level diagram of a neural network.</figcaption>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>The secret ingredient to neural networks is that <strong>every parameter</strong>, be it <strong>how much we weigh each input</strong>, or <strong>how we regulate the non-linearity of each layers</strong> is <strong>learned</strong>.</p>
+</blockquote>
+<p><strong>“Learned”</strong> is the fancy way of saying the computer tries a bunch of combinations (like, <em>trillions</em> of them) and returns the best result.</p>
+<p>As you can imagine, as neural networks grow larger (number of variables in each layer) and deeper (number of layers), this becomes an extremely resource-intensive problem - pre-training GPT4 model required more than <strong>20.000 A100 GPUs</strong> (each of these is like 10-100 times more powerful than your laptop’s graphic card!) for <strong><em>3 months</em></strong>!</p>
+<p>But ChatGPT isn’t just a neural network - vanilla neural nets are kind of sucky at taking into account long-distance relationships between words (say, the first and last words of this article), and making them better would be extremely expensive (computationally speaking).</p>
+</section>
+<section id="the-attention-is-all-you-need-paper" class="level2">
+<h2 class="anchored" data-anchor-id="the-attention-is-all-you-need-paper">The ‘Attention Is All You Need’ paper</h2>
+<p>In 2017, when attempting to come up with a better model for machine translation (translation done by computers), Vaswani et. al.&nbsp;presented the “Transformer” architecture in the now famous <a href="https://arxiv.org/abs/1706.03762">“Attention Is All You Need” paper</a>.</p>
+<p>The transformer followed the recent introduction of “attention” mechanisms in the field, and took it front and center.</p>
+<blockquote class="blockquote">
+<p><strong>The attention mechanism is quite intuitive:</strong> (put simply) you take a learned numeric representation of each word in the sequence (roughly speaking, the model assigns a number to each word), and you multiply it by every other learned representation of every word in that sequence (a second learned representation). Then, you weigh a third learned representation of the sequence by the result of this product - essentially <strong>weighing</strong> the sequence by <strong>how much each word is related to each other</strong> in the sequence.</p>
+</blockquote>
+<p>Because each numeric representation is learned, the model is given <strong><em>full flexibility</em></strong> over <strong>how to represent each word</strong> in this not-so-imaginary numerical space, and <strong>how important any word is relative to each other</strong>!</p>
+<p>I say not-so-imaginary numerical space, because if you then take the learned numerical representations of these words, you will find all sorts of quirky relationships! Famously, here’s the <code>King - Man + Woman = Queen</code>, and a few more (all images were taken from <a href="https://www.youtube.com/watch?v=wjZofJX0v4M">this awesome video by 3Blue1Brown on YouTube</a>):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/queen.png" title="Queen" class="img-fluid figure-img"></p>
+<figcaption>The learned representation of “queen”.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/tower.png" title="Tower" class="img-fluid figure-img"></p>
+<figcaption>Closely related words have proximal representations.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/german_sushi.png" title="German sushi" class="img-fluid figure-img"></p>
+<figcaption>Likewise, relationships are consistent across many words!</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/italian_hitler.png" title="Italian Hitler" class="img-fluid figure-img"></p>
+<figcaption>😳</figcaption>
+</figure>
+</div>
+</section>
+<section id="chatgpt" class="level2">
+<h2 class="anchored" data-anchor-id="chatgpt">ChatGPT</h2>
+<p>The Transformer took the field by storm, and eventually led to ChatGPT, and all these chat assistants we all know.</p>
+<p>The GPT models are essentially very large transformers, with some sprinkles on top. Which is why - at its core - <strong>ChatGPT is a very sophisticated auto-complete</strong>, because - following the language modelling reasoning - it’s simply predicting the next sequence of words, given the user’s prompt 🧠.</p>
+<p>There are, of course, <a href="https://openai.com/index/chatgpt/">a few of extra steps that go into making these state-of-the-art word predictors into useful assistants</a>. But it’s hard to disagree with the statement that the true technical marvel of models like ChatGPT is not the architecture <em>per se</em>, but the sheer dimension of it, which is insanely complex to manage and implement. Not only that, but in order to train a model of this dimension, you need <em>a significant slice</em> of <strong>the entire internet</strong>.</p>
+</section>
+<section id="life-is-easier-when-you-pay-attention" class="level2">
+<h2 class="anchored" data-anchor-id="life-is-easier-when-you-pay-attention">Life is easier when you pay attention</h2>
+<p>If you’ve been following me, you probably know I’ve been learning about deep learning (🤷) by implementing and training these architectures myself.</p>
+<p>To my surprise, working on the transformer was a breeze! It’s extremely stable during training, and <em>it just works</em>. Just so you understand - <a href="https://www.linkedin.com/pulse/swimming-against-wavenet-francisco-a-b-sampaio-jguvf/?trackingId=30aY9U0oNAZSJQFAbkKnUg%3D%3D&amp;lipi=urn%3Ali%3Apage%3Ad_flagship3_pulse_read%3BBNoYDr%2BbRZ6fBmjGGf0h2g%3D%3D">the last model I implemented - the WaveNet</a> - was the complete opposite: a learning experience, yes, but hell nonetheless. The WaveNet took me many tries over the course of a month to make work <em>decently well</em>.</p>
+<p>The transformer? An afternoon.</p>
+<p>One difference that stood out is how each architecture models relationships between elements in a sequence - whereas the WaveNet’s is convoluted and difficult to grasp, <strong><em>transformers just make sense</em></strong>. To me, <strong>attention is a very elegant representation of how words relate to each other</strong>.</p>
+<p>So much, that I decided to share it with you 😘</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>My future posts are likely to be more technical - so for the non-technical readers, I’m thankful you’ve paid attention. From here, I will take things up a notch, and attempt to build a <strong>BIG (1B+ parameter) model, comparable in size to GPT-2</strong>. Much smaller than what we’ve gotten used to (the original ChatGPT was 175B parameters, and the latest models are estimated to be in the <strong>trillions</strong>!), but big enough to give me a few headaches!</p>
+<p>As you can imagine, this is a completely different beast, that will require budgeting (training costs €€€ 💸), distributed compute (🥳), a lot of preliminary testing, and a few dozen academic papers.</p>
+<p>See you soon!</p>
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -551,6 +683,35 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
+<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "franciscoabsampaio/.github";
+    script.dataset.repoId = "R_kgDOQZhq3g";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

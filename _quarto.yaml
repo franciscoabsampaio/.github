@@ -4,25 +4,50 @@ execute:
 project:
   type: website
   output-dir: docs
+  render:
+    - index.qmd
+    - portfolio.qmd
+    - blog.qmd
+    - blog/**/index.qmd
 
 website:
   title: "Francisco A. B. Sampaio"
+  draft-mode: gone
   site-url: "https://franciscoabsampaio.com"   # Important for RSS to work correctly
+  description: "Francisco A. B. Sampaio's personal website"
   favicon: images/favicon.ico
   navbar:
     left:
-      - href: index.qmd
-        text: About Me
+      - href: portfolio.qmd
+        text: Portfolio
       - href: blog.qmd
         text: Blog
+    right:
+      - icon: github
+        href: https://github.com/franciscoabsampaio/
+      - icon: linkedin
+        href: https://www.linkedin.com/in/franciscoabsampaio/
+      - icon: instagram
+        href: https://www.instagram.com/franciscoabsampaio/
+      - icon: rss
+        href: index.xml
     background: "#0d0c1d"  # background color
     foreground: "#EFE7E0"  # text (link) color
+  comments:
+    giscus:
+      category: "Announcements"
+      repo: franciscoabsampaio/.github
+      loading: lazy
+      mapping: pathname
+      theme: catppuccin_latte
   page-footer:
-    left: "© 2025 Francisco A. B. Sampaio"
+    left: "© 2026 Francisco A. B. Sampaio"
     right: "Built with [Quarto](https://quarto.org)"
 
 format:
   html:
+    include-in-header:
+      - mailerlite.html
     theme:
       - lux
       - styles.scss
