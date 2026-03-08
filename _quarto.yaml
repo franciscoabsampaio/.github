@@ -6,9 +6,11 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - portfolio.qmd
     - blog.qmd
     - blog/**/index.qmd
+    - portfolio.qmd
+    - the-loss-of-nuance.qmd
+    - gallery.ejs
 
 website:
   title: "Francisco A. B. Sampaio"
@@ -18,10 +20,12 @@ website:
   favicon: images/favicon.ico
   navbar:
     left:
-      - href: portfolio.qmd
-        text: Portfolio
       - href: blog.qmd
         text: Blog
+      - href: portfolio.qmd
+        text: Portfolio
+      - href: the-loss-of-nuance.qmd
+        text: The Loss of Nuance
     right:
       - icon: github
         href: https://github.com/franciscoabsampaio/

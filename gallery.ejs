@@ -1,0 +1,32 @@
+<div class="masonry-container">
+<% for (const item of items) { %>
+<div class="masonry-item">
+<a href="<%= item.path %>" class="lightbox" data-gallery="my-gallery" title="<%= item.description || '' %>">
+<img src="<%= item.path %>" loading="lazy" alt="<%= item.description || '' %>">
+</a>
+</div>
+<% } %>
+</div>
+
+<style>
+.masonry-container {
+  column-count: 3;
+  column-gap: 1em;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1em;
+}
+.masonry-item img {
+  width: 100%;
+  border-radius: 5px;
+  display: block;
+}
+/* Responsive columns */
+@media (max-width: 768px) {
+  .masonry-container { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .masonry-container { column-count: 1; }
+}
+</style>
