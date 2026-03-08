@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Blog – Francisco A. B. Sampaio</title>
+<title>The Loss of Nuance – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,20 +74,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-the-loss-of-nuance .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-filename','listing-file-modified',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-filename","listing-file-modified"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-the-loss-of-nuance'] = new List('listing-the-loss-of-nuance', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -140,7 +140,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="alternate" type="application/rss+xml" title="Francisco A. B. Sampaio" href="blog.xml" data-external="1"></head>
+</head>
 
 <body class="nav-fixed quarto-light">
 
@@ -160,7 +160,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="./blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
@@ -168,7 +168,7 @@ window.Quarto = {
 <span class="menu-text">Portfolio</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./the-loss-of-nuance.html"> 
+    <a class="nav-link active" href="./the-loss-of-nuance.html" aria-current="page"> 
 <span class="menu-text">The Loss of Nuance</span></a>
   </li>  
 </ul>
@@ -201,23 +201,23 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="ZGF0YQ==">data <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGF0YWJhc2U=">database <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVsdGE=">delta <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZG9ja2Vy">docker <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGxt">llm <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWlncmF0aW9u">migration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmxw">nlp <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cnVzdA==">rust <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3Bhcms=">spark <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3Fs">sql <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHJhbnNmb3JtZXI=">transformer <span class="quarto-category-count">(1)</span></div></div></div>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">The Loss of Nuance</h1>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -229,147 +229,45 @@ window.Quarto = {
 </header>
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="c3FsJTJDbWlncmF0aW9uJTJDZGF0YWJhc2UlMkNweXRob24=" data-listing-date-sort="1771113600000" data-listing-file-modified-sort="1771172246950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="730">
-<div class="thumbnail"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/swellow-0.2.0/images/image.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">Announcing Swellow v0.2.0: The SQL-First Migration Tool</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Fs'); return false;">sql</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWlncmF0aW9u'); return false;">migration</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YWJhc2U='); return false;">database</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<p>SQL-first migrations</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<div class="listing-date">
-Feb 15, 2026
-</div>
-</a>
+<p>From political polarization down to the very content we consume, I’m a firm believer that we as a society are gradually losing our ability not only to appreciate nuance, but to understand it. It is as if the entire universe of our experience is being flattened into the obvious - while the details that give it nuance quietly disappear.</p>
+<p>Everything is taken at face value, and all new ideas are incapable of escaping the surface-level. It could very well be entropy at work: do we have to trade away our souls as we reach the technological singularity?</p>
+<p>Then why nuance? Why not depth, complexity, density, detail? I’d argue because it is not just an anatomical property of reality, but a reflection of how we see it.</p>
+<p>Thus, this gallery is my attempt to document that phenomenon. Through these images, I try to show not only this loss of nuance, but also how it reveals itself even in places where it shouldn’t exist.</p>
+<div id="listing-the-loss-of-nuance" class="quarto-listing quarto-listing-container-custom">
+<div class="masonry-container">
+<div class="masonry-item">
+<p><a href="./images/gallery/property_of_allah.png" class="lightbox" data-gallery="my-gallery" title=""> <img src="./images/gallery/property_of_allah.png" loading="lazy" alt=""> </a></p>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="cnVzdCUyQ3NwYXJrJTJDZGF0YQ==" data-listing-date-sort="1768003200000" data-listing-file-modified-sort="1768051385624" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="368">
-<div class="thumbnail"><a href="./blog/2026/spark-connect/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/spark-connect/images/banner.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">spark-connect: A Spark Connect Client for the Rust ecosystem</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cnVzdA=='); return false;">rust</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YQ=='); return false;">data</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/spark-connect/index.html" class="no-external">
-<p>An idiomatic, SQL-first Rust client for Apache Spark</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Jan 10, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="c3BhcmslMkNkZWx0YSUyQ2RvY2tlcg==" data-listing-date-sort="1761174000000" data-listing-file-modified-sort="1768043184228" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="910">
-<div class="thumbnail"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2025/tutorial-spark-connect/docker_whale.webp" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">Tutorial: Reproducible Spark+Delta Tests Without the Hassle</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGVsdGE='); return false;">delta</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZG9ja2Vy'); return false;">docker</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<p>Find how to easily test against Spark+Delta catalogs with this new Docker container</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Oct 23, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="dHJhbnNmb3JtZXIlMkNsbG0lMkNubHA=" data-listing-date-sort="1748732400000" data-listing-file-modified-sort="1768043139092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1123">
-<div class="thumbnail"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-
-<p class="card-img-top"><img src="blog/2025/transformers-maketh-llms/images/neural_network.png" title="Neural network" class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">Transformers Maketh LLMs</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('dHJhbnNmb3JtZXI='); return false;">transformer</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGxt'); return false;">llm</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmxw'); return false;">nlp</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<p>A non-technical introduction to Large Language Models</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<div class="listing-date">
-Jun 1, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
+<style>
+.masonry-container {
+  column-count: 3;
+  column-gap: 1em;
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1em;
+}
+.masonry-item img {
+  width: 100%;
+  border-radius: 5px;
+  display: block;
+}
+/* Responsive columns */
+@media (max-width: 768px) {
+  .masonry-container { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .masonry-container { column-count: 1; }
+}
+</style>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
