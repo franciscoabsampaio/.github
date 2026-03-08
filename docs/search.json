@@ -49,6 +49,48 @@
     "text": "What’s Next for You?\n\nGetting Started: Get started with swellow by following our getting started guide.\nLearn By Example: Explore our examples directory to see swellow in action.\nCommunity Contributions: We welcome contributions from the community! Check out our GitHub repository to get involved."
   },
   {
+    "objectID": "blog/2025/tutorial-spark-connect/index.html",
+    "href": "blog/2025/tutorial-spark-connect/index.html",
+    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
+    "section": "",
+    "text": "Pre-requisite: if you’re not familiar with Docker, I recommend you follow the official introductory guide.\nSetting up a Spark instance can be quite the hassle. Add a data catalog like Delta or Apache Iceberg, and the complexity blows up!\nBut testing catalog-specific queries against a Spark instance should be easy. And, if you’re an automation nerd like myself, it should be reproducible, as well.\nUnfortunately, the traditional method of installing the OpenJDK, JVM, Spark drivers, Hive plugins, Delta jars is anything but easy, let alone reproducible (As a matter of fact, on the eve of publishing this article, the Live Notebooks on PySpark’s official quickstart page failed to launch due to a bug downloading OpenJDK… 😅).\nFaced with this problem, I decided to take matters into my own hands — and published a Docker Hub repository for running Spark Connect servers!"
+  },
+  {
+    "objectID": "blog/2025/tutorial-spark-connect/index.html#spark-connect",
+    "href": "blog/2025/tutorial-spark-connect/index.html#spark-connect",
+    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
+    "section": "Spark Connect",
+    "text": "Spark Connect\nSpark Connect is Apache’s newest gRPC protocol for Apache Spark. It lets any client that implements the Spark Connect protocol to connect to a Spark Server, and execute workloads seamlessly.\nWhat this Docker container does is take care of all the setup for launching a Spark instance with Spark Connect server, to make the development experience as smooth as possible."
+  },
+  {
+    "objectID": "blog/2025/tutorial-spark-connect/index.html#running-the-container",
+    "href": "blog/2025/tutorial-spark-connect/index.html#running-the-container",
+    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
+    "section": "Running the Container",
+    "text": "Running the Container\nRunning it is as straight-forward as any other container. Simply:\ndocker run -p 15002:15002 franciscoabsampaio/spark-connect-server:delta\nWe use the “delta” tag if we wish to spin the server with a Delta catalog, and the “iceberg” tag for the Iceberg catalog.\nThe docker run command will pull the image, and start it, resulting in a generous slew of logs, ending with a message akin to “Spark Connect server started at 0.0.0.0:15002” — letting us know that the Spark instance is LIVE and ready to accept connections.\nNow, connecting to it in PySpark is as easy as:\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .remote(\"sc://localhost:15002\") \\\n    .getOrCreate()\n\n# A simple check:\ndf = spark.sql(f\"SELECT 1 AS id\")\nrows = df.collect()\n\nprint(rows)\n\nNote: You may have to install Python packages grpcio, grpcio-status and protobuf for pyspark to connect successfully.\n\nThe Spark session is ON and completely functional for all you development needs."
+  },
+  {
+    "objectID": "blog/2025/tutorial-spark-connect/index.html#reproducible-tests",
+    "href": "blog/2025/tutorial-spark-connect/index.html#reproducible-tests",
+    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
+    "section": "Reproducible Tests",
+    "text": "Reproducible Tests\nIf you’d like to take things a step further, we can manage the Spark server’s lifecycle entirely in our test suite, ensuring reproducible, specified-in-code, end-to-end dependencies.\nTo do so, we can create a pytest fixture, which is essentially a reusable resource for tests!\nimport docker\n# You can use testcontainers instead of the docker package\n# but I find it a bit bloated and buggy\n# when working with custom images.\n# The docker package is what testcontainers uses\n# behind the scenes, and I find it more consistent.\nimport pytest\nimport time\n\n\n# Utility function:\n# Once the container has produced the desired message, return.\ndef wait_for_log(container, message, timeout=30):\n    start = time.time()\n    while True:\n        logs = container.logs().decode(\"utf-8\")\n        if message in logs:\n            return\n        if time.time() - start &gt; timeout:\n            raise TimeoutError(f\"Message '{message}' not found in logs\")\n        time.sleep(0.5)\n\n\n# The default scope is function,\n# which means the fixture is created and destroyed every test.\n@pytest.fixture(scope=\"function\")\ndef spark_connect_server_url():\n    docker_client = docker.from_env()\n\n    # Let's run a Spark Connect server with a Delta catalog!\n    container = docker_client.containers.run(\n        image=\"franciscoabsampaio/spark-connect-server:delta\",\n        detach=True,\n        ports={'15002/tcp': 15002}\n    )\n    wait_for_log(container, message=\"Spark Connect server started\")\n\n    # Pass the connection string to whoever is using the fixture.\n    yield \"sc://localhost:15002\"\n\n    # Cleanup\n    container.stop()\nNow, we can simply pass the fixture to whichever test requires a running Spark Connect server. For example:\ndef test_basic_read(spark_connect_server_url):  # Use the fixture\n    spark = SparkSession.builder \\\n        .remote(spark_connect_server_url) \\\n        .getOrCreate()\n\n    table_name = \"test_table\"\n\n    # CREATE TABLE USING DELTA\n    spark.sql(f\"\"\"\n        CREATE TABLE {table_name} (\n            id INT,\n            name STRING\n        )\n        USING DELTA\n    \"\"\")\n\n    # INSERT INTO TABLE\n    spark.sql(f\"INSERT INTO {table_name} VALUES (1, 'bird'), (2, 'spark')\")\n\n    # SELECT * FROM TABLE\n    df = spark.sql(f\"SELECT * FROM {table_name} ORDER BY id\")\n    rows = df.collect()\n\n    # Test conditions\n    assert len(rows) == 2\n    assert rows[0][\"id\"] == 1\n    assert rows[0][\"name\"] == \"bird\"\nThe yield statement locks the fixture execution until the test finishes — at which point the cleanup code is executed.\n\nAnd that’s it — you now have a fully reproducible, containerized Spark + Delta test setup, ready to integrate into any CI/CD pipeline or local test suite.\nYou can find the container on Docker Hub: 👉 franciscoabsampaio/spark-connect-server\nIf this saved you time (or frustration), give it a ⭐️ on GitHub or share it with your team — and let me know what feature you’d like supported next!\nHappy testing! 🚀"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Announcing Swellow v0.2.0: The SQL-First Migration Tool\n\n\n\nsql\n\nmigration\n\ndatabase\n\npython\n\n\n\nSQL-first migrations\n\n\n\n\n\nFeb 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nspark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hi, I’m Francisco!",
+    "section": "",
+    "text": "I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
+  },
+  {
     "objectID": "blog/2025/transformers-maketh-llms/index.html",
     "href": "blog/2025/transformers-maketh-llms/index.html",
     "title": "Transformers Maketh LLMs",
@@ -96,48 +138,6 @@
     "title": "Transformers Maketh LLMs",
     "section": "Next steps",
     "text": "Next steps\nMy future posts are likely to be more technical - so for the non-technical readers, I’m thankful you’ve paid attention. From here, I will take things up a notch, and attempt to build a BIG (1B+ parameter) model, comparable in size to GPT-2. Much smaller than what we’ve gotten used to (the original ChatGPT was 175B parameters, and the latest models are estimated to be in the trillions!), but big enough to give me a few headaches!\nAs you can imagine, this is a completely different beast, that will require budgeting (training costs €€€ 💸), distributed compute (🥳), a lot of preliminary testing, and a few dozen academic papers.\nSee you soon!"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Hi, I’m Francisco!",
-    "section": "",
-    "text": "I’m a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.\nThis website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!"
-  },
-  {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Announcing Swellow v0.2.0: The SQL-First Migration Tool\n\n\n\nsql\n\nmigration\n\ndatabase\n\npython\n\n\n\nSQL-first migrations\n\n\n\n\n\nFeb 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nspark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "blog/2025/tutorial-spark-connect/index.html",
-    "href": "blog/2025/tutorial-spark-connect/index.html",
-    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
-    "section": "",
-    "text": "Pre-requisite: if you’re not familiar with Docker, I recommend you follow the official introductory guide.\nSetting up a Spark instance can be quite the hassle. Add a data catalog like Delta or Apache Iceberg, and the complexity blows up!\nBut testing catalog-specific queries against a Spark instance should be easy. And, if you’re an automation nerd like myself, it should be reproducible, as well.\nUnfortunately, the traditional method of installing the OpenJDK, JVM, Spark drivers, Hive plugins, Delta jars is anything but easy, let alone reproducible (As a matter of fact, on the eve of publishing this article, the Live Notebooks on PySpark’s official quickstart page failed to launch due to a bug downloading OpenJDK… 😅).\nFaced with this problem, I decided to take matters into my own hands — and published a Docker Hub repository for running Spark Connect servers!"
-  },
-  {
-    "objectID": "blog/2025/tutorial-spark-connect/index.html#spark-connect",
-    "href": "blog/2025/tutorial-spark-connect/index.html#spark-connect",
-    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
-    "section": "Spark Connect",
-    "text": "Spark Connect\nSpark Connect is Apache’s newest gRPC protocol for Apache Spark. It lets any client that implements the Spark Connect protocol to connect to a Spark Server, and execute workloads seamlessly.\nWhat this Docker container does is take care of all the setup for launching a Spark instance with Spark Connect server, to make the development experience as smooth as possible."
-  },
-  {
-    "objectID": "blog/2025/tutorial-spark-connect/index.html#running-the-container",
-    "href": "blog/2025/tutorial-spark-connect/index.html#running-the-container",
-    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
-    "section": "Running the Container",
-    "text": "Running the Container\nRunning it is as straight-forward as any other container. Simply:\ndocker run -p 15002:15002 franciscoabsampaio/spark-connect-server:delta\nWe use the “delta” tag if we wish to spin the server with a Delta catalog, and the “iceberg” tag for the Iceberg catalog.\nThe docker run command will pull the image, and start it, resulting in a generous slew of logs, ending with a message akin to “Spark Connect server started at 0.0.0.0:15002” — letting us know that the Spark instance is LIVE and ready to accept connections.\nNow, connecting to it in PySpark is as easy as:\nfrom pyspark.sql import SparkSession\n\nspark = SparkSession.builder \\\n    .remote(\"sc://localhost:15002\") \\\n    .getOrCreate()\n\n# A simple check:\ndf = spark.sql(f\"SELECT 1 AS id\")\nrows = df.collect()\n\nprint(rows)\n\nNote: You may have to install Python packages grpcio, grpcio-status and protobuf for pyspark to connect successfully.\n\nThe Spark session is ON and completely functional for all you development needs."
-  },
-  {
-    "objectID": "blog/2025/tutorial-spark-connect/index.html#reproducible-tests",
-    "href": "blog/2025/tutorial-spark-connect/index.html#reproducible-tests",
-    "title": "Tutorial: Reproducible Spark+Delta Tests Without the Hassle",
-    "section": "Reproducible Tests",
-    "text": "Reproducible Tests\nIf you’d like to take things a step further, we can manage the Spark server’s lifecycle entirely in our test suite, ensuring reproducible, specified-in-code, end-to-end dependencies.\nTo do so, we can create a pytest fixture, which is essentially a reusable resource for tests!\nimport docker\n# You can use testcontainers instead of the docker package\n# but I find it a bit bloated and buggy\n# when working with custom images.\n# The docker package is what testcontainers uses\n# behind the scenes, and I find it more consistent.\nimport pytest\nimport time\n\n\n# Utility function:\n# Once the container has produced the desired message, return.\ndef wait_for_log(container, message, timeout=30):\n    start = time.time()\n    while True:\n        logs = container.logs().decode(\"utf-8\")\n        if message in logs:\n            return\n        if time.time() - start &gt; timeout:\n            raise TimeoutError(f\"Message '{message}' not found in logs\")\n        time.sleep(0.5)\n\n\n# The default scope is function,\n# which means the fixture is created and destroyed every test.\n@pytest.fixture(scope=\"function\")\ndef spark_connect_server_url():\n    docker_client = docker.from_env()\n\n    # Let's run a Spark Connect server with a Delta catalog!\n    container = docker_client.containers.run(\n        image=\"franciscoabsampaio/spark-connect-server:delta\",\n        detach=True,\n        ports={'15002/tcp': 15002}\n    )\n    wait_for_log(container, message=\"Spark Connect server started\")\n\n    # Pass the connection string to whoever is using the fixture.\n    yield \"sc://localhost:15002\"\n\n    # Cleanup\n    container.stop()\nNow, we can simply pass the fixture to whichever test requires a running Spark Connect server. For example:\ndef test_basic_read(spark_connect_server_url):  # Use the fixture\n    spark = SparkSession.builder \\\n        .remote(spark_connect_server_url) \\\n        .getOrCreate()\n\n    table_name = \"test_table\"\n\n    # CREATE TABLE USING DELTA\n    spark.sql(f\"\"\"\n        CREATE TABLE {table_name} (\n            id INT,\n            name STRING\n        )\n        USING DELTA\n    \"\"\")\n\n    # INSERT INTO TABLE\n    spark.sql(f\"INSERT INTO {table_name} VALUES (1, 'bird'), (2, 'spark')\")\n\n    # SELECT * FROM TABLE\n    df = spark.sql(f\"SELECT * FROM {table_name} ORDER BY id\")\n    rows = df.collect()\n\n    # Test conditions\n    assert len(rows) == 2\n    assert rows[0][\"id\"] == 1\n    assert rows[0][\"name\"] == \"bird\"\nThe yield statement locks the fixture execution until the test finishes — at which point the cleanup code is executed.\n\nAnd that’s it — you now have a fully reproducible, containerized Spark + Delta test setup, ready to integrate into any CI/CD pipeline or local test suite.\nYou can find the container on Docker Hub: 👉 franciscoabsampaio/spark-connect-server\nIf this saved you time (or frustration), give it a ⭐️ on GitHub or share it with your team — and let me know what feature you’d like supported next!\nHappy testing! 🚀"
   },
   {
     "objectID": "blog/2026/spark-connect/index.html",

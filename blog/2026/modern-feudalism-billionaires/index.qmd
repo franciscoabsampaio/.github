@@ -4,6 +4,7 @@ description: "In this new series of blog posts, I start by exploring why extreme
 date: 2026-02-28
 categories: [economy, feudalism, social, politics]
 image: images/image.jpg
+draft: true
 ---
 
 ![Take flight with `swellow`!](images/image.jpg)
