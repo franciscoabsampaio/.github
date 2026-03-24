@@ -1,0 +1,8 @@
+---
+title: "Enshittification: A Localized Phenomenon or The Symptom of a Late Business Cycle?"
+description: ""
+date: 2026-02-28
+categories: [economy, social, business, enshittification]
+image: images/image.jpg
+draft: true
+---

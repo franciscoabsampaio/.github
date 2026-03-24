@@ -91,13 +91,6 @@
     "text": "Next steps\nMy future posts are likely to be more technical - so for the non-technical readers, I’m thankful you’ve paid attention. From here, I will take things up a notch, and attempt to build a BIG (1B+ parameter) model, comparable in size to GPT-2. Much smaller than what we’ve gotten used to (the original ChatGPT was 175B parameters, and the latest models are estimated to be in the trillions!), but big enough to give me a few headaches!\nAs you can imagine, this is a completely different beast, that will require budgeting (training costs €€€ 💸), distributed compute (🥳), a lot of preliminary testing, and a few dozen academic papers.\nSee you soon!"
   },
   {
-    "objectID": "portfolio.html",
-    "href": "portfolio.html",
-    "title": "Portfolio",
-    "section": "",
-    "text": "🏗️ This page is under construction!"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hi, I’m Francisco!",
@@ -166,5 +159,12 @@
     "title": "spark-connect: A Spark Connect Client for the Rust ecosystem",
     "section": "Closing Thoughts",
     "text": "Closing Thoughts\nI’m excited to share spark-connect with the Rust community and hope it makes working with Spark both simpler, more reliable and idiomatic. My goal has been to provide a client that is easy to understand, maintain, and extend, while supporting Rust async patterns and SQL-first workflows.\nI’d love to hear your feedback, see what you build with it, or collaborate on improving it further. You can check out the crate and get started here:\n\nGitHub repository\nCrates.io"
+  },
+  {
+    "objectID": "portfolio.html",
+    "href": "portfolio.html",
+    "title": "Portfolio",
+    "section": "",
+    "text": "🏗️ This page is under construction!"
   }
 ]

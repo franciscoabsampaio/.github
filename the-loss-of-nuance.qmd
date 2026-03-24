@@ -1,0 +1,30 @@
+---
+title: "The Loss of Nuance"
+comments: false
+draft: true
+format:
+  html:
+    page-layout: full
+filters:
+  - lightbox
+lightbox: auto
+listing:
+  id: the-loss-of-nuance
+  template: gallery.ejs
+  contents:
+    - images/gallery/*.png
+  sort: "date desc"
+  type: custom
+---
+
+From political polarization down to the very content we consume, I'm a firm believer that we as a society are gradually losing our ability not only to appreciate nuance, but to understand it. It is as if the entire universe of our experience is being flattened into the obvious - while the details that give it nuance quietly disappear.
+
+Everything is taken at face value, and all new ideas are incapable of escaping the surface-level.
+It could very well be entropy at work: do we have to trade away our souls as we reach the technological singularity?
+
+Then why nuance? Why not depth, complexity, density, detail? I'd argue because it is not just an anatomical property of reality, but a reflection of how we see it.
+
+Thus, this gallery is my attempt to document that phenomenon. Through these images, I try to show not only this loss of nuance, but also how it reveals itself even in places where it shouldn't exist.
+
+::: {#the-loss-of-nuance}
+:::

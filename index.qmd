@@ -2,6 +2,7 @@
 title: "Hi, I'm Francisco!"
 comments: false
 toc: false
+image: images/profile.jpeg
 about:
     template: jolla
 ---

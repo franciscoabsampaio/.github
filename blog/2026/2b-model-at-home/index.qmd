@@ -8,16 +8,36 @@ execute:
   echo: true
   warning: false
   message: false
-jupyter: python3
 draft: true
 ---
 
-In this post we’ll do a quick exploration using Python and pandas.
+# List of strategies
 
-```{python}
-# Create sample data
-print(123)
-```
+- mixed precision
+- parameter partitioning (deepspeed)
+- cpu offloading (deepspeed)
+- activation checkpointing
+- gradient accumulation
+- flashattention2
+- contiguous gradients / overlap_comm / bucket sizes - tuning reduces fragmentation and OOM risk
+- Ugly numbers
+- skip connections from the embedding layer to each transformer block
+- initialize projection layers to 0
+- torch.compile
+
+## Memory Efficient Optimizers
+
+research memory efficient optimizers
+
+## Where Did All The Memory Go?
+
+If a 1.5B parameter model like GPT-2 only requires 3GB of memory for its weights in 16-bit precision, why can it not be trained in a 16GB GPU [@2020_zero]? It so happens that during model training, most of the memory is consumed by:
+
+- **Model states:** optimizer states, gradients, and parameters (weights). The popular Adam optimizer [@2014_adam], for example, requires storing two additional optimizer states besides the gradients and weights: the momentum and variance of the gradients. If using [mixed precision training](#mixed-precision), full-precision (FP32) master copies of all states, will also be kept - leading to a memory requirement of at least 24GB for our GPT-2 example [@2020_zero].
+- **Residual states:**
+  - **Activations:** In the GPT-2 example, a sequence length of 1K and a batch size of 32 requires roughly 60GB of memory in layer activations alone [@2020_zero];
+  - **Temporary buffers:** In [collective operations](https://en.wikipedia.org/wiki/Collective_operation) (e.g. all-reduce), parameters must be transferred between GPUs - this requires holding them in a buffer (often in full-precision) until released. These buffers can reach multi-GB sizes;
+  - **Memory fragmentation:** As the many threads in the GPU take turns occupying and vacating memory, contiguous blocks of available memory start becoming too small to be of use for any application, but large and abundant enough to severely impact memory allocation. This is called memory fragmentation, and can result in out-of-memory errors despite as much as 30% of the total memory still being available (but too fragmented to be of any use) [@2020_zero].
 
 ## Mixed Precision
 
@@ -111,8 +131,33 @@ A big problem with training is that the backward pass starts from the loss node 
 
 [This pebble game we're playing](https://en.wikipedia.org/wiki/Pebble_game) can get extremely complex (dynamic programming, tree decomposition, etc), but this much will suffice us.
 
-## Data Parallelism, Model Parallelism and Pipelining
+## Parallelism
 
-1. Data Parallelism
-2. Model Parallelism
-3. Pipelining
+- **Data parallelism:** model fits in memory, **data is partitioned** and processed in parallel.
+- **Model parallelism:** model does not fit in memory, and so it is **split vertically** - each layer is partitioned across GPUs. Data can also be partitioned, but mini-batches must be fed through all vertical slices of a layer, to ensure data consistency.
+- **Pipeline parallelism:** model does not fit in memory, and so it is **split horizontally**, with each GPU retaining a layer of the model. Mini-batches must be processed by all layers before the backward pass.
+- **Model partitioning:** the GPU cluster is used as a distributed storage system, where each GPU holds a shard of the model states (optimizer states and gradients). By default, model parameters (weights) are *not sharded* (model weights fit in memory), and data parallelism is also used - model states are communicated "just-in-time" for the next step.
+
+Whereas data, model, and pipeline parallelism can be thought of as *computational parallelism* (each GPU does a piece of the work), model partitioning is better described as *memory parallelism* (each GPU holds a piece of the working data).
+
+! devia incluir um desenhinho basico
+
+Even though Megatron-LM allowed the training of larger models, because it splits models vertically, collective operations are required in the forward and backward steps, in order to bring all vertical slices of a model's layer back together. This is acceptable for intra-node communication (e.g. in a compute server with multiple GPUs), but too large a penalty for inter-node communication (e.g. in a cluster with many compute servers).
+
+### ZeRO
+
+ZeRO uses data parallelism with model state partitioning, leveraging the dependencies between layers to minimize communication volume, maintaining it closer to that of a simple data parallelism scheme.
+
+ZeRO works perfectly together with activation checkpointing - the total partitioned state can be reduced even further by keeping only the necessary activation checkpoints.
+ZeRO partitions the activation checkpoints across GPUs, hiding the data movement cost behind the extreme arithmetic intensity intrinsic to large models (that is, because computations take a long time, communication can be done in parallel).
+When device memory is very limited, ZeRO can even move the activation partitions to the CPU, and still remain efficient.
+
+When it comes to collective operations (like all-reduce), if many small collective operations are required, communication will be extremely inefficient, with a lot of overhead. To solve this, many frameworks fuse as many operations as possible into a single, large operation, then communicate the results with a large collective operation - this results in massive speed gains, but the memory overhead becomes prohibitive as model size increases.
+
+The thing is communication doesn't *require* extremely large buffers - its the existing kernels that benefitted massively from using one massive block of contiguous memory. DeepSpeed addresses this by setting a constant-size buffer and reworking the optimizer kernels to efficiently handle the sharded buffers, achieving abundant memory gains.
+
+By exploiting its knowledge of the training loop, ZeRO pre-allocates contiguous blocks of memory for longer-lived objects (namely, activation checkpoints and gradients), effectively preventing fragmentation problems.
+
+One of the biggest advantages of deepspeed is its architectural agnosticism, that is, that it requires no changes to the model, and no knowledge of how the model works, as long as a computational graph exists (broadly speaking, which layers depend on which).
+
+This effectively makes DeepSpeed a drop-in replacement for most training arrangements.
