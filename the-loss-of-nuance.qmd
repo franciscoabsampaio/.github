@@ -1,6 +1,7 @@
 ---
 title: "The Loss of Nuance"
 comments: false
+draft: true
 format:
   html:
     page-layout: full
