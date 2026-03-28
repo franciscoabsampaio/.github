@@ -6,7 +6,7 @@ build:
 	git add docs
 	git commit -m "[Makefile] Build site"
 
-push:
+sync: build
 	git push origin main
 
 preview:
