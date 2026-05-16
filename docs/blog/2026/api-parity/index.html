@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-10">
+<meta name="dcterms.date" content="2026-05-16">
 <meta name="description" content="How do you know your port covers the API it’s mirroring?">
 
 <title>api-parity: A tool for tracking API coverage – Francisco A. B. Sampaio</title>
@@ -197,8 +197,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">api-parity: A tool for tracking API coverage</h1>
   <div class="quarto-categories">
     <div class="quarto-category">rust</div>
-    <div class="quarto-category">spark</div>
-    <div class="quarto-category">data</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">port</div>
   </div>
   </div>
 
@@ -215,7 +215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 10, 2026</p>
+      <p class="date">May 16, 2026</p>
     </div>
   </div>
   
@@ -233,7 +233,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>No, they’re not doing taxes - <a href="https://rustacean.net/">Ferris</a> and the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)#Naming">Monty Pythons</a> are comparing their APIs!</figcaption>
 </figure>
 </div>
-<p>How do you know your port covers the API it’s mirroring?</p>
 <p>If you’ve ever written a port of someone else’s library - a Rust client for a Python SDK, a TypeScript wrapper around a Go service, anything that promises “we mirror the upstream API” - you know the question that doesn’t go away: what’s actually covered? How far along is the port?</p>
 <p>The honest answer is usually “I’m not totally sure.” You start with a wishlist and a TODO file. The TODO file goes stale. Upstream releases a minor version, adds three methods, and you find out two months later when an issue lands. A reviewer asks “is this whole class done?” and the only way to answer is to grep both repos.</p>
 <p>I’ve been building <a href="https://www.franciscoabsampaio.com/blog/2026/spark-connect/"><code>spark-connect</code></a>, a Rust port of PySpark Connect, and ran into exactly this. You see, I needed a way to:</p>
