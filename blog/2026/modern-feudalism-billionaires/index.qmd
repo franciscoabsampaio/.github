@@ -7,8 +7,6 @@ image: images/image.jpg
 draft: true
 ---
 
-![Take flight with `swellow`!](images/image.jpg)
-
 ## O que traz o bilionário à mesa?
 
 ## A defesa do bilionário

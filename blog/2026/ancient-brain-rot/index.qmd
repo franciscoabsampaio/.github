@@ -1,0 +1,12 @@
+---
+title: "Ancient Brain Rot"
+description: ""
+date: 2026-02-28
+categories: [economy, social, business, enshittification]
+image: images/image.jpg
+draft: true
+---
+
+is brain rot a new thing?
+
+e.g. cantilenas antigas q são bem estúpidas
