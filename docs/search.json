@@ -42,6 +42,41 @@
     "text": "What’s Next for You?\n\nGetting Started: Get started with swellow by following our getting started guide.\nLearn By Example: Explore our examples directory to see swellow in action.\nCommunity Contributions: We welcome contributions from the community! Check out our GitHub repository to get involved."
   },
   {
+    "objectID": "blog/2026/api-parity/index.html",
+    "href": "blog/2026/api-parity/index.html",
+    "title": "api-parity: A tool for tracking API coverage",
+    "section": "",
+    "text": "No, they’re not doing taxes - Ferris and the Monty Pythons are comparing their APIs!\nHow do you know your port covers the API it’s mirroring?\nIf you’ve ever written a port of someone else’s library - a Rust client for a Python SDK, a TypeScript wrapper around a Go service, anything that promises “we mirror the upstream API” - you know the question that doesn’t go away: what’s actually covered? How far along is the port?\nThe honest answer is usually “I’m not totally sure.” You start with a wishlist and a TODO file. The TODO file goes stale. Upstream releases a minor version, adds three methods, and you find out two months later when an issue lands. A reviewer asks “is this whole class done?” and the only way to answer is to grep both repos.\nI’ve been building spark-connect, a Rust port of PySpark Connect, and ran into exactly this. You see, I needed a way to:\nRather than hard-code that into the Spark project, I lifted it out into a general-purpose tool: api-parity."
+  },
+  {
+    "objectID": "blog/2026/api-parity/index.html#how-it-works",
+    "href": "blog/2026/api-parity/index.html#how-it-works",
+    "title": "api-parity: A tool for tracking API coverage",
+    "section": "How it works",
+    "text": "How it works\nAt the time of writing, api-parity is three pieces:\n\nA language-agnostic differ: It eats two JSON files and produces a markdown report: per-class coverage, stale port entries (typos, removed APIs, drift), per-method status.\nA Python plugin - walks any Python package via inspect.getmembers and emits the public surface as JSON. Also ships decorators (@parity, @parity_impl) so a Python port can be annotated in code.\nA Rust plugin - ships attribute macros (#[parity], #[parity_impl]) for annotating a Rust port. Optionally ships a walker (behind a walker Cargo feature) that shells out to cargo +nightly rustdoc --output-format json and parses with public-api, so you can also use a Rust crate as the reference side.\n\nThe plugins talk to the differ over JSON - there’s no shared in-process API. That makes adding a new language a matter of writing a plugin, not patching the core."
+  },
+  {
+    "objectID": "blog/2026/api-parity/index.html#the-four-direction-trick",
+    "href": "blog/2026/api-parity/index.html#the-four-direction-trick",
+    "title": "api-parity: A tool for tracking API coverage",
+    "section": "The four-direction trick",
+    "text": "The four-direction trick\nEach plugin makes two orthogonal choices:\n\nkind: is this envelope the reference (truth) or the port (claims)?\nmode: how are the entries produced - by walking the public API surface, or by collecting annotations attached to code?\n\nThese are independent. So you get four combinations per side, and across two plugins, four cross-language directions:\n\n\n\n\n\n\n\n\nX\npy REFERENCE\nrs REFERENCE\n\n\n\n\npy PORT\npy library vs another py library\nrs crate → py port\n\n\nrs PORT\npy library → rs crate (e.g. PySpark → Rust)\nrs library vs another rs library\n\n\n\nThe default mapping (reference → walker, port → annotation) covers the common case: you can’t annotate the upstream library (you don’t own it), and you do want to annotate your port (because the status - implemented, partial, unimplemented - is opinion, not fact). But all four cells work end-to-end."
+  },
+  {
+    "objectID": "blog/2026/api-parity/index.html#what-it-looks-like",
+    "href": "blog/2026/api-parity/index.html#what-it-looks-like",
+    "title": "api-parity: A tool for tracking API coverage",
+    "section": "What it looks like",
+    "text": "What it looks like\nIn a Rust port:\n#[parity_impl(path = \"pyspark.sql.session.SparkSession\", status = Implemented)]\nimpl SparkSession {\n    #[parity(path = \".sql\", status = Implemented, since = \"3.4\")]\n    pub fn sql(&self, q: &str) -&gt; Result&lt;DataFrame, SparkError&gt; { /* ... */ }\n\n    #[parity(path = \".stop\", status = Unimplemented, comment = \"no shutdown hook yet\")]\n    pub fn stop(&self) -&gt; Result&lt;(), SparkError&gt; { unimplemented!() }\n}\nThen:\napi-parity-py reference pyspark.sql.connect -o ref.json\napi-parity-rs port      path/to/my-crate    -o port.json\napi-parity   compare    ref.json port.json  -o report.md\nreport.md tells you exactly where you stand: a coverage percentage per class, a list of stale port entries that no longer match any upstream path, and the status / comment you wrote for each method."
+  },
+  {
+    "objectID": "blog/2026/api-parity/index.html#check-it-out",
+    "href": "blog/2026/api-parity/index.html#check-it-out",
+    "title": "api-parity: A tool for tracking API coverage",
+    "section": "Check it out!",
+    "text": "Check it out!\nThe repo is on GitHub. v0.0.2 ships all four directions. Issues and PRs welcome - especially plugins for other languages."
+  },
+  {
     "objectID": "blog/2025/transformers-maketh-llms/index.html",
     "href": "blog/2025/transformers-maketh-llms/index.html",
     "title": "Transformers Maketh LLMs",
@@ -102,7 +137,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Announcing Swellow v0.2.0: The SQL-First Migration Tool\n\n\n\nsql\n\nmigration\n\ndatabase\n\npython\n\n\n\nSQL-first migrations\n\n\n\n\n\nFeb 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nspark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
+    "text": "Announcing Swellow v0.2.0: The SQL-First Migration Tool\n\n\n\nsql\n\nmigration\n\ndatabase\n\npython\n\n\n\nSQL-first migrations\n\n\n\n\n\nFeb 15, 2026\n\n\n\n\n\n\n\n\n\n\n\n\napi-parity: A tool for tracking API coverage\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nHow do you know your port covers the API it’s mirroring?\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nspark-connect: A Spark Connect Client for the Rust ecosystem\n\n\n\nrust\n\nspark\n\ndata\n\n\n\nAn idiomatic, SQL-first Rust client for Apache Spark\n\n\n\n\n\nJan 10, 2026\n\n\n\n\n\n\n\n\n\n\n\n\nTutorial: Reproducible Spark+Delta Tests Without the Hassle\n\n\n\nspark\n\ndelta\n\ndocker\n\n\n\nFind how to easily test against Spark+Delta catalogs with this new Docker container\n\n\n\n\n\nOct 23, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nTransformers Maketh LLMs\n\n\n\ntransformer\n\nllm\n\nnlp\n\n\n\nA non-technical introduction to Large Language Models\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/2025/tutorial-spark-connect/index.html",

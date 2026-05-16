@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-01-10">
+<meta name="description" content="How do you know your port covers the API it’s mirroring?">
 
-<title>Blog – Francisco A. B. Sampaio</title>
+<title>api-parity: A tool for tracking API coverage – Francisco A. B. Sampaio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicon.ico" rel="icon">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,35 +106,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <!-- MailerLite Universal -->
 <script>
     (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
@@ -110,37 +116,8 @@ ul.task-list li input[type="checkbox"] {
 </script>
 <!-- End MailerLite Universal -->
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="alternate" type="application/rss+xml" title="Francisco A. B. Sampaio" href="blog.xml" data-external="1"></head>
+</head>
 
 <body class="nav-fixed quarto-light">
 
@@ -149,7 +126,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">Francisco A. B. Sampaio</span>
     </a>
   </div>
@@ -160,11 +137,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./portfolio.html"> 
+    <a class="nav-link" href="../../../portfolio.html"> 
 <span class="menu-text">Portfolio</span></a>
   </li>  
 </ul>
@@ -185,7 +162,7 @@ window.Quarto = {
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -201,21 +178,46 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(5)</span></div><div class="category" data-category="ZGF0YQ==">data <span class="quarto-category-count">(2)</span></div><div class="category" data-category="ZGF0YWJhc2U=">database <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZGVsdGE=">delta <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZG9ja2Vy">docker <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGxt">llm <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWlncmF0aW9u">migration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bmxw">nlp <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHl0aG9u">python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cnVzdA==">rust <span class="quarto-category-count">(2)</span></div><div class="category" data-category="c3Bhcms=">spark <span class="quarto-category-count">(3)</span></div><div class="category" data-category="c3Fs">sql <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dHJhbnNmb3JtZXI=">transformer <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link active" data-scroll-target="#how-it-works">How it works</a></li>
+  <li><a href="#the-four-direction-trick" id="toc-the-four-direction-trick" class="nav-link" data-scroll-target="#the-four-direction-trick">The four-direction trick</a></li>
+  <li><a href="#what-it-looks-like" id="toc-what-it-looks-like" class="nav-link" data-scroll-target="#what-it-looks-like">What it looks like</a></li>
+  <li><a href="#check-it-out" id="toc-check-it-out" class="nav-link" data-scroll-target="#check-it-out">Check it out!</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<h1 class="title">api-parity: A tool for tracking API coverage</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">rust</div>
+    <div class="quarto-category">spark</div>
+    <div class="quarto-category">data</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    How do you know your port covers the API it’s mirroring?
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 10, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -225,178 +227,93 @@ window.Quarto = {
 </header>
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/banner.png" class="img-fluid figure-img"></p>
+<figcaption>No, they’re not doing taxes - <a href="https://rustacean.net/">Ferris</a> and the <a href="https://en.wikipedia.org/wiki/Python_(programming_language)#Naming">Monty Pythons</a> are comparing their APIs!</figcaption>
+</figure>
 </div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="c3FsJTJDbWlncmF0aW9uJTJDZGF0YWJhc2UlMkNweXRob24=" data-listing-date-sort="1771113600000" data-listing-file-modified-sort="1771172246950" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="730">
-<div class="thumbnail"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/swellow-0.2.0/images/image.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">Announcing Swellow v0.2.0: The SQL-First Migration Tool</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Fs'); return false;">sql</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bWlncmF0aW9u'); return false;">migration</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YWJhc2U='); return false;">database</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('cHl0aG9u'); return false;">python</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<p>SQL-first migrations</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/swellow-0.2.0/index.html" class="no-external">
-<div class="listing-date">
-Feb 15, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="cnVzdCUyQ3NwYXJrJTJDZGF0YQ==" data-listing-date-sort="1768003200000" data-listing-file-modified-sort="1778938200414" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="637">
-<div class="thumbnail"><a href="./blog/2026/api-parity/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2026/api-parity/images/banner.png" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/api-parity/index.html" class="no-external">api-parity: A tool for tracking API coverage</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('cnVzdA=='); return false;">rust</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YQ=='); return false;">data</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/api-parity/index.html" class="no-external">
 <p>How do you know your port covers the API it’s mirroring?</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/api-parity/index.html" class="no-external">
-<div class="listing-date">
-Jan 10, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="cnVzdCUyQ3NwYXJrJTJDZGF0YQ==" data-listing-date-sort="1768003200000" data-listing-file-modified-sort="1768051385624" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="368">
-<div class="thumbnail"><a href="./blog/2026/spark-connect/index.html" class="no-external">
+<p>If you’ve ever written a port of someone else’s library - a Rust client for a Python SDK, a TypeScript wrapper around a Go service, anything that promises “we mirror the upstream API” - you know the question that doesn’t go away: what’s actually covered? How far along is the port?</p>
+<p>The honest answer is usually “I’m not totally sure.” You start with a wishlist and a TODO file. The TODO file goes stale. Upstream releases a minor version, adds three methods, and you find out two months later when an issue lands. A reviewer asks “is this whole class done?” and the only way to answer is to grep both repos.</p>
+<p>I’ve been building <a href="https://www.franciscoabsampaio.com/blog/2026/spark-connect/"><code>spark-connect</code></a>, a Rust port of PySpark Connect, and ran into exactly this. You see, I needed a way to:</p>
+<ol type="1">
+<li>Enumerate what exists on the upstream side (a reference).</li>
+<li>Enumerate what the port claims to mirror (a port).</li>
+<li>Diff the two, with status and ownership commentary on every covered method.</li>
+</ol>
+<p>Rather than hard-code that into the Spark project, I lifted it out into a general-purpose tool: <a href="https://github.com/franciscoabsampaio/api-parity"><code>api-parity</code></a>.</p>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
+<p>At the time of writing, <code>api-parity</code> is three pieces:</p>
+<ul>
+<li><strong>A language-agnostic differ:</strong> It eats two JSON files and produces a markdown report: per-class coverage, stale port entries (typos, removed APIs, drift), per-method status.</li>
+<li><strong>A Python plugin</strong> - walks any Python package via <code>inspect.getmembers</code> and emits the public surface as JSON. Also ships decorators (<code>@parity</code>, <code>@parity_impl</code>) so a Python port can be annotated in code.</li>
+<li><strong>A Rust plugin</strong> - ships attribute macros (<code>#[parity]</code>, <code>#[parity_impl]</code>) for annotating a Rust port. Optionally ships a walker (behind a walker Cargo feature) that shells out to <code>cargo +nightly rustdoc --output-format json</code> and parses with <a href="https://github.com/cargo-public-api/cargo-public-api"><code>public-api</code></a>, so you can also use a Rust crate as the reference side.</li>
+</ul>
+<p>The plugins talk to the differ over JSON - there’s no shared in-process API. That makes adding a new language a matter of writing a plugin, not patching the core.</p>
+</section>
+<section id="the-four-direction-trick" class="level2">
+<h2 class="anchored" data-anchor-id="the-four-direction-trick">The four-direction trick</h2>
+<p>Each plugin makes two orthogonal choices:</p>
+<ul>
+<li><code>kind</code>: is this envelope the reference (truth) or the port (claims)?</li>
+<li><code>mode</code>: how are the entries produced - by walking the public API surface, or by collecting annotations attached to code?</li>
+</ul>
+<p>These are independent. So you get four combinations per side, and across two plugins, four cross-language directions:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 44%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>X</strong></th>
+<th><code>py</code> <strong>REFERENCE</strong></th>
+<th><code>rs</code> <strong>REFERENCE</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>py</code> <strong>PORT</strong></td>
+<td><code>py</code> library <em>vs</em> another <code>py</code> library</td>
+<td><code>rs</code> crate → <code>py</code> port</td>
+</tr>
+<tr class="even">
+<td><code>rs</code> <strong>PORT</strong></td>
+<td><code>py</code> library → <code>rs</code> crate (e.g.&nbsp;PySpark → Rust)</td>
+<td><code>rs</code> library <em>vs</em> another <code>rs</code> library</td>
+</tr>
+</tbody>
+</table>
+<p>The default mapping (reference → walker, port → annotation) covers the common case: you can’t annotate the upstream library (you don’t own it), and you do want to annotate your port (because the status - implemented, partial, unimplemented - is opinion, not fact). But all four cells work end-to-end.</p>
+</section>
+<section id="what-it-looks-like" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-looks-like">What it looks like</h2>
+<p>In a Rust port:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">#[</span>parity_impl<span class="at">(</span>path <span class="op">=</span> <span class="st">"pyspark.sql.session.SparkSession"</span><span class="op">,</span> status <span class="op">=</span> Implemented<span class="at">)]</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">impl</span> SparkSession <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="at">#[</span>parity<span class="at">(</span>path <span class="op">=</span> <span class="st">".sql"</span><span class="op">,</span> status <span class="op">=</span> Implemented<span class="op">,</span> since <span class="op">=</span> <span class="st">"3.4"</span><span class="at">)]</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    <span class="kw">pub</span> <span class="kw">fn</span> sql(<span class="op">&amp;</span><span class="kw">self</span><span class="op">,</span> q<span class="op">:</span> <span class="op">&amp;</span><span class="dt">str</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>DataFrame<span class="op">,</span> SparkError<span class="op">&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">}</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="at">#[</span>parity<span class="at">(</span>path <span class="op">=</span> <span class="st">".stop"</span><span class="op">,</span> status <span class="op">=</span> Unimplemented<span class="op">,</span> comment <span class="op">=</span> <span class="st">"no shutdown hook yet"</span><span class="at">)]</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="kw">pub</span> <span class="kw">fn</span> stop(<span class="op">&amp;</span><span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span>()<span class="op">,</span> SparkError<span class="op">&gt;</span> <span class="op">{</span> <span class="pp">unimplemented!</span>() <span class="op">}</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="ex">api-parity-py</span> reference pyspark.sql.connect <span class="at">-o</span> ref.json</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">api-parity-rs</span> port      path/to/my-crate    <span class="at">-o</span> port.json</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="ex">api-parity</span>   compare    ref.json port.json  <span class="at">-o</span> report.md</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>report.md</code> tells you exactly where you stand: a coverage percentage per class, a list of stale port entries that no longer match any upstream path, and the status / comment you wrote for each method.</p>
+</section>
+<section id="check-it-out" class="level2">
+<h2 class="anchored" data-anchor-id="check-it-out">Check it out!</h2>
+<p>The repo is on <a href="https://github.com/franciscoabsampaio/api-parity">GitHub</a>. <code>v0.0.2</code> ships all four directions. Issues and PRs welcome - especially plugins for other languages.</p>
 
-<img loading="lazy" src="./blog/2026/spark-connect/images/banner.jpg" class="thumbnail-image">
 
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">spark-connect: A Spark Connect Client for the Rust ecosystem</a>
-</h3>
-<div class="listing-categories">
+</section>
 
-<div class="listing-category" onclick="window.quartoListingCategory('cnVzdA=='); return false;">rust</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGF0YQ=='); return false;">data</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2026/spark-connect/index.html" class="no-external">
-<p>An idiomatic, SQL-first Rust client for Apache Spark</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2026/spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Jan 10, 2026
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="c3BhcmslMkNkZWx0YSUyQ2RvY2tlcg==" data-listing-date-sort="1761174000000" data-listing-file-modified-sort="1768043184228" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="910">
-<div class="thumbnail"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-
-<img loading="lazy" src="./blog/2025/tutorial-spark-connect/docker_whale.webp" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">Tutorial: Reproducible Spark+Delta Tests Without the Hassle</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('c3Bhcms='); return false;">spark</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZGVsdGE='); return false;">delta</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('ZG9ja2Vy'); return false;">docker</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<p>Find how to easily test against Spark+Delta catalogs with this new Docker container</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/tutorial-spark-connect/index.html" class="no-external">
-<div class="listing-date">
-Oct 23, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="dHJhbnNmb3JtZXIlMkNsbG0lMkNubHA=" data-listing-date-sort="1748732400000" data-listing-file-modified-sort="1768043139092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1123">
-<div class="thumbnail"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-
-<p class="card-img-top"><img src="blog/2025/transformers-maketh-llms/images/neural_network.png" title="Neural network" class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">Transformers Maketh LLMs</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('dHJhbnNmb3JtZXI='); return false;">transformer</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bGxt'); return false;">llm</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('bmxw'); return false;">nlp</div>
-
-</div>
-<div class="delink listing-description"><a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<p>A non-technical introduction to Large Language Models</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./blog/2025/transformers-maketh-llms/index.html" class="no-external">
-<div class="listing-date">
-Jun 1, 2025
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -797,6 +714,35 @@ Jun 1, 2025
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
+<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "franciscoabsampaio/.github";
+    script.dataset.repoId = "R_kgDOQZhq3g";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
