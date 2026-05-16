@@ -34,8 +34,8 @@
 <li>Diff the two, with status and ownership commentary on every covered method.</li>
 </ol>
 <p>Rather than hard-code that into the Spark project, I lifted it out into a general-purpose tool: <a href="https://github.com/franciscoabsampaio/api-parity"><code>api-parity</code></a>.</p>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
+<section id="how-api-parity-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-api-parity-works">How <code>api-parity</code> works</h2>
 <p>At the time of writing, <code>api-parity</code> is three pieces:</p>
 <ul>
 <li><strong>A language-agnostic differ:</strong> It eats two JSON files and produces a markdown report: per-class coverage, stale port entries (typos, removed APIs, drift), per-method status.</li>
@@ -80,8 +80,8 @@
 </table>
 <p>The default mapping (reference → walker, port → annotation) covers the common case: you can’t annotate the upstream library (you don’t own it), and you do want to annotate your port (because the status - implemented, partial, unimplemented - is opinion, not fact). But all four cells work end-to-end.</p>
 </section>
-<section id="what-it-looks-like" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-looks-like">What it looks like</h2>
+<section id="what-api-parity-looks-like" class="level2">
+<h2 class="anchored" data-anchor-id="what-api-parity-looks-like">What <code>api-parity</code> looks like</h2>
 <p>In a Rust port:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><span class="at" style="color: #657422;
 background-color: null;

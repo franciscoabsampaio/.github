@@ -182,9 +182,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link active" data-scroll-target="#how-it-works">How it works</a></li>
+  <li><a href="#how-api-parity-works" id="toc-how-api-parity-works" class="nav-link active" data-scroll-target="#how-api-parity-works">How <code>api-parity</code> works</a></li>
   <li><a href="#the-four-direction-trick" id="toc-the-four-direction-trick" class="nav-link" data-scroll-target="#the-four-direction-trick">The four-direction trick</a></li>
-  <li><a href="#what-it-looks-like" id="toc-what-it-looks-like" class="nav-link" data-scroll-target="#what-it-looks-like">What it looks like</a></li>
+  <li><a href="#what-api-parity-looks-like" id="toc-what-api-parity-looks-like" class="nav-link" data-scroll-target="#what-api-parity-looks-like">What <code>api-parity</code> looks like</a></li>
   <li><a href="#check-it-out" id="toc-check-it-out" class="nav-link" data-scroll-target="#check-it-out">Check it out!</a></li>
   </ul>
 </nav>
@@ -242,8 +242,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Diff the two, with status and ownership commentary on every covered method.</li>
 </ol>
 <p>Rather than hard-code that into the Spark project, I lifted it out into a general-purpose tool: <a href="https://github.com/franciscoabsampaio/api-parity"><code>api-parity</code></a>.</p>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
+<section id="how-api-parity-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-api-parity-works">How <code>api-parity</code> works</h2>
 <p>At the time of writing, <code>api-parity</code> is three pieces:</p>
 <ul>
 <li><strong>A language-agnostic differ:</strong> It eats two JSON files and produces a markdown report: per-class coverage, stale port entries (typos, removed APIs, drift), per-method status.</li>
@@ -288,8 +288,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The default mapping (reference → walker, port → annotation) covers the common case: you can’t annotate the upstream library (you don’t own it), and you do want to annotate your port (because the status - implemented, partial, unimplemented - is opinion, not fact). But all four cells work end-to-end.</p>
 </section>
-<section id="what-it-looks-like" class="level2">
-<h2 class="anchored" data-anchor-id="what-it-looks-like">What it looks like</h2>
+<section id="what-api-parity-looks-like" class="level2">
+<h2 class="anchored" data-anchor-id="what-api-parity-looks-like">What <code>api-parity</code> looks like</h2>
 <p>In a Rust port:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource rs number-lines code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1"></a><span class="at">#[</span>parity_impl<span class="at">(</span>path <span class="op">=</span> <span class="st">"pyspark.sql.session.SparkSession"</span><span class="op">,</span> status <span class="op">=</span> Implemented<span class="at">)]</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">impl</span> SparkSession <span class="op">{</span></span>

@@ -22,7 +22,7 @@ I've been building [`spark-connect`](https://www.franciscoabsampaio.com/blog/202
 
 Rather than hard-code that into the Spark project, I lifted it out into a general-purpose tool: [`api-parity`](https://github.com/franciscoabsampaio/api-parity).
 
-## How it works
+## How `api-parity` works
 
 At the time of writing, `api-parity` is three pieces:
 
@@ -50,7 +50,7 @@ These are independent. So you get four combinations per side, and across two plu
 
 The default mapping (reference → walker, port → annotation) covers the common case: you can't annotate the upstream library (you don't own it), and you do want to annotate your port (because the status - implemented, partial, unimplemented - is opinion, not fact). But all four cells work end-to-end.
 
-## What it looks like
+## What `api-parity` looks like
 
 In a Rust port:
 
