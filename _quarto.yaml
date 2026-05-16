@@ -17,6 +17,7 @@ website:
   draft-mode: gone
   site-url: "https://franciscoabsampaio.com"   # Important for RSS to work correctly
   description: "Francisco A. B. Sampaio's personal website"
+  open-graph: true  # Enable richer sharing of links
   favicon: images/favicon.ico
   navbar:
     left:
