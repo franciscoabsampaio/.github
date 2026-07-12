@@ -9,8 +9,10 @@ about:
 
 ---
 
-I'm a Portuguese engineer and artist, a lifelong learner with a deep curiosity about how the world works, and a drive to create meaningful solutions.
+I'm a Portuguese engineer and artist, and I created this website to share my written word!
 
-This website is both a technical blog and a personal portfolio. It brings together my engineering work, my artistic pursuits, and whatever ongoing exploration I may be doing at the moment!
+You may find tech posts, art stuff, and whatever exploration I may be doing at the moment.
+
+Enjoy!
 
 ---
