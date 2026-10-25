@@ -3,9 +3,8 @@ title: "Não Vamos Morrer Todos (Para Já)"
 description: "Entre o alarmismo sobre os riscos da IA e a corrida à regulamentação, há interesses que merecem ser examinados"
 date: 2026-10-25
 categories: [ai, anthropic, regulation]
+image: ./images/banner.webp
 ---
-
-![Dario Amodei, co-fundador e CEO da Anthropic, durante uma entrevista no programa "The Circuit with Emily Chang", nos escritórios da Anthropic em São Francisco, California, US, em 30 de abril, 2026. Jason Henry/Bloomberg via Getty Images](./images/banner.webp)
 
 ## Fenómenos de extraordinária incompetência...
 
@@ -26,6 +25,10 @@ A 4 de julho, o fórum, que já contava com cerca de **1 milhão de mensagens**,
 Só a 19 de julho, duas semanas depois, foi identificado o incidente mais amplo, quando um alerta sobre atividade irregular no tal sistema desencadeou uma investigação. Por esta altura, os agentes **já tinham comprometido, através da Internet, sistemas externos**.
 
 ## ... ou parte de um padrão?
+
+![Dario Amodei, co-fundador e CEO da Anthropic, durante uma entrevista no programa "The Circuit with Emily Chang", nos escritórios da Anthropic em São Francisco, California, US, em 30 de abril, 2026. Jason Henry/Bloomberg via Getty Images](./images/banner.webp)
+
+---
 
 A concorrência da OpenAI também não é estranha a incidentes - apenas 9 dias depois da OpenAI admitir, a 21 de Julho, o incidente, Anthropic (empresa responsável pela ferramenta inteligente Claude) revelou 3 incidentes que lhe tinham acontecido [[3]](#references). Meta [[4]](#references) e Google [[5]](#references) não ficaram atrás, admitindo publicamente, nas semanas seguintes, incidentes semelhantes.
 

@@ -19,12 +19,6 @@
 
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/images/banner.webp" class="img-fluid figure-img"></p>
-<figcaption>Dario Amodei, co-fundador e CEO da Anthropic, durante uma entrevista no programa “The Circuit with Emily Chang”, nos escritórios da Anthropic em São Francisco, California, US, em 30 de abril, 2026. Jason Henry/Bloomberg via Getty Images</figcaption>
-</figure>
-</div>
 <section id="fenómenos-de-extraordinária-incompetência" class="level2">
 <h2 class="anchored" data-anchor-id="fenómenos-de-extraordinária-incompetência">Fenómenos de extraordinária incompetência…</h2>
 <p>Defendo que os incidentes reportados nos últimos meses partilham um denominador comum: <strong>incompetência</strong>.</p>
@@ -38,6 +32,13 @@
 </section>
 <section id="ou-parte-de-um-padrão" class="level2">
 <h2 class="anchored" data-anchor-id="ou-parte-de-um-padrão">… ou parte de um padrão?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/images/banner.webp" class="img-fluid figure-img"></p>
+<figcaption>Dario Amodei, co-fundador e CEO da Anthropic, durante uma entrevista no programa “The Circuit with Emily Chang”, nos escritórios da Anthropic em São Francisco, California, US, em 30 de abril, 2026. Jason Henry/Bloomberg via Getty Images</figcaption>
+</figure>
+</div>
+<hr>
 <p>A concorrência da OpenAI também não é estranha a incidentes - apenas 9 dias depois da OpenAI admitir, a 21 de Julho, o incidente, Anthropic (empresa responsável pela ferramenta inteligente Claude) revelou 3 incidentes que lhe tinham acontecido [3]. Meta [4] e Google [5] não ficaram atrás, admitindo publicamente, nas semanas seguintes, incidentes semelhantes.</p>
 <p>Dario Amodei, CEO da Anthropic (Claude), é talvez um dos maiores embaixadores da segurança e regulamentação destes sistemas. Investigador de destaque na OpenAI desde 2016, separou-se em Dezembro de 2020 para fundar, em 2021, Anthropic, uma empresa dedicada à investigação e segurança da IA [6].</p>
 <p>No artigo de opinião <em>We Must Pace the Frontier</em> (2026) [7], Amodei defendeu a integração de órgãos de avaliação independentes nas empresas que desenvolvem IA, dando o exemplo da METR, uma organização de avaliação de modelos de IA que visa “informar o público dos seus riscos” [8]. Curiosamente, METR é um spin-off do Alignment Research Center (ARC), fundado por Paul Christiano, <em>ex-colega e co-autor académico de Amodei</em>.</p>
@@ -90,6 +91,7 @@
   <category>regulation</category>
   <guid>https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/</guid>
   <pubDate>Sat, 24 Oct 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/images/banner.webp" medium="image" type="image/webp"/>
 </item>
 <item>
   <title>Odisseia de Homero</title>
