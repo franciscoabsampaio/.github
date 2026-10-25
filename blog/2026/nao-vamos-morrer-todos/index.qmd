@@ -5,9 +5,7 @@ date: 2026-10-25
 categories: [ai, anthropic, regulation]
 ---
 
-<div class="tenor-gif-embed" data-postid="12543739169818043150" data-share-method="host" data-aspect-ratio="1.49398" data-width="100%"><a href="https://tenor.com/view/primetime-2026-movie-film-lance-oppenheim-gif-12543739169818043150">Primetime 2026 GIF</a>from <a href="https://tenor.com/search/primetime-gifs">Primetime GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
-
----
+![Dario Amodei, co-fundador e CEO da Anthropic, durante uma entrevista no programa "The Circuit with Emily Chang", nos escritórios da Anthropic em São Francisco, California, US, em 30 de abril, 2026. Jason Henry/Bloomberg via Getty Images](./images/banner.webp)
 
 ## Fenómenos de extraordinária incompetência...
 
@@ -45,13 +43,15 @@ Todavia, a sua flagrante preocupação com os riscos da IA não impediu nem Amod
 
 *Sem dúvida, uma aposta no sucesso da inteligência artificial.*
 
+<div class="tenor-gif-embed" data-postid="12543739169818043150" data-share-method="host" data-aspect-ratio="1.49398" data-width="100%"><a href="https://tenor.com/view/primetime-2026-movie-film-lance-oppenheim-gif-12543739169818043150">Primetime 2026 GIF</a>from <a href="https://tenor.com/search/primetime-gifs">Primetime GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+---
+
 Em plena guerra de preços com as IAs chinesas concorrentes [[15]](#references), num momento em que a viabilidade dos megaprojetos de data centers é posto em causa [[16]](#references) e as taxas de juro ameaçam subir [[17]](#references), líderes como Dario Amodei, sob o peso galopante da dívida, são pressionados a garantir o futuro da empresa.
 
 Avisa o visionário estratega Roger L. Martin: *"as empresas são os maiores beneficiários de regulação que alegadamente procura beneficiar os consumidores"* [[18]](#references).
 
 **Para Amodei, não houve melhor altura para armadilhar o mercado de burocracia e legislação**, tomar o seu lugar como órgão avaliador de eleição e, assim, cimentar o frondoso duopólio do presente.
-
----
 
 **Na hora da verdade, alertas catastróficos são mais do que a qualidade de um produto diferenciado - são a desculpa certa.**
 
