@@ -1,3 +1,12 @@
+---
+title: "Odyssey Movie Review"
+description: "In this new series of blog posts, I start by exploring why extreme wealth may be a problem that must be addressed."
+date: 2026-02-28
+categories: [economy, feudalism, social, politics]
+image: images/image.jpg
+draft: true
+---
+
 Intersubjectivity fails because the myth isn't meant to be subjective.
 
 Zendaya was strange on the first watch - but not so much on the following ones.
