@@ -10,7 +10,82 @@
 <atom:link href="https://franciscoabsampaio.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Francisco A. B. Sampaio&#39;s personal website</description>
 <generator>quarto-1.8.26</generator>
-<lastBuildDate>Sat, 11 Jul 2026 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 24 Oct 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Não Vamos Morrer Todos (Para Já)</title>
+  <link>https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="tenor-gif-embed" data-postid="12543739169818043150" data-share-method="host" data-aspect-ratio="1.49398" data-width="100%">
+<a href="https://tenor.com/view/primetime-2026-movie-film-lance-oppenheim-gif-12543739169818043150">Primetime 2026 GIF</a>from <a href="https://tenor.com/search/primetime-gifs">Primetime GIFs</a>
+</div>
+<script type="text/javascript" async="" src="https://tenor.com/embed.js"></script>
+<hr>
+<section id="fenómenos-de-extraordinária-incompetência" class="level2">
+<h2 class="anchored" data-anchor-id="fenómenos-de-extraordinária-incompetência">Fenómenos de extraordinária incompetência…</h2>
+<p>Defendo que os incidentes reportados nos últimos meses partilham um denominador comum: <strong>incompetência</strong>.</p>
+<p>Enquanto profissional do setor tecnológico, fico estupefacto ao saber que sistemas tão fervorosamente rotulados como <em>perigosos</em> não foram testados com as devidas precauções. Pior: os próprios ambientes de teste continham erros de configuração que permitiram aos modelos de IA <strong>aceder a sistemas reais</strong>.</p>
+<p>Se isto já não fosse preocupante o suficiente, os detalhes do incidente da OpenAI [1], [2] revelam algo ainda mais grave: <em>o problema não surgiu de repente</em>.</p>
+<p><em>Primeiro, um teste mal concebido.</em> A 12 de maio, durante uma execução de treino, um agente de IA recebeu uma tarefa que dependia de ficheiros alojados no Google Drive, apesar de o ambiente em que funcionava não ter acesso à Internet. Erradamente, tinha sido dada uma tarefa <strong>impossível</strong> ao agente. Ao tentar encontrar uma solução, o agente descobriu que conseguia aceder a um sistema interno da OpenAI. Não conseguiu chegar à Internet, mas tinha acabado de descobrir uma porta que os seus criadores não tinham previsto.</p>
+<p>Outros agentes, confrontados com tarefas igualmente mal configuradas, descobriram que podiam utilizar o mesmo sistema para deixar mensagens uns aos outros. Sem que ninguém tivesse criado ou autorizado um mecanismo de comunicação entre agentes, <strong>surgiu um</strong>. Pouco depois, os agentes descobriram também uma forma de utilizar esse sistema interno para aceder indiretamente à Internet.</p>
+<p>E aqui está talvez a parte mais difícil de justificar como simples azar: a OpenAI afirma que uma equipa interna observou, ainda em maio, agentes a utilizar esse sistema como “fórum” e a tentar aceder à Internet. <strong>Devem ter-lhe achado muita piada, porque o fórum persistiu por mais dois meses.</strong></p>
+<p>A 4 de julho, o fórum, que já contava com cerca de <strong>1 milhão de mensagens</strong>, acabou por provocar uma falha no próprio sistema interno. Uma equipa de segurança, sem conhecimento do que se passava, ainda abriu um incidente e repôs o sistema. Mas as avaliações foram retomadas e, <em>em dois dias</em>, os agentes recuperaram, através do sistema agora reposto, o acesso indevido à Internet.</p>
+<p>Só a 19 de julho, duas semanas depois, foi identificado o incidente mais amplo, quando um alerta sobre atividade irregular no tal sistema desencadeou uma investigação. Por esta altura, os agentes <strong>já tinham comprometido, através da Internet, sistemas externos</strong>.</p>
+</section>
+<section id="ou-parte-de-um-padrão" class="level2">
+<h2 class="anchored" data-anchor-id="ou-parte-de-um-padrão">… ou parte de um padrão?</h2>
+<p>A concorrência da OpenAI também não é estranha a incidentes - apenas 9 dias depois da OpenAI admitir, a 21 de Julho, o incidente, Anthropic (empresa responsável pela ferramenta inteligente Claude) revelou 3 incidentes que lhe tinham acontecido [3]. Meta [4] e Google [5] não ficaram atrás, admitindo publicamente, nas semanas seguintes, incidentes semelhantes.</p>
+<p>Dario Amodei, CEO da Anthropic (Claude), é talvez um dos maiores embaixadores da segurança e regulamentação destes sistemas. Investigador de destaque na OpenAI desde 2016, separou-se em Dezembro de 2020 para fundar, em 2021, Anthropic, uma empresa dedicada à investigação e segurança da IA [6].</p>
+<p>No artigo de opinião <em>We Must Pace the Frontier</em> (2026) [7], Amodei defendeu a integração de órgãos de avaliação independentes nas empresas que desenvolvem IA, dando o exemplo da METR, uma organização de avaliação de modelos de IA que visa “informar o público dos seus riscos” [8]. Curiosamente, METR é um spin-off do Alignment Research Center (ARC), fundado por Paul Christiano, <em>ex-colega e co-autor académico de Amodei</em>.</p>
+<p>Em 2023, Amodei testemunhou perante o senado dos EUA, manifestando os inúmeros riscos da IA e defendendo o controlo do governo americano sobre a cadeia de produção de IA, assim como um regime de testes e auditoria para modelos avançados e a fundação de uma nova agência governamental, o National AI Research Resource (NAIRR) [9].</p>
+<p>Já no ano corrente de 2026, Amodei investiu mais de 20 milhões de dólares do seu bolso, em antecipação às eleições intercalares americanas, na super PAC (comité de ação política) Public First [10], focada na regulamentação da IA, e dedica 200 milhões de dólares da empresa ao Anthropic Economic Futures Research Fund, um fundo para financiamento de investigação dos impactos (e possíveis soluções) causados pela disrupção tecnológica da IA [11].</p>
+</section>
+<section id="a-hora-da-verdade" class="level2">
+<h2 class="anchored" data-anchor-id="a-hora-da-verdade">A hora da verdade</h2>
+<p>Todavia, a sua flagrante preocupação com os riscos da IA não impediu nem Amodei, nem os seus concorrentes, de continuarem o desenvolvimento da tecnologia e a expansão do negócio. Pelo contrário, o mesmo tem acelerado vertiginosamente, facto comprovado tanto pela progressão a olhos vistos das competências da IA [12], como pela angariação frenética de fundos, investimentos, obrigações e créditos, públicos ou privados - um esforço que mais do que duplicou em 2025, de 252 mil milhões de dólares em 2024 para <strong>582 mil milhões de dólares</strong> [13]. Este esforço culminará no final deste ano com a muito aguardada entrada recorde em bolsa da própria Anthropic de Amodei, <em>porta-voz do abrandamento da IA</em>, com uma capitalização de mercado estimada em <strong>2 biliões</strong> (sim, 2.000.000.000.000) de dólares [14], quantia incognoscível, equiparável a 10% do PIB do país de Donald Trump.</p>
+<p><em>Sem dúvida, uma aposta no sucesso da inteligência artificial.</em></p>
+<p>Em plena guerra de preços com as IAs chinesas concorrentes [15], num momento em que a viabilidade dos megaprojetos de data centers é posto em causa [16] e as taxas de juro ameaçam subir [17], líderes como Dario Amodei, sob o peso galopante da dívida, são pressionados a garantir o futuro da empresa.</p>
+<p>Avisa o visionário estratega Roger L. Martin: <em>“as empresas são os maiores beneficiários de regulação que alegadamente procura beneficiar os consumidores”</em> [18].</p>
+<p><strong>Para Amodei, não houve melhor altura para armadilhar o mercado de burocracia e legislação</strong>, tomar o seu lugar como órgão avaliador de eleição e, assim, cimentar o frondoso duopólio do presente.</p>
+<hr>
+<p><strong>Na hora da verdade, alertas catastróficos são mais do que a qualidade de um produto diferenciado - são a desculpa certa.</strong></p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li><a href="https://openai.com/index/hugging-face-incident-and-the-road-ahead/">The Hugging Face incident and the road ahead</a></li>
+<li><a href="https://www.axios.com/2026/08/06/openai-hugging-face-black-hat">OpenAI says its AI agents breached its own systems before Hugging Face</a></li>
+<li><a href="https://www.theverge.com/policy/995534/a-brief-history-of-ai-executives-calling-for-regulation">A brief history of AI executives calling for regulation</a></li>
+<li><a href="https://www.reuters.com/technology/metas-ai-model-hacked-another-company-during-testing-information-reports-2026-08-05/">Meta’s AI model hacked another company during testing, information reports</a></li>
+<li><a href="https://www.washingtonpost.com/technology/2026/09/18/google-gemini-ai-hacked-into-other-companies-during-internal-testing/">Google Gemini AI hacked into other companies during internal testing</a></li>
+<li><a href="https://www.anthropic.com/news/anthropic-raises-124-million-to-build-more-reliable-general-ai-systems">Anthropic raises $124 million to build more reliable, general AI systems</a></li>
+<li><a href="https://darioamodei.com/post/we-must-pace-the-frontier">We must pace the frontier</a></li>
+<li><a href="https://metr.org/about">Metr</a></li>
+<li><a href="https://www.judiciary.senate.gov/download/2023-07-26-testimony-amodei">Written Testimony of Dario Amodei, Ph.D.</a></li>
+<li><a href="https://www.axios.com/2026/07/17/pro-ai-super-pac-ready-midterms">Pro-AI super PAC keeps $31M ready for the midterms</a></li>
+<li><a href="https://www.anthropic.com/news/economic-futures-research-fund-agenda">A research agenda for the Economic Futures Research Fund</a></li>
+<li><a href="https://epoch.ai/benchmarks?utm_source=chatgpt.com&amp;view=graph&amp;tab=eci">AI benchmarks &amp; capabilities</a></li>
+<li><a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">Stanford’s AI Index Report</a></li>
+<li><a href="https://www.nytimes.com/2026/08/21/technology/anthropic-ipo-100-billion.html">Anthropic Could Aim to Raise $100 Billion in Blockbuster I.P.O.</a></li>
+<li><a href="https://www.ft.com/content/0e50a3c6-9731-4b29-a21e-4e0ff89a595e?syn-25a6b1a6=1">Anthropic and OpenAI release cheaper models as price war intensifies</a></li>
+<li><a href="https://www.cnbc.com/2026/09/24/oracle-data-center-force-majeure.html">Oracle sends ‘force majeure’ notice about data center project — stock drops 3%</a></li>
+<li><a href="https://abcnews.com/Business/fed-set-make-interest-rate-decision-inflation-hits/story?id=133758112">Fed holds interest rates steady as inflation hits 3-year high</a></li>
+<li><a href="https://rogerlmartin.substack.com/p/ai-regulatory-strategy">AI Regulatory Strategy</a></li>
+</ol>
+
+
+</section>
+
+ ]]></description>
+  <category>ai</category>
+  <category>anthropic</category>
+  <category>regulation</category>
+  <guid>https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/</guid>
+  <pubDate>Sat, 24 Oct 2026 23:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Odisseia de Homero</title>
   <link>https://franciscoabsampaio.com/blog/2026/odyssey-book-review/</link>
