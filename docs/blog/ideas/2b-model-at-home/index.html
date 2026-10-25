@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-11-20">
+<meta name="description" content="A quick example of embedding Python code and plots in a Quarto post.">
+
+<title>Exploring Data with Python – Francisco A. B. Sampaio</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.ico" rel="icon">
+<script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-98597cea2d0351c6feaf4159bb7ae989.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap-61dc38fb2efc2722f0884179a69b0ed1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2097108');
+</script>
+<!-- End MailerLite Universal -->
+<meta name="quarto:status" content="draft">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Exploring Data with Python – Francisco A. B. Sampaio">
+<meta property="og:description" content="A quick example of embedding Python code and plots in a Quarto post.">
+<meta property="og:image" content="https://franciscoabsampaio.com/blog/ideas/2b-model-at-home/images/activation_checkpoint_rich.webp">
+<meta property="og:site_name" content="Francisco A. B. Sampaio">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Francisco A. B. Sampaio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../portfolio.html"> 
+<span class="menu-text">Portfolio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../the-loss-of-nuance.html"> 
+<span class="menu-text">The Loss of Nuance</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/franciscoabsampaio/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/franciscoabsampaio/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.instagram.com/franciscoabsampaio/"> <i class="bi bi-instagram" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../../index.xml"> <i class="bi bi-rss" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#list-of-strategies" id="toc-list-of-strategies" class="nav-link active" data-scroll-target="#list-of-strategies">List of strategies</a>
+  <ul class="collapse">
+  <li><a href="#memory-efficient-optimizers" id="toc-memory-efficient-optimizers" class="nav-link" data-scroll-target="#memory-efficient-optimizers">Memory Efficient Optimizers</a></li>
+  <li><a href="#where-did-all-the-memory-go" id="toc-where-did-all-the-memory-go" class="nav-link" data-scroll-target="#where-did-all-the-memory-go">Where Did All The Memory Go?</a></li>
+  <li><a href="#mixed-precision" id="toc-mixed-precision" class="nav-link" data-scroll-target="#mixed-precision">Mixed Precision</a></li>
+  <li><a href="#online-softmax-and-flash-attention" id="toc-online-softmax-and-flash-attention" class="nav-link" data-scroll-target="#online-softmax-and-flash-attention">Online Softmax and Flash Attention</a>
+  <ul class="collapse">
+  <li><a href="#the-softmax-problem" id="toc-the-softmax-problem" class="nav-link" data-scroll-target="#the-softmax-problem">The Softmax Problem</a></li>
+  <li><a href="#online-softmax" id="toc-online-softmax" class="nav-link" data-scroll-target="#online-softmax">Online Softmax</a></li>
+  <li><a href="#flash-attention" id="toc-flash-attention" class="nav-link" data-scroll-target="#flash-attention">Flash Attention</a></li>
+  <li><a href="#fa2-fa3-and-fa4" id="toc-fa2-fa3-and-fa4" class="nav-link" data-scroll-target="#fa2-fa3-and-fa4">FA2, FA3, and FA4</a></li>
+  </ul></li>
+  <li><a href="#activation-checkpoints" id="toc-activation-checkpoints" class="nav-link" data-scroll-target="#activation-checkpoints">Activation Checkpoints</a></li>
+  <li><a href="#parallelism" id="toc-parallelism" class="nav-link" data-scroll-target="#parallelism">Parallelism</a>
+  <ul class="collapse">
+  <li><a href="#zero" id="toc-zero" class="nav-link" data-scroll-target="#zero">ZeRO</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exploring Data with Python</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">data</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A quick example of embedding Python code and plots in a Quarto post.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 20, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="list-of-strategies" class="level1">
+<h1>List of strategies</h1>
+<ul>
+<li>mixed precision</li>
+<li>parameter partitioning (deepspeed)</li>
+<li>cpu offloading (deepspeed)</li>
+<li>activation checkpointing</li>
+<li>gradient accumulation</li>
+<li>flashattention2</li>
+<li>contiguous gradients / overlap_comm / bucket sizes - tuning reduces fragmentation and OOM risk</li>
+<li>Ugly numbers</li>
+<li>skip connections from the embedding layer to each transformer block</li>
+<li>initialize projection layers to 0</li>
+<li>torch.compile</li>
+</ul>
+<section id="memory-efficient-optimizers" class="level2">
+<h2 class="anchored" data-anchor-id="memory-efficient-optimizers">Memory Efficient Optimizers</h2>
+<p>research memory efficient optimizers</p>
+</section>
+<section id="where-did-all-the-memory-go" class="level2">
+<h2 class="anchored" data-anchor-id="where-did-all-the-memory-go">Where Did All The Memory Go?</h2>
+<p>If a 1.5B parameter model like GPT-2 only requires 3GB of memory for its weights in 16-bit precision, why can it not be trained in a 16GB GPU <span class="citation" data-cites="2020_zero">(<a href="#ref-2020_zero" role="doc-biblioref"><strong>2020_zero?</strong></a>)</span>? It so happens that during model training, most of the memory is consumed by:</p>
+<ul>
+<li><strong>Model states:</strong> optimizer states, gradients, and parameters (weights). The popular Adam optimizer <span class="citation" data-cites="2014_adam">(<a href="#ref-2014_adam" role="doc-biblioref">Kingma 2014</a>)</span>, for example, requires storing two additional optimizer states besides the gradients and weights: the momentum and variance of the gradients. If using <a href="#mixed-precision">mixed precision training</a>, full-precision (FP32) master copies of all states, will also be kept - leading to a memory requirement of at least 24GB for our GPT-2 example <span class="citation" data-cites="2020_zero">(<a href="#ref-2020_zero" role="doc-biblioref"><strong>2020_zero?</strong></a>)</span>.</li>
+<li><strong>Residual states:</strong>
+<ul>
+<li><strong>Activations:</strong> In the GPT-2 example, a sequence length of 1K and a batch size of 32 requires roughly 60GB of memory in layer activations alone <span class="citation" data-cites="2020_zero">(<a href="#ref-2020_zero" role="doc-biblioref"><strong>2020_zero?</strong></a>)</span>;</li>
+<li><strong>Temporary buffers:</strong> In <a href="https://en.wikipedia.org/wiki/Collective_operation">collective operations</a> (e.g.&nbsp;all-reduce), parameters must be transferred between GPUs - this requires holding them in a buffer (often in full-precision) until released. These buffers can reach multi-GB sizes;</li>
+<li><strong>Memory fragmentation:</strong> As the many threads in the GPU take turns occupying and vacating memory, contiguous blocks of available memory start becoming too small to be of use for any application, but large and abundant enough to severely impact memory allocation. This is called memory fragmentation, and can result in out-of-memory errors despite as much as 30% of the total memory still being available (but too fragmented to be of any use) <span class="citation" data-cites="2020_zero">(<a href="#ref-2020_zero" role="doc-biblioref"><strong>2020_zero?</strong></a>)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="mixed-precision" class="level2">
+<h2 class="anchored" data-anchor-id="mixed-precision">Mixed Precision</h2>
+</section>
+<section id="online-softmax-and-flash-attention" class="level2">
+<h2 class="anchored" data-anchor-id="online-softmax-and-flash-attention">Online Softmax and Flash Attention</h2>
+<p>Due to the quadratic complexity of attention, compute could be blamed for less-than-ideal performance, but modern Transformers are actually memory-bound: most of their layers move far more data than they compute. As a result, the primary bottleneck in attention is actually <em>slow memory access</em>, not floating-point arithmetic <span class="citation" data-cites="2022_flashattention">(<a href="#ref-2022_flashattention" role="doc-biblioref">Dao et al. 2022</a>)</span>.</p>
+<p>GPUs expose a strong hierarchy between on-chip shared memory (SRAM) and off-chip high-bandwidth memory (HBM, aka global memory). For example, NVIDIA’s V100 has 40–80 GB of HBM, with a bandwidth of 1.5–2.0 TB/s, but only 192 KB of on-chip SRAM for every 108 streaming multiprocessors, with an effective bandwidth around 19 TB/s - an order of magnitude higher <span class="citation" data-cites="2022_flashattention">(<a href="#ref-2022_flashattention" role="doc-biblioref">Dao et al. 2022</a>)</span>.</p>
+<p>Attention layers repeatedly access large intermediate matrices that do not fit in SRAM, so they repeatedly fall back to global memory. This is the root cause of the performance bottleneck. Cirvumventing this would require carefully managing SRAM capacity and dataflow, to avoid reading and writing anything to HBM.</p>
+<section id="the-softmax-problem" class="level3">
+<h3 class="anchored" data-anchor-id="the-softmax-problem">The Softmax Problem</h3>
+<p>The softmax function</p>
+<p><span class="math display">\[\text{softmax}(x_i)=\frac{e^{x_i}}{\sum_{j}{e^{x_j}}}\]</span></p>
+<p>is numerically unstable for large inputs, because exponentials grow extremely fast - for example, FP16 overflows around 11 <span class="citation" data-cites="2023_from_online_softmax_to_flashattention">(<a href="#ref-2023_from_online_softmax_to_flashattention" role="doc-biblioref">Ye 2023</a>)</span>. It is standard practice to subtract the maximum element in the row (aka the <strong>safe softmax</strong>):</p>
+<p><span class="math display">\[\text{softmax}(x_i)=\frac{e^{x_i-x_{max}}}{\sum_{j}{e^{x_j-x_{max}}}}\]</span></p>
+<p>However, finding <span class="math inline">\(x_\text{max}\)</span> requires scanning the entire row of <span class="math inline">\(QK^\top\)</span> beforehand. In a naïve implementation, this means:</p>
+<ol type="1">
+<li>Reading all values to find max;</li>
+<li>Reading them again to compute numerator;</li>
+<li>Reading them again to compute denominator.</li>
+</ol>
+<p>Three full global-memory passes - far too slow, and hard to parallelise across tiles.</p>
+</section>
+<section id="online-softmax" class="level3">
+<h3 class="anchored" data-anchor-id="online-softmax">Online Softmax</h3>
+<p>Online Softmax <span class="citation" data-cites="2018_online_softmax">(<a href="#ref-2018_online_softmax" role="doc-biblioref">Milakov and Gimelshein 2018</a>)</span> removes this limitation by computing the softmax statistics incrementally, in a streaming fashion. Instead of needing the entire row at once, it maintains running values for:</p>
+<ul>
+<li>The running maximum <span class="math inline">\(x_{max}\)</span>;</li>
+<li>The running sum of exponentials (the denominator <span class="math inline">\(\sum\)</span>).</li>
+</ul>
+<p>This unlocks asynchronous parallelism, long-context scalability, and fewer global memory passes. It uses a neat little trick we won’t be delving into here - if you want to learn more, <span class="citation" data-cites="2024_flashattention_umar">Jamil (<a href="#ref-2024_flashattention_umar" role="doc-biblioref">2024</a>)</span> explains it very well, and ties it elegantly to FlashAttention.</p>
+<p>In practice, Online Softmax reduces global I/O from 3 passes to 2. But even Online Softmax cannot reduce it to 1 pass on its own.</p>
+</section>
+<section id="flash-attention" class="level3">
+<h3 class="anchored" data-anchor-id="flash-attention">Flash Attention</h3>
+<p>Surprisingly, when Online Softmax is paired with the rest of the attention formula, it becomes possible to perform the entire attention computation using just one pass over K and V tiles (matrix tiling consists of splitting a matrix into blocks or tiles).</p>
+<p>This is the core innovation of FlashAttention <span class="citation" data-cites="2022_flashattention">(<a href="#ref-2022_flashattention" role="doc-biblioref">Dao et al. 2022</a>)</span>: it restructures the attention operation so that it can be executed tile-by-tile, entirely inside shared memory, without ever materialising large intermediate matrices in HBM. This practice of combining multiple operations (CUDA <em>kernels</em>, with CUDA being the environment/toolkit for interfacing with NVIDIA GPUs) into a single set of instructions is termed <strong>kernel fusion</strong>. Because each tile fits in shared memory and all operations were fused into one, only a single access to memory is required.</p>
+<p>Here is a high-level description of the FlashAttention algorithm:</p>
+<ol type="1">
+<li>Load a tile of K and V from global memory into shared memory.</li>
+<li>Load the corresponding tile of Q.</li>
+<li>Compute partial attention scores and maintain Online Softmax state in SRAM.</li>
+<li>Immediately apply the softmax-weighted values to accumulate the output.</li>
+<li>Move on to the next tile.</li>
+</ol>
+<p>Each tile fits in fast SRAM, and we never store intermediate matrices like <span class="math inline">\(QK^\top\)</span>, so the memory footprint is dramatically reduced. This enables:</p>
+<ul>
+<li>Large speedups (often 2-4×);</li>
+<li>Support for far longer context windows;</li>
+<li>Lower memory usage and improved training stability.</li>
+</ul>
+<p>Exactly what we want!</p>
+</section>
+<section id="fa2-fa3-and-fa4" class="level3">
+<h3 class="anchored" data-anchor-id="fa2-fa3-and-fa4">FA2, FA3, and FA4</h3>
+<p>FlashAttention (FA) represented a shift in mindset, from high-level compute algorithms to ones aware of IO and the idiosyncrasies of the underlying hardware. This shift has only become more obvious in subsequent iterations of the FA algorithm, going beyond hardware-awareness to <em>hardware-specificity</em>, relying on low-level features of the GPU to achieve the highest possible level of hardware utilisation:</p>
+<ul>
+<li>FA2 <span class="citation" data-cites="2023_flashattention_2">(<a href="#ref-2023_flashattention_2" role="doc-biblioref">Dao 2023</a>)</span>: Improves tiling, parallelism, and SRAM usage; generally the fastest algorithm on Ampere, Ada, and older GPUs.</li>
+<li>FA3 <span class="citation" data-cites="2024_flashattention_3">(<a href="#ref-2024_flashattention_3" role="doc-biblioref">Shah et al. 2024</a>)</span>: Built specifically for Hopper (H100). Relies on warp specialization, TMA, and WGMMA - features not available on older architectures.</li>
+<li>FA4 <span class="citation" data-cites="2024_flashattention_4">(<a href="#ref-2024_flashattention_4" role="doc-biblioref">Frye, Wang, and Feng 2024</a>)</span> (work-in-progress): Extends these ideas to Blackwell (B100/B200), taking advantage of new low-precision Tensor Cores (e.g., FP4/FP6) and improved asynchronous memory pipelines.</li>
+</ul>
+<p>For most users running consumer or workstation GPUs - FA3 and FA4 provide no practical advantage, because they lack the hardware features FA3/FA4 rely on. Running them may result in performance deterioration - that is, if they even run.</p>
+<p>In practice, and for the majority of users, FA2 is the correct choice.</p>
+</section>
+</section>
+<section id="activation-checkpoints" class="level2">
+<h2 class="anchored" data-anchor-id="activation-checkpoints">Activation Checkpoints</h2>
+<p>Activation checkpointing consists of selectively forgetting activations during each training loop, effectively trading off compute for a shallower memory footprint. The concept (expertly presented in <a href="https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9">this blog post</a> by <span class="citation" data-cites="2018_medium_activation_checkpoint">Bulatov (<a href="#ref-2018_medium_activation_checkpoint" role="doc-biblioref">2018</a>)</span>) is a clever exploitation of dependencies in the model graph that can reduce memory requirements during training from <code>O(n^2)</code> to <code>O(sqrt(n))</code> - all for the modest cost of an extra forward pass.</p>
+<p>If we picture the training loop as a directed graph, with each layer’s activations as nodes on the graph, and activations triggering dependent nodes in a cascading fashion, one way of managing our GPU’s memory would be to store every node’s values until a complete pass of the training loop is complete. Clearly, this would not be a good idea if - after all, why store the activations of the first nodes in the graph if we only need the preceding node’s activations for any given node? It would be much more memory efficient to forget node values as we progress through the graph:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/activation_checkpoint_rich.webp" title="Rich man's activation checkpointing" class="img-fluid figure-img"></p>
+<figcaption>Rich man’s activation checkpointing <span class="citation" data-cites="2018_medium_activation_checkpoint">(<a href="#ref-2018_medium_activation_checkpoint" role="doc-biblioref">Bulatov 2018</a>)</span>.</figcaption>
+</figure>
+</div>
+<p>A big problem with training is that the backward pass starts from the loss node (computed from the last node of the forward pass) and moves in reverse order - if we only vacate computed nodes from memory after they’re no longer needed, we will be keeping a lot of forward pass activations as we walk through the backward pass. The poor man’s solution would be to forget every node <em>as soon as it is consumed</em> - but this results in a quadratic increase of computations:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/activation_checkpoint_poor.webp" title="Poor man's activation checkpointing" class="img-fluid figure-img"></p>
+<figcaption>Poor man’s activation checkpointing <span class="citation" data-cites="2018_medium_activation_checkpoint">(<a href="#ref-2018_medium_activation_checkpoint" role="doc-biblioref">Bulatov 2018</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><span class="citation" data-cites="2016_activation_checkpoint">Chen et al. (<a href="#ref-2016_activation_checkpoint" role="doc-biblioref">2016</a>)</span> found an effective middle ground: by saving intermediate nodes every <code>sqrt(n)</code> steps - <strong>checkpoints</strong> - and forgetting all those that won’t be needed in the next step, the memory footprint can be greatly reduced, for the modest cost of a second forward pass’ worth of compute:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/activation_checkpoint_smart.webp" title="Smart man's activation checkpointing" class="img-fluid figure-img"></p>
+<figcaption>Smart man’s activation checkpointing <span class="citation" data-cites="2018_medium_activation_checkpoint">(<a href="#ref-2018_medium_activation_checkpoint" role="doc-biblioref">Bulatov 2018</a>)</span>.</figcaption>
+</figure>
+</div>
+<p><a href="https://en.wikipedia.org/wiki/Pebble_game">This pebble game we’re playing</a> can get extremely complex (dynamic programming, tree decomposition, etc), but this much will suffice us.</p>
+</section>
+<section id="parallelism" class="level2">
+<h2 class="anchored" data-anchor-id="parallelism">Parallelism</h2>
+<ul>
+<li><strong>Data parallelism:</strong> model fits in memory, <strong>data is partitioned</strong> and processed in parallel.</li>
+<li><strong>Model parallelism:</strong> model does not fit in memory, and so it is <strong>split vertically</strong> - each layer is partitioned across GPUs. Data can also be partitioned, but mini-batches must be fed through all vertical slices of a layer, to ensure data consistency.</li>
+<li><strong>Pipeline parallelism:</strong> model does not fit in memory, and so it is <strong>split horizontally</strong>, with each GPU retaining a layer of the model. Mini-batches must be processed by all layers before the backward pass.</li>
+<li><strong>Model partitioning:</strong> the GPU cluster is used as a distributed storage system, where each GPU holds a shard of the model states (optimizer states and gradients). By default, model parameters (weights) are <em>not sharded</em> (model weights fit in memory), and data parallelism is also used - model states are communicated “just-in-time” for the next step.</li>
+</ul>
+<p>Whereas data, model, and pipeline parallelism can be thought of as <em>computational parallelism</em> (each GPU does a piece of the work), model partitioning is better described as <em>memory parallelism</em> (each GPU holds a piece of the working data).</p>
+<p>! devia incluir um desenhinho basico</p>
+<p>Even though Megatron-LM allowed the training of larger models, because it splits models vertically, collective operations are required in the forward and backward steps, in order to bring all vertical slices of a model’s layer back together. This is acceptable for intra-node communication (e.g.&nbsp;in a compute server with multiple GPUs), but too large a penalty for inter-node communication (e.g.&nbsp;in a cluster with many compute servers).</p>
+<section id="zero" class="level3">
+<h3 class="anchored" data-anchor-id="zero">ZeRO</h3>
+<p>ZeRO uses data parallelism with model state partitioning, leveraging the dependencies between layers to minimize communication volume, maintaining it closer to that of a simple data parallelism scheme.</p>
+<p>ZeRO works perfectly together with activation checkpointing - the total partitioned state can be reduced even further by keeping only the necessary activation checkpoints. ZeRO partitions the activation checkpoints across GPUs, hiding the data movement cost behind the extreme arithmetic intensity intrinsic to large models (that is, because computations take a long time, communication can be done in parallel). When device memory is very limited, ZeRO can even move the activation partitions to the CPU, and still remain efficient.</p>
+<p>When it comes to collective operations (like all-reduce), if many small collective operations are required, communication will be extremely inefficient, with a lot of overhead. To solve this, many frameworks fuse as many operations as possible into a single, large operation, then communicate the results with a large collective operation - this results in massive speed gains, but the memory overhead becomes prohibitive as model size increases.</p>
+<p>The thing is communication doesn’t <em>require</em> extremely large buffers - its the existing kernels that benefitted massively from using one massive block of contiguous memory. DeepSpeed addresses this by setting a constant-size buffer and reworking the optimizer kernels to efficiently handle the sharded buffers, achieving abundant memory gains.</p>
+<p>By exploiting its knowledge of the training loop, ZeRO pre-allocates contiguous blocks of memory for longer-lived objects (namely, activation checkpoints and gradients), effectively preventing fragmentation problems.</p>
+<p>One of the biggest advantages of deepspeed is its architectural agnosticism, that is, that it requires no changes to the model, and no knowledge of how the model works, as long as a computational graph exists (broadly speaking, which layers depend on which).</p>
+<p>This effectively makes DeepSpeed a drop-in replacement for most training arrangements.</p>
+
+
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-2018_medium_activation_checkpoint" class="csl-entry" role="listitem">
+Bulatov, Yaroslav. 2018. <span>“Fitting Larger Networks into Memory.”</span> 2018. <a href="https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9">https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9</a>.
+</div>
+<div id="ref-2016_activation_checkpoint" class="csl-entry" role="listitem">
+Chen, Tianqi, Bing Xu, Chiyuan Zhang, and Carlos Guestrin. 2016. <span>“Training Deep Nets with Sublinear Memory Cost.”</span> <em>arXiv Preprint arXiv:1604.06174</em>.
+</div>
+<div id="ref-2023_flashattention_2" class="csl-entry" role="listitem">
+Dao, Tri. 2023. <span>“Flashattention-2: Faster Attention with Better Parallelism and Work Partitioning.”</span> <em>arXiv Preprint arXiv:2307.08691</em>.
+</div>
+<div id="ref-2022_flashattention" class="csl-entry" role="listitem">
+Dao, Tri, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. 2022. <span>“Flashattention: Fast and Memory-Efficient Exact Attention with Io-Awareness.”</span> <em>Advances in Neural Information Processing Systems</em> 35: 16344–59.
+</div>
+<div id="ref-2024_flashattention_4" class="csl-entry" role="listitem">
+Frye, Charles, Nathan Wang, and Timothy Feng. 2024. <span>“We Reverse-Engineered Flash Attention 4.”</span> 2024. <a href="https://modal.com/blog/reverse-engineer-flash-attention-4">https://modal.com/blog/reverse-engineer-flash-attention-4</a>.
+</div>
+<div id="ref-2024_flashattention_umar" class="csl-entry" role="listitem">
+Jamil, Umar. 2024. <span>“Flash Attention Derived and Coded from First Principles with Triton (Python).”</span> 2024. <a href="https://www.youtube.com/watch?v=zy8ChVd_oTM">https://www.youtube.com/watch?v=zy8ChVd_oTM</a>.
+</div>
+<div id="ref-2014_adam" class="csl-entry" role="listitem">
+Kingma, Diederik P. 2014. <span>“Adam: A Method for Stochastic Optimization.”</span> <em>arXiv Preprint arXiv:1412.6980</em>.
+</div>
+<div id="ref-2018_online_softmax" class="csl-entry" role="listitem">
+Milakov, Maxim, and Natalia Gimelshein. 2018. <span>“Online Normalizer Calculation for Softmax.”</span> <em>arXiv Preprint arXiv:1805.02867</em>.
+</div>
+<div id="ref-2024_flashattention_3" class="csl-entry" role="listitem">
+Shah, Jay, Ganesh Bikshandi, Ying Zhang, Vijay Thakkar, Pradeep Ramani, and Tri Dao. 2024. <span>“Flashattention-3: Fast and Accurate Attention with Asynchrony and Low-Precision.”</span> <em>Advances in Neural Information Processing Systems</em> 37: 68658–85.
+</div>
+<div id="ref-2023_from_online_softmax_to_flashattention" class="csl-entry" role="listitem">
+Ye, Zihao. 2023. <span>“From Online Softmax to FlashAttention.”</span> 2023. <a href="https://courses.cs.washington.edu/courses/cse599m/23sp/notes/flashattn.pdf">https://courses.cs.washington.edu/courses/cse599m/23sp/notes/flashattn.pdf</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/franciscoabsampaio\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="catppuccin_latte">
+<input type="hidden" id="giscus-alt-theme" value="catppuccin_latte">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "franciscoabsampaio/.github";
+    script.dataset.repoId = "R_kgDOQZhq3g";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOQZhq3s4C168I";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Francisco A. B. Sampaio</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
