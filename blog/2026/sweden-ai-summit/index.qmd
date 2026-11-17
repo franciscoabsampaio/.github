@@ -1,3 +1,11 @@
+---
+title: "2026 AI for Science Summit"
+description: "Three key takeaways at the height of the AI race"
+date: 2026-11-17
+categories: [ai, research, infrastructure, gpu]
+image: ./images/banner.webp
+---
+
 I took a bit of a gamble!
 
 This week I attended the 2026 AI for Science Summit, in Linköping, Sweden, organised jointly by ESS, MAX IV, and SciLifeLab.
@@ -8,7 +16,7 @@ Thankfully, my fears were proved wrong. Through Sweden’s current challenges in
 
 Here are three key takeaways from the 2026 Summit on AI for Science.
 
-# Feel the urgency
+## Feel the urgency
 
 If I wasn’t confident in this fact already, it became very clear to me that a sense of urgency should prevail. Despite all the speculation, all the unprofitable AI startups, the price wars, the rising interest rates - the AI revolution is here to stay, and would need a hard hit to slow down any time soon.
 
@@ -20,7 +28,7 @@ So what should you do to keep up? Unfortunately, futurology is of very little us
 
 Feel the way forward, if you have to. The opportunity cost is real.
 
-# The sovereignty trade-off
+## The sovereignty trade-off
 
 When leveraging AI products, users should maintain awareness at all times that whatever they do is almost certainly being used to train the next generation of frontier models. That means the data, the work, the ideas, the user experience, just about everything.
 
@@ -28,7 +36,7 @@ The extent to which this poses a problem is, of course, up to the user (and whom
 
 For a research institution, for example, the best option might be to host models locally, not only with the aim of providing cheaper inference for the researchers, but to fine tune it on all the data produced in the research lifecycle. At a certain scale, institutions might even be best advised to train their own frontier models. At the very least, prioritising sovereignty buys, besides a miriad of technical and legal complications, the peace of mind of knowing that you aren’t paying hefty subscriptions for your data to be stolen and the next generation of automatons to be trained on your own work.
 
-# Leave humans behind at your own risk
+## Leave humans behind at your own risk
 
 The latest news from the field of mathematics show that humans aren’t leaving any time soon.
 Yes, ????
