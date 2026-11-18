@@ -1,20 +1,22 @@
 ---
 title: "2026 AI for Science Summit"
-description: "Three key takeaways at the height of the AI race"
-date: 2026-11-17
+description: "Three key takeaways from a country aspiring to lead in the global AI race"
+date: 2026-11-18
 categories: [ai, research, infrastructure, gpu]
-image: ./images/banner.webp
+image: ./images/banner.png
 ---
 
-I took a bit of a gamble!
+***I took a bit of a gamble!***
 
-This week I attended the 2026 AI for Science Summit, in Linköping, Sweden, organised jointly by ESS, MAX IV, and SciLifeLab.
+This week I attended the [2026 AI for Science Summit](https://www.maxiv.lu.se/event/ess-max-iv-scilifelab-summit-2026-ai-for-science-connecting-research-data-and-infrastructure/) in Linköping, Sweden, organised jointly by ESS, MAX IV, and SciLifeLab.
 
 Ahead of the conference, I was fearful that it might be a poor fit, that I might be out of place, due to its focus on Swedish national strategy and life sciences. I would have to travel more than 3000 kilometres, all the way from Portugal to Sweden, with a 2 hour train from Stockholm to Linköping (very comfortable, may I say) - quite the commitment.
 
 Thankfully, my fears were proved wrong. Through Sweden’s current challenges in keeping up with the rapidly evolving AI landscape, I was able to gain valuable insight into the role of funding, institutions, infrastructure and, perhaps most importantly, people in driving change.
 
 Here are three key takeaways from the 2026 Summit on AI for Science.
+
+![[The supercomputer Arrhenius, #42 among the world's most powerful supercomputers](https://www.eurohpc-ju.europa.eu/two-new-eurohpc-systems-join-top500-jupiter-remains-among-worlds-fastest-supercomputers-2026-06-23_en), was installed by [the National Academic Infrastructure for Supercomputing in Sweden (NAISS), together with the EuroHPC Joint Undertaking](https://www.eurohpc-ju.europa.eu/eurohpc-ju-inaugurates-arrhenius-new-mid-range-supercomputer-together-naiss-sweden-2026-09-08_en). Photo taken during my tour of the NAISS supercomputing installations, as part of the conference, on the 9th of November, 2026.](images/arrhenius.png)
 
 ## Feel the urgency
 
@@ -24,7 +26,7 @@ To begin with, I learned at the conference that for some one infrastructure prov
 
 There is no room for a “The scientists must be wrong!” moment, here. This is a “Everyone and their mother would have to be wrong about everything for this to be a nothing burger.” moment.
 
-So what should you do to keep up? Unfortunately, futurology is of very little use to us here, and the biggest concern is definitely that no one really knows and the path is yet to be charted. At the conference, the general consensus seemed to be that everyone should be doing *something* with AI, they should prioritise it, and they should do it *fast*.
+So what should you do to keep up? Unfortunately, futurology is of very little use to us here, and the biggest concern is definitely that no one really knows and the path is yet to be charted. At the conference, the general consensus seemed to be that everyone should be doing *something* with AI, they should *prioritise* it, and they should do it *fast*.
 
 Feel the way forward, if you have to. The opportunity cost is real.
 
@@ -39,15 +41,22 @@ For a research institution, for example, the best option might be to host models
 ## Leave humans behind at your own risk
 
 The latest news from the field of mathematics show that humans aren’t leaving any time soon.
-Yes, ????
-But 3 papers got retracted that day. In his keynote speech at the summit, Dimitri Argyriou, Director of the Advanced Light Source facility of the Lawrence Berkeley National Laboratory (University of California), noted that “answers are cheap, proofs are not”.
+Indeed, on October 6, 2026, OpenAI released a massive batch of 722 AI-generated mathematics preprints (often called the ["mathocalypse"](https://retractionwatch.com/2026/10/08/openai-withdraws-preprints-722-manuscripts-unsolved-math-problems/)). However, in just 31 hours, three of the papers were widthdrawn due to gross errors.
+
+In his keynote speech at the summit, Dimitri Argyriou, Director of the Advanced Light Source facility of the Lawrence Berkeley National Laboratory (University of California), noted:
+
+> Answers are cheap, proofs are not.
 
 AI can provide answers, but it isn’t (for the time being) capable of injecting the *why* into our brains. For the foreseeable future, we will still need humans to understand how agentic AI arrived at solutions and why they worked. The level of criticality in understanding the “vibe-solution” at hands varies, of course, with the use case and the user’s own demands: whereas an academic researcher might be pressed to keep the AI’s methodology explainable or, at the very least, cogniscible in the context of the existing body of knowledge, someone working in the industry might find it acceptable to simply certify the correctness of the answer.
 
 It is now perfectly clear that jobs will change - even more than what they’ve changed already. The role of humans is, increasingly, that of certifiers of work done by AI. One might expect this to absolve the human of responsibility for the AI’s actions, but it’s quite the opposite. There is a growing demand for humans that know how to use these systems and can ensure that their output is up to standards and requirements.
 
-Paraphrasing Dimitri Argyriou: “Science was never advanced by checking the answers at the back of the book”. In the new AI age, it is up to the humans to own the question and, at the very least, understand the answer. Now, more than ever, if we are to thrive in this new environment, we must fight our urge to cheat our way through these testing times.
+Paraphrasing Dimitri Argyriou, in his keynote speech:
 
-—-
+> Science was never advanced by checking the answers at the back of the book.
 
-I credit the speakers and attendees at the conference. Ironically, I wrote this piece using no AI, on the 17h27 return train from Linköping to Stockholm, Sweden.
+In the new AI age, it is up to the humans to own the question and, at the very least, understand the answer. Now, more than ever, if we are to thrive in this new environment, we must fight our urge to cheat our way through these testing times.
+
+---
+
+I credit the speakers and attendees at the conference. Ironically, I wrote this piece using no AI, on the 17:27 return train from Linköping to Stockholm, Sweden.
