@@ -453,54 +453,6 @@ font-style: inherit;">-o</span> report.md</span></code></pre></div></div>
   <media:content url="https://franciscoabsampaio.com/blog/2026/api-parity/images/banner.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
-  <title></title>
-  <link>https://franciscoabsampaio.com/blog/ideas/ancient-brain-rot/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>economy</category>
-  <category>social</category>
-  <category>business</category>
-  <category>enshittification</category>
-  <guid>https://franciscoabsampaio.com/blog/ideas/ancient-brain-rot/</guid>
-  <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/ideas/ancient-brain-rot/images/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title></title>
-  <link>https://franciscoabsampaio.com/blog/ideas/enshittification/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>economy</category>
-  <category>social</category>
-  <category>business</category>
-  <category>enshittification</category>
-  <guid>https://franciscoabsampaio.com/blog/ideas/enshittification/</guid>
-  <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/ideas/enshittification/images/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title></title>
-  <link>https://franciscoabsampaio.com/blog/ideas/modern-feudalism-billionaires/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>economy</category>
-  <category>feudalism</category>
-  <category>social</category>
-  <category>politics</category>
-  <guid>https://franciscoabsampaio.com/blog/ideas/modern-feudalism-billionaires/</guid>
-  <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/ideas/modern-feudalism-billionaires/images/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title></title>
-  <link>https://franciscoabsampaio.com/blog/ideas/odyssey-nolan-review/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>economy</category>
-  <category>feudalism</category>
-  <category>social</category>
-  <category>politics</category>
-  <guid>https://franciscoabsampaio.com/blog/ideas/odyssey-nolan-review/</guid>
-  <pubDate>Sat, 28 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://franciscoabsampaio.com/blog/ideas/odyssey-nolan-review/images/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
   <title>Announcing Swellow v0.2.0: The SQL-First Migration Tool</title>
   <link>https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/</link>
   <description><![CDATA[ 
@@ -808,15 +760,6 @@ font-style: inherit;">;</span></span></code></pre></div></div>
   <guid>https://franciscoabsampaio.com/blog/2026/spark-connect/</guid>
   <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
   <media:content url="https://franciscoabsampaio.com/blog/2026/spark-connect/images/banner.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
-  <title></title>
-  <link>https://franciscoabsampaio.com/blog/ideas/2b-model-at-home/</link>
-  <description><![CDATA[ undefined ]]></description>
-  <category>python</category>
-  <category>data</category>
-  <guid>https://franciscoabsampaio.com/blog/ideas/2b-model-at-home/</guid>
-  <pubDate>Thu, 20 Nov 2025 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Tutorial: Reproducible Spark+Delta Tests Without the Hassle</title>
