@@ -1,14 +1,14 @@
 ---
 title: "2026 AI for Science Summit"
 description: "Three key takeaways from a country aspiring to lead in the global AI race"
-date: 2026-11-18
+date: 2026-11-19
 categories: [ai, research, infrastructure, gpu]
 image: ./images/banner.png
 ---
 
 ***I took a bit of a gamble!***
 
-This week I attended the [2026 AI for Science Summit](https://www.maxiv.lu.se/event/ess-max-iv-scilifelab-summit-2026-ai-for-science-connecting-research-data-and-infrastructure/) in Linköping, Sweden, organised jointly by ESS, MAX IV, and SciLifeLab.
+Last week I attended the [2026 AI for Science Summit](https://www.maxiv.lu.se/event/ess-max-iv-scilifelab-summit-2026-ai-for-science-connecting-research-data-and-infrastructure/) in Linköping, Sweden, organised jointly by ESS, MAX IV, and SciLifeLab.
 
 Ahead of the conference, I was fearful that it might be a poor fit, that I might be out of place, due to its focus on Swedish national strategy and life sciences. I would have to travel more than 3000 kilometres, all the way from Portugal to Sweden, with a 2 hour train from Stockholm to Linköping (very comfortable, may I say) - quite the commitment.
 
