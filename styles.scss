@@ -38,3 +38,25 @@ p {
 strong {
   font-weight: 1000;
 }
+
+// Justify body text in blog posts
+.blog-post #quarto-document-content {
+  p, li {
+    text-align: justify;
+  }
+
+  blockquote {
+    border-left: none;
+    padding: 0 1rem;
+
+    p, li {
+      text-align: center;
+    }
+  }
+}
+
+
+// Slightly darker caption text than the theme's light grey
+figcaption {
+  color: #666;
+}

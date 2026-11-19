@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://franciscoabsampaio.com/blog/2026/spark-connect/index.html</loc>
-    <lastmod>2026-01-10T13:23:05.624Z</lastmod>
+    <loc>https://franciscoabsampaio.com/blog/2026/sweden-ai-summit/index.html</loc>
+    <lastmod>2026-11-19T09:21:42.841Z</lastmod>
   </url>
   <url>
-    <loc>https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/index.html</loc>
-    <lastmod>2026-10-27T09:38:00.878Z</lastmod>
-  </url>
-  <url>
-    <loc>https://franciscoabsampaio.com/blog/2025/tutorial-spark-connect/index.html</loc>
-    <lastmod>2026-01-10T11:06:24.228Z</lastmod>
-  </url>
-  <url>
-    <loc>https://franciscoabsampaio.com/blog.html</loc>
-    <lastmod>2026-02-05T14:46:01.120Z</lastmod>
-  </url>
-  <url>
-    <loc>https://franciscoabsampaio.com/index.html</loc>
-    <lastmod>2026-07-12T10:28:09.961Z</lastmod>
-  </url>
-  <url>
-    <loc>https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/index.html</loc>
-    <lastmod>2026-01-10T11:05:39.092Z</lastmod>
+    <loc>https://franciscoabsampaio.com/blog/2026/odyssey-book-review/index.html</loc>
+    <lastmod>2026-07-12T10:22:38.905Z</lastmod>
   </url>
   <url>
     <loc>https://franciscoabsampaio.com/blog/2026/api-parity/index.html</loc>
     <lastmod>2026-05-16T20:42:58.525Z</lastmod>
   </url>
   <url>
-    <loc>https://franciscoabsampaio.com/blog/2026/odyssey-book-review/index.html</loc>
-    <lastmod>2026-07-12T10:22:38.905Z</lastmod>
+    <loc>https://franciscoabsampaio.com/blog/2025/transformers-maketh-llms/index.html</loc>
+    <lastmod>2026-01-10T11:05:39.092Z</lastmod>
+  </url>
+  <url>
+    <loc>https://franciscoabsampaio.com/index.html</loc>
+    <lastmod>2026-07-12T10:28:09.961Z</lastmod>
+  </url>
+  <url>
+    <loc>https://franciscoabsampaio.com/blog.html</loc>
+    <lastmod>2026-02-05T14:46:01.120Z</lastmod>
+  </url>
+  <url>
+    <loc>https://franciscoabsampaio.com/blog/2025/tutorial-spark-connect/index.html</loc>
+    <lastmod>2026-01-10T11:06:24.228Z</lastmod>
+  </url>
+  <url>
+    <loc>https://franciscoabsampaio.com/blog/2026/nao-vamos-morrer-todos/index.html</loc>
+    <lastmod>2026-10-27T09:38:00.878Z</lastmod>
+  </url>
+  <url>
+    <loc>https://franciscoabsampaio.com/blog/2026/spark-connect/index.html</loc>
+    <lastmod>2026-01-10T13:23:05.624Z</lastmod>
   </url>
   <url>
     <loc>https://franciscoabsampaio.com/blog/2026/swellow-0.2.0/index.html</loc>
